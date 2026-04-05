@@ -43,7 +43,7 @@ export default function CaseStudies() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
@@ -63,7 +63,7 @@ export default function CaseStudies() {
                 key={study.client}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{
                   duration: 0.7,
                   delay: index * 0.1,

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import fintechImg from "@assets/Finance_1755018204858.png";
-import manufacturingImg from "@assets/Manufacturing_1755018201891.png";
-import saasImg from "@assets/SaaS_1755018201889.png";
-import digitalHealthImg from "@assets/Digital Health_1755018201890.png";
+import fintechImg from "@assets/Finance_1755018204858.jpg";
+import manufacturingImg from "@assets/Manufacturing_1755018201891.jpg";
+import saasImg from "@assets/SaaS_1755018201889.jpg";
+import digitalHealthImg from "@assets/Digital Health_1755018201890.jpg";
 
 const industries = [
   { id: "fintech", image: fintechImg },
@@ -21,7 +21,7 @@ export default function Industries() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
@@ -39,7 +39,7 @@ export default function Industries() {
               key={industry.id}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{
                 duration: 0.7,
                 delay: index * 0.1,
@@ -50,6 +50,7 @@ export default function Industries() {
                 <img
                   src={industry.image}
                   alt={t(`industries.${industry.id}.title`)}
+                  loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/5 transition-all duration-500 group-hover:from-black/90" />

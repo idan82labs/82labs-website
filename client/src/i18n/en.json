@@ -15,6 +15,9 @@
     "cta": "Book a Consultation",
     "ctaSecondary": "See Our Work"
   },
+  "trustedBy": {
+    "label": "Trusted by teams at"
+  },
   "techSlider": {
     "label": "Built with modern, reliable tech"
   },

@@ -13,8 +13,8 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
     },
   },
 };
@@ -31,19 +31,23 @@ const itemVariants: Variants = {
   },
 };
 
+const simpleVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
 export function AnimatedSection({ children, className, delay = 0, stagger = false }: AnimatedSectionProps) {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={stagger ? containerVariants : undefined}
+      viewport={{ once: true, amount: 0.1 }}
+      variants={stagger ? containerVariants : simpleVariants}
       transition={!stagger ? { duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] } : undefined}
       className={className}
-      {...(!stagger && {
-        initial: { opacity: 0, y: 24 },
-        whileInView: { opacity: 1, y: 0 },
-      })}
     >
       {children}
     </motion.div>

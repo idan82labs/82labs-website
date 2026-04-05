@@ -5,15 +5,19 @@ import { Modal } from "@/components/ui/modal";
 import PageLayout from "@/components/layout/PageLayout";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { lazy, Suspense } from "react";
 import Hero from "@/components/sections/Hero";
+import TrustedBy from "@/components/sections/TrustedBy";
 import Testimonial from "@/components/sections/Testimonial";
-import TechSlider from "@/components/sections/TechSlider";
 import Services from "@/components/sections/Services";
 import WhyUs from "@/components/sections/WhyUs";
 import Industries from "@/components/sections/Industries";
 import Process from "@/components/sections/Process";
 import CaseStudies from "@/components/sections/CaseStudies";
 import ClosingCTA from "@/components/sections/ClosingCTA";
+
+// Lazy-load below-fold heavy section
+const TechSlider = lazy(() => import("@/components/sections/TechSlider"));
 import ContactModal from "@/components/shared/ContactModal";
 
 // Service detail modal content
@@ -35,9 +39,12 @@ export default function Home({ lang = "en" }: HomeProps) {
       <Navbar onContactClick={openContact} />
 
       <Hero onContactClick={openContact} />
+      <TrustedBy />
       <Testimonial />
       <Services onServiceClick={(id) => setServiceDetail(id)} />
-      <TechSlider />
+      <Suspense fallback={<div className="h-40 bg-white" />}>
+        <TechSlider />
+      </Suspense>
       <CaseStudies />
       <Process />
       <WhyUs />

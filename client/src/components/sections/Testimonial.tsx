@@ -19,7 +19,7 @@ export default function Testimonial() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.6 }}
           className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-12"
           style={{ color: "rgba(255,255,255,0.4)" }}
@@ -33,7 +33,7 @@ export default function Testimonial() {
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{
                 duration: 0.7,
                 delay: index * 0.12,

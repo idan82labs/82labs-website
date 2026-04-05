@@ -27,6 +27,27 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "wouter"],
+          "motion": ["framer-motion"],
+          "i18n": ["i18next", "react-i18next"],
+          "query": ["@tanstack/react-query"],
+          "forms": ["react-hook-form", "@hookform/resolvers", "zod"],
+          "radix": [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-select",
+            "@radix-ui/react-label",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-toast",
+            "@radix-ui/react-tooltip",
+          ],
+          "icons": ["lucide-react"],
+        },
+      },
+    },
   },
   server: {
     fs: {

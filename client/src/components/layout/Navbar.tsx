@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "@/components/shared/LanguageSwitcher";
+import Logo from "@assets/Logo.png";
 
 interface NavbarProps {
   onContactClick: () => void;
@@ -45,25 +46,16 @@ export default function Navbar({ onContactClick }: NavbarProps) {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-2.5">
-            {/* Custom 82 icon — adapts color by scroll state */}
-            <div
+          <div className="flex items-center">
+            <img
+              src={Logo}
+              alt="82 Labs"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="w-8 h-8 rounded-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105"
+              className="h-8 cursor-pointer transition-all duration-300 hover:scale-105"
               style={{
-                background: hasScrolled ? "#0f2844" : "#ffffff",
-                color: hasScrolled ? "#ffffff" : "#0f2844",
+                filter: hasScrolled ? "none" : "brightness(0) invert(1)",
               }}
-            >
-              <span className="font-display font-extrabold text-[13px] leading-none">82</span>
-            </div>
-            <span
-              className="font-display font-bold text-base tracking-tight transition-colors duration-300 cursor-pointer"
-              style={{ color: hasScrolled ? "#0f2844" : "#ffffff" }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              LABS
-            </span>
+            />
           </div>
 
           <div className="hidden md:flex items-center justify-center space-x-8 rtl:space-x-reverse flex-1">
