@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useEffect } from "react";
+import { useState, lazy, Suspense } from "react";
 import PageLayout from "@/components/layout/PageLayout";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
@@ -18,21 +18,6 @@ export default function Home({ lang = "en" }: HomeProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [serviceDetail, setServiceDetail] = useState<string | null>(null);
-  // Defer below-fold mount until after first paint / next idle
-  const [showBelowFold, setShowBelowFold] = useState(false);
-
-  useEffect(() => {
-    // Kick in the heavy chunk after the hero has painted
-    const ric = (window as any).requestIdleCallback as
-      | ((cb: () => void, opts?: { timeout?: number }) => number)
-      | undefined;
-    if (ric) {
-      ric(() => setShowBelowFold(true), { timeout: 800 });
-    } else {
-      const t = setTimeout(() => setShowBelowFold(true), 200);
-      return () => clearTimeout(t);
-    }
-  }, []);
 
   const openContact = () => setIsContactOpen(true);
 
@@ -50,15 +35,13 @@ export default function Home({ lang = "en" }: HomeProps) {
       <main id="main">
         <Hero onContactClick={openContact} />
 
-        {showBelowFold && (
-          <Suspense fallback={null}>
-            <BelowFold
-              onContactClick={openContact}
-              onServiceClick={(id) => setServiceDetail(id)}
-              onPrivacyClick={() => setIsPrivacyOpen(true)}
-            />
-          </Suspense>
-        )}
+        <Suspense fallback={<div className="min-h-screen bg-white" aria-hidden="true" />}>
+          <BelowFold
+            onContactClick={openContact}
+            onServiceClick={(id) => setServiceDetail(id)}
+            onPrivacyClick={() => setIsPrivacyOpen(true)}
+          />
+        </Suspense>
       </main>
 
       {/* Modals load on demand */}

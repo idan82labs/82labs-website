@@ -22,17 +22,17 @@ interface BelowFoldProps {
 export default function BelowFold({ onContactClick, onServiceClick, onPrivacyClick }: BelowFoldProps) {
   return (
     <MotionConfig reducedMotion="user">
-      <div className="cv-auto"><TrustedBy /></div>
-      <div className="cv-auto"><Testimonial /></div>
-      <div className="cv-auto"><Services onServiceClick={onServiceClick} /></div>
+      <TrustedBy />
+      <Testimonial />
+      <Services onServiceClick={onServiceClick} />
       <Suspense fallback={<div className="h-40 bg-white" />}>
-        <div className="cv-auto"><TechSlider /></div>
+        <TechSlider />
       </Suspense>
-      <div className="cv-auto"><CaseStudies /></div>
-      <div className="cv-auto"><Process /></div>
-      <div className="cv-auto"><WhyUs /></div>
-      <div className="cv-auto"><Industries /></div>
-      <div className="cv-auto"><ClosingCTA onContactClick={onContactClick} /></div>
+      <CaseStudies />
+      <Process />
+      <WhyUs />
+      <Industries />
+      <ClosingCTA onContactClick={onContactClick} />
       <Footer onPrivacyClick={onPrivacyClick} onContactClick={onContactClick} />
       <SpeedInsights />
     </MotionConfig>
