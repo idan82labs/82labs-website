@@ -81,10 +81,17 @@ export default function Hero({ onContactClick }: HeroProps) {
             {t("hero.ctaSecondary")}
           </Button>
         </div>
+
+        <p
+          className="hero-fade-in hero-fade-in-5 mt-10 text-[13px] md:text-sm tracking-wide max-w-3xl mx-auto leading-relaxed"
+          style={{ color: "#7c99b8" }}
+        >
+          {t("hero.proof")}
+        </p>
       </div>
 
       {/* Signature workflow visualization — CSS-only */}
-      <div className="hero-fade-in hero-fade-in-5 relative z-10 mt-16 md:mt-28 max-w-4xl mx-auto pointer-events-none" aria-hidden="true">
+      <div className="hero-fade-in hero-fade-in-6 relative z-10 mt-16 md:mt-28 max-w-4xl mx-auto pointer-events-none" aria-hidden="true">
         {/* MOBILE: wavy pipeline with traveling light beam */}
         <MobileFlow isRTL={isRTL} />
 
@@ -111,6 +118,26 @@ export default function Hero({ onContactClick }: HeroProps) {
               className="hero-flow-path"
             />
 
+            {/* Hypothesis branches from AI node — 2 rejected arcs fade mid-flight */}
+            <g aria-hidden="true">
+              <path
+                d="M 460 60 Q 540 30, 620 40"
+                stroke="#5bc0eb"
+                strokeWidth="1"
+                fill="none"
+                strokeLinecap="round"
+                className="hero-ghost-reject hero-ghost-reject-1"
+              />
+              <path
+                d="M 460 60 Q 535 90, 605 80"
+                stroke="#5bc0eb"
+                strokeWidth="1"
+                fill="none"
+                strokeLinecap="round"
+                className="hero-ghost-reject hero-ghost-reject-2"
+              />
+            </g>
+
             {/* Workflow nodes */}
             {[
               { cx: 40, cy: 60, color: "#5bc0eb", delay: "1.2s", r: 6 },
@@ -125,6 +152,18 @@ export default function Hero({ onContactClick }: HeroProps) {
                 <circle cx={node.cx} cy={node.cy} r={node.r - 2} fill="#0a1628" />
               </g>
             ))}
+
+            {/* Converge ring bloom at Output node — the "resolved answer" pulse */}
+            <circle
+              cx="760"
+              cy="60"
+              r="6"
+              stroke="#5bc0eb"
+              strokeWidth="1"
+              fill="none"
+              className="hero-bloom-ring"
+              aria-hidden="true"
+            />
           </svg>
 
           <div className="flex justify-between px-10 mt-2 text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: "#5bc0eb" }}>

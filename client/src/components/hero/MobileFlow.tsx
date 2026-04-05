@@ -99,6 +99,17 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
             <circle cx={s.x} cy="34" r="2" fill="#0a1628" />
           </g>
         ))}
+
+        {/* Converge bloom at Ship node — "resolved" signal */}
+        <circle
+          cx="300"
+          cy="34"
+          r="5"
+          stroke="#5bc0eb"
+          strokeWidth="0.8"
+          fill="none"
+          className={`mf-bloom ${active ? "mf-bloom-run" : ""}`}
+        />
       </svg>
 
       {/* Labels row, counter-transformed in RTL so text stays readable */}
@@ -129,8 +140,17 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
           from { stroke-dashoffset: 0; }
           to   { stroke-dashoffset: -522; }
         }
+        .mf-bloom { opacity: 0; transform-origin: 300px 34px; }
+        .mf-bloom-run { animation: mf-bloom-cycle 2.5s ease-out infinite; animation-delay: 1.3s; }
+        @keyframes mf-bloom-cycle {
+          0%   { opacity: 0; transform: scale(0.5); }
+          22%  { opacity: 0.85; transform: scale(0.65); }
+          62%  { opacity: 0; transform: scale(2.4); }
+          100% { opacity: 0; transform: scale(2.4); }
+        }
         @media (prefers-reduced-motion: reduce) {
           .mf-run { animation: none; stroke-dasharray: 0 0; }
+          .mf-bloom-run { animation: none; opacity: 0; }
         }
       `}</style>
     </div>

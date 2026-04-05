@@ -270,6 +270,7 @@
 .hero-fade-in-3 { animation-delay: 0.15s; animation-duration: 0.5s; }
 .hero-fade-in-4 { animation-delay: 0.25s; animation-duration: 0.5s; }
 .hero-fade-in-5 { animation-delay: 0.4s; animation-duration: 0.8s; }
+.hero-fade-in-6 { animation-delay: 0.55s; animation-duration: 0.8s; }
 
 @keyframes heroFadeIn {
   to { opacity: 1; transform: translateY(0); }
@@ -297,6 +298,46 @@
 }
 @keyframes heroNodePop {
   to { opacity: 1; transform: scale(1); }
+}
+
+/* Hypothesis branches: short radiating arcs from AI node that fade mid-flight.
+   Signals "agent considered alternatives." Cycles every 3.6s after initial draw. */
+.hero-ghost-reject {
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+  opacity: 0;
+  animation: heroGhostReject 3.6s ease-out 3.8s infinite;
+}
+.hero-ghost-reject-2 {
+  animation-delay: 4.05s;
+}
+@keyframes heroGhostReject {
+  0%   { stroke-dashoffset: 90; opacity: 0; }
+  10%  { opacity: 0.55; }
+  45%  { stroke-dashoffset: 38; opacity: 0.55; }
+  70%  { stroke-dashoffset: 20; opacity: 0; }
+  100% { stroke-dashoffset: 20; opacity: 0; }
+}
+
+/* Converge ring bloom at Output node: fires once the "successful path" resolves. */
+.hero-bloom-ring {
+  opacity: 0;
+  transform-origin: 760px 60px;
+  animation: heroBloomRing 3.6s ease-out 4.5s infinite;
+}
+@keyframes heroBloomRing {
+  0%   { opacity: 0; transform: scale(0.6); }
+  18%  { opacity: 0.9; transform: scale(0.7); }
+  65%  { opacity: 0; transform: scale(2.8); }
+  100% { opacity: 0; transform: scale(2.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ghost-reject,
+  .hero-bloom-ring {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 

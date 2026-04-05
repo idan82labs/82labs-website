@@ -7,7 +7,8 @@
     "work": "Work"
   },
   "hero": {
-    "badge": "AI Agents, Engineered.",
+    "badge": "Code-First Agent Studio.",
+    "proof": "$100M+ in operations on platforms we built · 1,500+ trained in our workshops",
     "title1": "We automate",
     "title2": "the messy parts.",
     "subtitle": "AI agent engineers · Fullstack systems · Automation that runs itself",
@@ -138,8 +139,8 @@
     "sectionTitle": "Proven at Scale",
     "sectionSubtitle": "Numbers that speak for themselves — delivering results across industries and technologies.",
     "metrics": {
-      "projects": { "number": "180+", "label": "Automations Shipped" },
-      "industries": { "number": "12+", "label": "Industries Served" },
+      "projects": { "number": "$100M+", "label": "On Systems We Built" },
+      "industries": { "number": "1,500+", "label": "Engineers Trained" },
       "satisfaction": { "number": "6 wks", "label": "Median Time to Launch" },
       "uptime": { "number": "24/7", "label": "Support & Monitoring" }
     }
