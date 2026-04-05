@@ -1,26 +1,28 @@
 import { useTranslation } from "react-i18next";
 
-const techStack = [
-  "n8n",
-  "Cohere",
-  "LangChain",
-  "LangGraph",
-  "React",
-  "Python",
-  "Node.js",
-  "TypeScript",
-  "FastAPI",
-  "Vite",
-  "Docker",
-  "PostgreSQL",
-  "Redis",
-  "Pinecone",
-  "Qdrant",
-  "Vercel",
-  "Tailwind",
-  "Next.js",
-  "AWS",
-  "OpenAI",
+type Tech = { name: string; slug: string };
+
+const techStack: Tech[] = [
+  { name: "n8n", slug: "n8n" },
+  { name: "Cohere", slug: "cohere" },
+  { name: "LangChain", slug: "langchain" },
+  { name: "LangGraph", slug: "langchain" },
+  { name: "React", slug: "react" },
+  { name: "Python", slug: "python" },
+  { name: "Node.js", slug: "nodedotjs" },
+  { name: "TypeScript", slug: "typescript" },
+  { name: "FastAPI", slug: "fastapi" },
+  { name: "Vite", slug: "vite" },
+  { name: "Docker", slug: "docker" },
+  { name: "PostgreSQL", slug: "postgresql" },
+  { name: "Redis", slug: "redis" },
+  { name: "Pinecone", slug: "pinecone" },
+  { name: "Qdrant", slug: "qdrant" },
+  { name: "Vercel", slug: "vercel" },
+  { name: "Tailwind", slug: "tailwindcss" },
+  { name: "Next.js", slug: "nextdotjs" },
+  { name: "AWS", slug: "amazonwebservices" },
+  { name: "OpenAI", slug: "openai" },
 ];
 
 export default function TechSlider() {
@@ -36,11 +38,20 @@ export default function TechSlider() {
           <div className="tech-track">
             {[...Array(2)].map((_, repeatIndex) =>
               techStack.map((tech, index) => (
-                <div
-                  key={`${repeatIndex}-${index}`}
-                  className="tech-pill"
-                >
-                  {tech}
+                <div key={`${repeatIndex}-${index}`} className="tech-pill">
+                  <img
+                    src={`https://cdn.simpleicons.org/${tech.slug}/0f2844`}
+                    alt=""
+                    width={16}
+                    height={16}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-4 h-4 opacity-65 flex-shrink-0"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = "none";
+                    }}
+                  />
+                  <span>{tech.name}</span>
                 </div>
               ))
             )}
