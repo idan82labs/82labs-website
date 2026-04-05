@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ChevronRight, Check } from "lucide-react";
+import { ChevronRight, Check, Layers, GitBranch, BookOpen } from "lucide-react";
 import { AnimatedSection, AnimatedItem } from "@/components/shared/AnimatedSection";
 
 interface ServicesProps {
@@ -7,9 +7,9 @@ interface ServicesProps {
 }
 
 const services = [
-  { id: "fullstack", num: "01" },
-  { id: "automation", num: "02" },
-  { id: "lectures", num: "03" },
+  { id: "fullstack", Icon: Layers },
+  { id: "automation", Icon: GitBranch },
+  { id: "lectures", Icon: BookOpen },
 ];
 
 export default function Services({ onServiceClick }: ServicesProps) {
@@ -50,12 +50,20 @@ export default function Services({ onServiceClick }: ServicesProps) {
                   {/* Top cyan hairline */}
                   <div className="absolute top-0 inset-x-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(90deg, transparent, #5bc0eb, transparent)" }} />
 
-                  {/* Serif numeral */}
+                  {/* Icon badge */}
                   <div
-                    className="font-display text-[5rem] leading-none font-black mb-8 tracking-tight"
-                    style={{ color: "#5bc0eb", opacity: 0.22 }}
+                    className="w-16 h-16 rounded-xl flex items-center justify-center mb-8"
+                    style={{
+                      background: "rgba(91, 192, 235, 0.08)",
+                      border: "1px solid rgba(91, 192, 235, 0.2)",
+                    }}
                   >
-                    {service.num}
+                    <service.Icon
+                      size={44}
+                      strokeWidth={1.75}
+                      style={{ color: "#5bc0eb" }}
+                      aria-hidden="true"
+                    />
                   </div>
 
                   <h3 className="text-xl lg:text-2xl font-bold text-white mb-3 font-display">

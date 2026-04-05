@@ -33,7 +33,7 @@ export default function TechSlider() {
         <p className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-10 text-gray-400">
           {t("techSlider.label", "Our stack")}
         </p>
-        <div className="overflow-hidden">
+        <div className="overflow-hidden tech-carousel-mask">
           <div className="tech-track">
             {[...Array(2)].map((_, repeatIndex) =>
               techStack.map((tech, index) => (

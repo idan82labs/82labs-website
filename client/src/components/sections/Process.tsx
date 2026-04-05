@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { EASE_SMOOTH } from "@/constants/motion";
@@ -13,6 +14,19 @@ const ACCENT_DARK = "#1e5a8a";
 
 export default function Process() {
   const { t } = useTranslation();
+  const dotTrackRef = useRef<HTMLDivElement>(null);
+  const [dotActive, setDotActive] = useState(false);
+
+  // Pause the traveling dot when the section scrolls off-screen.
+  useEffect(() => {
+    if (!dotTrackRef.current) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setDotActive(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(dotTrackRef.current);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section id="process" className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white">
@@ -44,10 +58,17 @@ export default function Process() {
         <div className="relative">
           {/* Dashed connecting line — desktop only, behind cards */}
           <div
+            ref={dotTrackRef}
             className="hidden md:block absolute top-[88px] start-[16.66%] end-[16.66%] h-px border-t border-dashed"
             style={{ borderColor: "rgba(15, 40, 68, 0.2)" }}
             aria-hidden="true"
-          />
+          >
+            {/* Traveling progress dot — reinforces Discover → Build → Launch */}
+            <span
+              className={`process-dot${dotActive ? " process-dot-active" : ""}`}
+              aria-hidden="true"
+            />
+          </div>
 
           <div className="grid md:grid-cols-3 gap-12 lg:gap-16 relative">
             {steps.map((step, index) => (

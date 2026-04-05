@@ -133,8 +133,15 @@
   display: flex;
   align-items: center;
   animation: scroll 35s linear infinite;
-  gap: 56px;
   width: fit-content;
+}
+
+/* Edge fade mask — makes pills emerge/dissolve at container edges
+   instead of clipping hard. Apply to the overflow-hidden wrapper, not the
+   track itself (mask would translate with the animation otherwise). */
+.tech-carousel-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 
 .tech-item {
@@ -153,6 +160,7 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
+  margin-inline-end: 56px;
   border-radius: 9999px;
   font-size: 13px;
   font-weight: 500;
@@ -480,6 +488,48 @@
   .tech-track,
   .trusted-track {
     animation: none;
+  }
+}
+
+/* Process section — traveling progress dot on the dashed connector.
+   6.0s cycle: 3.2s active travel + 2.8s rest. Paused off-screen via JS. */
+.process-dot {
+  position: absolute;
+  top: -4px; /* vertically center on the 1px dashed line (8px / 2 - 0.5) */
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #5bc0eb;
+  box-shadow: 0 0 12px rgba(91, 192, 235, 0.45);
+  opacity: 0;
+  transform: translateX(0);
+  will-change: transform, opacity;
+}
+.process-dot-active {
+  animation: processDotTravel 6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+[dir="rtl"] .process-dot-active {
+  animation-name: processDotTravelRtl;
+}
+@keyframes processDotTravel {
+  0%   { transform: translateX(0); opacity: 0; }
+  5%   { transform: translateX(2%); opacity: 1; }
+  53%  { transform: translateX(100%); opacity: 1; }
+  60%  { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+@keyframes processDotTravelRtl {
+  0%   { transform: translateX(0); opacity: 0; }
+  5%   { transform: translateX(-2%); opacity: 1; }
+  53%  { transform: translateX(-100%); opacity: 1; }
+  60%  { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-dot-active {
+    animation: none;
+    opacity: 0;
   }
 }
 
