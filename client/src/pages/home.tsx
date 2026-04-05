@@ -80,7 +80,7 @@ export default function Home({ lang = "en" }: HomeProps) {
           <p className="text-gray-600">82Labs - הגנת פרטיות</p>
         </div>
 
-        <div className="max-h-96 overflow-y-auto prose prose-sm text-gray-700" dir="rtl">
+        <div className="max-h-96 overflow-y-auto prose prose-sm text-gray-700" dir="rtl" lang="he">
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">הגנת פרטיות - 82Labs</h3>

@@ -83,6 +83,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <FormControl>
                   <Input
                     {...field}
+                    autoComplete="name"
                     className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
                     placeholder={t("contact.namePlaceholder")}
                   />
@@ -102,6 +103,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   <Input
                     {...field}
                     type="email"
+                    autoComplete="email"
+                    inputMode="email"
                     className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
                     placeholder={t("contact.emailPlaceholder")}
                   />

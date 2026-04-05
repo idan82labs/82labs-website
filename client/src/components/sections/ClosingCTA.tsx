@@ -10,7 +10,7 @@ export default function ClosingCTA({ onContactClick }: ClosingCTAProps) {
   const { t } = useTranslation();
 
   return (
-    <section className="relative py-28 md:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden" style={{ background: "linear-gradient(135deg, #091624, #0f2844, #0d2240)" }}>
+    <section className="relative py-24 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden" style={{ background: "linear-gradient(135deg, #091624, #0f2844, #0d2240)" }}>
       {/* Gradient orbs */}
       <div className="absolute top-[-10%] left-[15%] w-[600px] h-[600px] rounded-full blur-[160px] pointer-events-none" style={{ background: "rgba(30, 100, 180, 0.12)" }} />
       <div className="absolute bottom-[-15%] right-[10%] w-[500px] h-[500px] rounded-full blur-[140px] pointer-events-none" style={{ background: "rgba(56, 140, 210, 0.08)" }} />
@@ -33,7 +33,7 @@ export default function ClosingCTA({ onContactClick }: ClosingCTAProps) {
         </p>
         <Button
           onClick={onContactClick}
-          className="text-base px-10 py-5 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
+          className="text-base px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
         >
           {t("closingCta.cta")}
         </Button>

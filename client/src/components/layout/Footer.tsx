@@ -23,7 +23,7 @@ export default function Footer({ onPrivacyClick, onContactClick }: FooterProps) 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <img src={Logo} alt="82 Labs" className="h-7 mb-4" />
+            <img src={Logo} alt="82 Labs" width={80} height={28} className="h-7 w-auto mb-4" />
             <p className="text-sm text-gray-500 leading-relaxed mb-4">
               {t("footer.builtWith")}
             </p>

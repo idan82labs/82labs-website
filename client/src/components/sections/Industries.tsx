@@ -49,8 +49,10 @@ export default function Industries() {
               <div className="group relative h-80 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-xl transition-shadow duration-500">
                 <img
                   src={industry.image}
-                  alt={t(`industries.${industry.id}.title`)}
+                  alt=""
                   loading="lazy"
+                  width={1024}
+                  height={768}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/5 transition-all duration-500 group-hover:from-black/90" />

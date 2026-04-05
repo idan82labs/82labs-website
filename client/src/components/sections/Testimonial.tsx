@@ -15,13 +15,13 @@ export default function Testimonial() {
 
   return (
     <section style={{ background: "linear-gradient(180deg, #0d2240 0%, #0a1a30 100%)" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.6 }}
-          className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-12"
+          className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-16"
           style={{ color: "rgba(255,255,255,0.4)" }}
         >
           {t("testimonials.sectionLabel")}
