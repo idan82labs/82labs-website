@@ -1,0 +1,215 @@
+{
+  "nav": {
+    "services": "Services",
+    "whyUs": "Results",
+    "industries": "Industries",
+    "requestDemo": "Book a Call",
+    "process": "How We Work",
+    "work": "Work"
+  },
+  "hero": {
+    "badge": "Official n8n Partners",
+    "title1": "We automate",
+    "title2": "the messy parts.",
+    "subtitle": "n8n experts and fullstack engineers who turn complex business workflows into systems that run themselves.",
+    "cta": "Book a Consultation",
+    "ctaSecondary": "See Our Work"
+  },
+  "techSlider": {
+    "label": "Built with modern, reliable tech"
+  },
+  "caseStudies": {
+    "sectionTitle": "Recent Work",
+    "sectionSubtitle": "Real projects, real outcomes. A snapshot of what we've shipped.",
+    "items": [
+      {
+        "client": "Kostika",
+        "industry": "Manufacturing · Multi-tenant SaaS",
+        "tagline": "A full MES platform, built to scale across factories",
+        "description": "Designed and built a multi-tenant Manufacturing Execution System from the ground up — order tracking, production planning, measurement workflows, ERP integration. Now running across 10+ aluminum factories.",
+        "outcome": "10+ factories onboarded",
+        "stack": ["React", "Supabase", "Priority ERP", "Multi-tenant"],
+        "accent": "sky"
+      },
+      {
+        "client": "TerminalX",
+        "industry": "E-commerce · Enterprise",
+        "tagline": "Automation that plugs into enterprise infrastructure",
+        "description": "Architected and shipped automation systems embedded in TerminalX's production infrastructure. Handled high-volume ops workflows spanning orders, inventory, and customer comms — built to enterprise reliability standards.",
+        "outcome": "Enterprise-grade reliability",
+        "stack": ["n8n", "Node.js", "PostgreSQL", "Enterprise infra"],
+        "accent": "violet"
+      },
+      {
+        "client": "Sherman",
+        "industry": "Sheet Metal Manufacturing",
+        "tagline": "AI quality control for precision sheet metal",
+        "description": "Built an end-to-end AI quality control platform — CAD-vs-scan analysis, 3D bend inspection, live scanning sessions, automated reporting. Multi-LLM architecture (Claude / Gemini / GPT) with circuit breaker fallback.",
+        "outcome": "Full QC platform shipped",
+        "stack": ["Python", "FastAPI", "React", "Open3D", "Claude API"],
+        "accent": "emerald"
+      }
+    ]
+  },
+  "testimonials": {
+    "sectionLabel": "What clients say",
+    "items": [
+      {
+        "quote": "82Labs built our entire operating platform — not an integration, not a feature, the whole system. It now runs across all our factories. Their ability to scope, architect, and ship at scale is rare.",
+        "author": "Roee Malka",
+        "role": "CEO",
+        "company": "Kostika",
+        "metric": "10+ factories"
+      },
+      {
+        "quote": "They plugged into our enterprise stack without friction and shipped automation that holds up under real load. The level of ownership and technical rigor stood out immediately.",
+        "author": "Avi Elkabetz",
+        "role": "CTO",
+        "company": "TerminalX",
+        "metric": "Enterprise-scale"
+      },
+      {
+        "quote": "Idan presented technology work at a level that made complex systems concrete and useful. The depth of technical understanding and the clarity of communication were exceptional.",
+        "author": "א.",
+        "role": "Senior Engineer",
+        "company": "Rafael",
+        "metric": "Technical delivery"
+      }
+    ]
+  },
+  "process": {
+    "sectionTitle": "How We Work",
+    "sectionSubtitle": "A proven engagement model — no surprises, no scope creep.",
+    "steps": {
+      "discover": {
+        "number": "01",
+        "title": "Discover",
+        "description": "We map your workflows, identify bottlenecks, and scope the smallest meaningful first release — usually 2-3 weeks."
+      },
+      "build": {
+        "number": "02",
+        "title": "Build",
+        "description": "Weekly demos. Working software from day one. You see progress, we adjust course in real time — not after a 6-month black box."
+      },
+      "launch": {
+        "number": "03",
+        "title": "Launch",
+        "description": "We hand off clean code, runbooks, and training. Your team owns what we built — we stay on call for what matters next."
+      }
+    }
+  },
+  "services": {
+    "sectionTitle": "What We Do",
+    "sectionSubtitle": "Three specialized domains where we deliver comprehensive solutions from concept to deployment.",
+    "fullstack": {
+      "title": "Fullstack Development",
+      "description": "Web and mobile apps built to scale. React, Node.js, Python, and modern cloud — shipped weekly, not quarterly.",
+      "learnMore": "Learn more",
+      "features": ["React / Next.js", "Node.js / Python APIs", "Cloud infrastructure"]
+    },
+    "automation": {
+      "title": "Workflow Automation",
+      "description": "Turn manual work into systems that run themselves. n8n workflows and LangGraph AI agents that plug into your existing stack.",
+      "learnMore": "Learn more",
+      "features": ["n8n workflow design", "LangGraph AI agents", "API orchestration"]
+    },
+    "lectures": {
+      "title": "Training & Workshops",
+      "description": "Official n8n partners running hands-on workshops. Turn your team into automation experts in weeks, not years.",
+      "learnMore": "Learn more",
+      "features": ["Official n8n curriculum", "Team workshops", "1-on-1 mentorship"]
+    }
+  },
+  "whyUs": {
+    "sectionTitle": "Proven at Scale",
+    "sectionSubtitle": "Numbers that speak for themselves — delivering results across industries and technologies.",
+    "metrics": {
+      "projects": { "number": "180+", "label": "n8n Workflows Shipped" },
+      "industries": { "number": "12+", "label": "Industries Served" },
+      "satisfaction": { "number": "6 wks", "label": "Median Time to Launch" },
+      "uptime": { "number": "24/7", "label": "Support & Monitoring" }
+    }
+  },
+  "industries": {
+    "sectionTitle": "Industries We Serve",
+    "sectionSubtitle": "From fintech to manufacturing, we deliver specialized solutions across complex industries.",
+    "fintech": {
+      "title": "Fintech",
+      "description": "Complex financial applications and payment systems"
+    },
+    "manufacturing": {
+      "title": "Manufacturing",
+      "description": "Process automation and industrial IoT solutions"
+    },
+    "saas": {
+      "title": "SaaS",
+      "description": "Scalable software platforms and enterprise tools"
+    },
+    "digitalHealth": {
+      "title": "Digital Health",
+      "description": "Healthcare technology and patient data solutions"
+    }
+  },
+  "closingCta": {
+    "title": "What's the messiest workflow on your team?",
+    "subtitle": "30-minute call. We'll map it, scope what a first automation could look like, and tell you honestly if we're the right fit.",
+    "cta": "Book a 30-min Call",
+    "pricingHint": "Projects from $8k · Retainers from $5k/mo · Free scoping call"
+  },
+  "footer": {
+    "services": "Services",
+    "company": "Company",
+    "connect": "Connect",
+    "fullstack": "Fullstack Development",
+    "automation": "Intelligent Automation",
+    "training": "Training & Consulting",
+    "about": "About Us",
+    "industries": "Industries",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us",
+    "copyright": "82Labs. All rights reserved.",
+    "builtWith": "Built with precision in Israel."
+  },
+  "contact": {
+    "title": "Request a Demo",
+    "subtitle": "Tell us about your project and we'll get back to you within 24 hours",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "brief": "Project Brief (140 chars max)",
+    "briefPlaceholder": "Tell us about your project...",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "successTitle": "Message sent!",
+    "successMessage": "We'll get back to you within 24 hours.",
+    "errorTitle": "Error",
+    "errorMessage": "Failed to send message. Please try again."
+  },
+  "serviceDetail": {
+    "fullstack": {
+      "title": "Fullstack Development",
+      "intro": "End-to-end web and mobile applications using cutting-edge technologies. We specialize in React, Node.js, Python, and modern cloud infrastructure.",
+      "includedTitle": "What's Included:",
+      "included": ["Frontend development with React/Next.js", "Backend API development with Node.js/Python", "Database design and implementation", "Cloud infrastructure and deployment", "Mobile app development (React Native)", "Testing and quality assurance"],
+      "perfectFor": "Startups, SaaS products, enterprise applications, and complex web platforms requiring scalable, maintainable code."
+    },
+    "automation": {
+      "title": "Intelligent Automation",
+      "intro": "Complex workflow automation using n8n and LangGraph. AI-powered processes that integrate with your existing tools and systems.",
+      "includedTitle": "What's Included:",
+      "included": ["Custom n8n workflow development", "AI integration with LangGraph", "API integrations and data synchronization", "Process optimization and monitoring", "Custom automation solutions", "Ongoing support and maintenance"],
+      "perfectFor": "Businesses looking to streamline operations, reduce manual work, and implement intelligent decision-making processes."
+    },
+    "lectures": {
+      "title": "Training & Consulting",
+      "intro": "Official n8n lecturing and training programs. We don't just build solutions — we empower your team with the knowledge to maintain and extend them.",
+      "includedTitle": "What's Included:",
+      "included": ["Official n8n certification training", "Hands-on workshops and tutorials", "Custom training programs for teams", "Best practices consultation", "Architecture reviews and optimization", "Ongoing mentorship and support"],
+      "perfectFor": "Teams wanting to master automation, companies implementing n8n, and organizations seeking to build internal automation expertise."
+    },
+    "ctaPrompt": "Ready to get started with this service?",
+    "ctaButton": "Contact Us",
+    "perfectForTitle": "Perfect for:"
+  }
+}
