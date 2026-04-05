@@ -10,7 +10,7 @@
     "badge": "Official n8n Partners",
     "title1": "We automate",
     "title2": "the messy parts.",
-    "subtitle": "n8n experts. Fullstack engineers. We build systems that run themselves.",
+    "subtitle": "n8n experts · Fullstack engineers · Systems that run themselves",
     "cta": "Book a Consultation",
     "ctaSecondary": "See Our Work"
   },
@@ -41,8 +41,8 @@
         "industry": "E-commerce · Enterprise",
         "tagline": "Automation that has to hold under Black Friday load.",
         "description": "TerminalX's ops team was drowning in order, inventory, and customer comms workflows that didn't quite talk to each other. We slotted automation directly into their production infra — the kind that can't wobble when traffic spikes.",
-        "metric": "Live",
-        "metricLabel": "in TerminalX's enterprise infra",
+        "metric": "Black Friday",
+        "metricLabel": "battle-tested through peak load",
         "stack": ["n8n", "Node.js", "PostgreSQL", "Enterprise infra"],
         "accent": "violet"
       },

@@ -96,10 +96,17 @@ export default function CaseStudies() {
                   </div>
                 </div>
 
-                {/* Tagline as editorial quote */}
-                <p className="font-display font-medium italic text-gray-800 leading-[1.25] text-[clamp(1.25rem,2.6vw,2rem)] mb-10 md:mb-12 max-w-4xl">
-                  {study.tagline}
-                </p>
+                {/* Editorial lede with hairline rule */}
+                <div className="mb-10 md:mb-12 max-w-4xl">
+                  <div
+                    className="w-16 h-px mb-6"
+                    style={{ background: ACCENT }}
+                    aria-hidden="true"
+                  />
+                  <p className="font-display font-medium italic text-gray-900 leading-[1.2] text-[clamp(1.5rem,3.4vw,2.5rem)]">
+                    {study.tagline}
+                  </p>
+                </div>
 
                 {/* Description + Stack */}
                 <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
