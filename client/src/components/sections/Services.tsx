@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ChevronRight, Code2, Zap, GraduationCap, Check } from "lucide-react";
+import { ChevronRight, Check } from "lucide-react";
 import { AnimatedSection, AnimatedItem } from "@/components/shared/AnimatedSection";
 
 interface ServicesProps {
@@ -7,30 +7,9 @@ interface ServicesProps {
 }
 
 const services = [
-  {
-    id: "fullstack",
-    icon: Code2,
-    accent: "from-sky-400 to-blue-600",
-    accentLight: "bg-sky-500/10",
-    iconColor: "text-sky-400",
-    borderHover: "group-hover:border-sky-500/30",
-  },
-  {
-    id: "automation",
-    icon: Zap,
-    accent: "from-violet-400 to-fuchsia-500",
-    accentLight: "bg-violet-500/10",
-    iconColor: "text-violet-300",
-    borderHover: "group-hover:border-violet-500/30",
-  },
-  {
-    id: "lectures",
-    icon: GraduationCap,
-    accent: "from-emerald-400 to-teal-500",
-    accentLight: "bg-emerald-500/10",
-    iconColor: "text-emerald-300",
-    borderHover: "group-hover:border-emerald-500/30",
-  },
+  { id: "fullstack", num: "01" },
+  { id: "automation", num: "02" },
+  { id: "lectures", num: "03" },
 ];
 
 export default function Services({ onServiceClick }: ServicesProps) {
@@ -54,7 +33,6 @@ export default function Services({ onServiceClick }: ServicesProps) {
 
         <AnimatedSection stagger className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service) => {
-            const Icon = service.icon;
             const titleKey = `services.${service.id}.title` as const;
             const descKey = `services.${service.id}.description` as const;
             const learnKey = `services.${service.id}.learnMore` as const;
@@ -62,18 +40,22 @@ export default function Services({ onServiceClick }: ServicesProps) {
             return (
               <AnimatedItem key={service.id}>
                 <div
-                  className={`group relative rounded-2xl p-8 lg:p-10 h-full cursor-pointer transition-all duration-500 hover:-translate-y-1.5 border border-white/[0.06] ${service.borderHover} overflow-hidden`}
+                  className="group relative rounded-2xl p-8 lg:p-10 h-full cursor-pointer transition-all duration-500 hover:-translate-y-1 border border-white/[0.06] group-hover:border-[#5bc0eb]/30 overflow-hidden"
                   style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(8px)" }}
                   onClick={() => onServiceClick(service.id)}
                 >
-                  {/* Subtle gradient on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 rounded-2xl`} />
+                  {/* Cyan accent on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" style={{ background: "radial-gradient(circle at top right, rgba(91,192,235,0.06), transparent 65%)" }} />
 
-                  {/* Top gradient line accent */}
-                  <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${service.accent} opacity-0 group-hover:opacity-60 transition-opacity duration-500`} />
+                  {/* Top cyan hairline */}
+                  <div className="absolute top-0 inset-x-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(90deg, transparent, #5bc0eb, transparent)" }} />
 
-                  <div className={`w-12 h-12 rounded-xl ${service.accentLight} flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110`}>
-                    <Icon className={`w-6 h-6 ${service.iconColor}`} />
+                  {/* Serif numeral */}
+                  <div
+                    className="font-display text-[5rem] leading-none font-black mb-8 tracking-tight"
+                    style={{ color: "#5bc0eb", opacity: 0.22 }}
+                  >
+                    {service.num}
                   </div>
 
                   <h3 className="text-xl lg:text-2xl font-bold text-white mb-3 font-display">
@@ -87,7 +69,7 @@ export default function Services({ onServiceClick }: ServicesProps) {
                   <ul className="space-y-2 mb-8">
                     {(t(`services.${service.id}.features`, { returnObjects: true }) as string[]).map((feature, i) => (
                       <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                        <Check className={`w-4 h-4 flex-shrink-0 ${service.iconColor}`} strokeWidth={2.5} />
+                        <Check className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} style={{ color: "#5bc0eb" }} />
                         <span>{feature}</span>
                       </li>
                     ))}

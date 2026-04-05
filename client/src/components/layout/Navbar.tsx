@@ -136,38 +136,45 @@ export default function Navbar({ onContactClick }: NavbarProps) {
       <div
         id="mobile-menu"
         aria-hidden={!isMobileMenuOpen}
-        className={`md:hidden fixed top-16 inset-x-0 bottom-0 z-40 transition-all duration-300 ease-out ${
+        className={`md:hidden fixed top-16 inset-x-0 bottom-0 z-40 transition-all duration-500 ease-out ${
           isMobileMenuOpen
             ? "translate-y-0 opacity-100"
             : "-translate-y-4 opacity-0 pointer-events-none"
         }`}
         style={{
           background:
-            "linear-gradient(180deg, rgba(10, 22, 40, 0.98) 0%, rgba(15, 40, 68, 0.98) 100%)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
+            "radial-gradient(ellipse at top, rgba(15, 40, 68, 0.98) 0%, rgba(10, 22, 40, 0.99) 100%)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
         }}
       >
-        <div className="flex flex-col h-full px-6 pt-6 pb-10 overflow-y-auto mobile-menu">
-          {/* Nav links */}
-          <nav className="flex-1" aria-label="Mobile navigation">
+        <div className="flex flex-col h-full px-6 pt-8 pb-8 overflow-y-auto mobile-menu">
+          {/* Top: Live clock */}
+          <LiveClock visible={isMobileMenuOpen} />
+
+          {/* Nav links with staircase offset */}
+          <nav className="flex-1 flex flex-col justify-center" aria-label="Mobile navigation">
             {navLinks.map((link, i) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => scrollToSection(link.id, e)}
-                className="flex items-baseline justify-between py-5 border-b border-white/[0.08] text-white/90 hover:text-white transition-colors group"
+                className="group flex items-baseline justify-between py-3 text-white/90 hover:text-white transition-colors"
                 style={{
+                  paddingInlineStart: `${i * 10}px`,
                   opacity: isMobileMenuOpen ? 1 : 0,
-                  transform: isMobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
-                  transition: `opacity 0.4s ease ${0.08 + i * 0.05}s, transform 0.4s ease ${0.08 + i * 0.05}s`,
+                  transform: isMobileMenuOpen ? "translateX(0)" : "translateX(-24px)",
+                  transition: `opacity 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${0.12 + i * 0.07}s, transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${0.12 + i * 0.07}s`,
                 }}
               >
-                <span className="text-2xl font-semibold font-display tracking-tight">
+                <span
+                  className="font-display font-semibold tracking-tight leading-[1.05]"
+                  style={{ fontSize: "clamp(2.25rem, 9vw, 3rem)" }}
+                >
                   {link.label}
                 </span>
                 <span
-                  className="text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors"
+                  className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/25 group-hover:text-[#5bc0eb] transition-colors"
                   aria-hidden="true"
                 >
                   0{i + 1}
@@ -176,10 +183,44 @@ export default function Navbar({ onContactClick }: NavbarProps) {
             ))}
           </nav>
 
+          {/* Signature flow beam at bottom */}
+          <div aria-hidden="true" className="mb-6 opacity-60" style={{ direction: "ltr" }}>
+            <svg viewBox="0 0 320 20" className="w-full h-auto">
+              <defs>
+                <linearGradient id="drawer-beam" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stopColor="#5bc0eb" stopOpacity="0" />
+                  <stop offset="50%" stopColor="#5bc0eb" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#5bc0eb" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M 10 10 Q 70 2, 110 10 T 210 10 T 310 10"
+                stroke="url(#drawer-beam)"
+                strokeWidth="1"
+                fill="none"
+                strokeLinecap="round"
+                className={isMobileMenuOpen ? "drawer-beam-run" : ""}
+                strokeDasharray="18 400"
+              />
+            </svg>
+            <style>{`
+              .drawer-beam-run {
+                animation: drawer-beam-travel 2.8s linear infinite;
+              }
+              @keyframes drawer-beam-travel {
+                from { stroke-dashoffset: 0; }
+                to   { stroke-dashoffset: -418; }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .drawer-beam-run { animation: none; }
+              }
+            `}</style>
+          </div>
+
           {/* Footer: language + CTA */}
-          <div className="mt-8 space-y-4">
-            <div className="flex items-center justify-between py-4 border-t border-white/[0.08]">
-              <span className="text-xs font-medium text-white/40 uppercase tracking-[0.2em]">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-3 border-t border-white/[0.08]">
+              <span className="text-[10px] font-medium text-white/40 uppercase tracking-[0.25em]">
                 Language
               </span>
               <LanguageSwitcher variant="dark" />
@@ -198,4 +239,49 @@ export default function Navbar({ onContactClick }: NavbarProps) {
       </div>
     </header>
   );
+}
+
+/** Live Tel Aviv clock shown at the top of the mobile drawer. */
+function LiveClock({ visible }: { visible: boolean }) {
+  const [time, setTime] = useState(getTelAvivTime());
+  useEffect(() => {
+    if (!visible) return;
+    setTime(getTelAvivTime());
+    const interval = setInterval(() => setTime(getTelAvivTime()), 30_000);
+    return () => clearInterval(interval);
+  }, [visible]);
+
+  return (
+    <div
+      className="flex items-center justify-between mb-10 text-[10px] uppercase tracking-[0.25em] text-white/40 font-medium"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(-8px)",
+        transition: "opacity 0.5s ease 0.05s, transform 0.5s ease 0.05s",
+      }}
+    >
+      <span>Tel Aviv</span>
+      <span className="flex items-center gap-2">
+        <span
+          className="w-1.5 h-1.5 rounded-full"
+          style={{ background: "#5bc0eb", boxShadow: "0 0 8px #5bc0eb" }}
+          aria-hidden="true"
+        />
+        {time}
+      </span>
+    </div>
+  );
+}
+
+function getTelAvivTime(): string {
+  try {
+    return new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Jerusalem",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).format(new Date());
+  } catch {
+    return "—";
+  }
 }

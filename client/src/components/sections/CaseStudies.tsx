@@ -12,9 +12,9 @@ interface CaseStudy {
 }
 
 const accentColor: Record<CaseStudy["accent"], string> = {
-  sky: "#1e5a8a",
-  violet: "#6d4cc7",
-  emerald: "#0f7a5a",
+  sky: "#5bc0eb",
+  violet: "#1e5a8a",
+  emerald: "#0f2844",
 };
 
 export default function CaseStudies() {

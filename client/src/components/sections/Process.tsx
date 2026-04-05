@@ -1,18 +1,14 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Search, Hammer, Rocket } from "lucide-react";
 
 const steps = [
-  { key: "discover", Icon: Search, accent: "sky" },
-  { key: "build", Icon: Hammer, accent: "violet" },
-  { key: "launch", Icon: Rocket, accent: "emerald" },
+  { key: "discover" },
+  { key: "build" },
+  { key: "launch" },
 ] as const;
 
-const accentColors: Record<string, { bg: string; ring: string; iconTint: string }> = {
-  sky: { bg: "#38bdf8", ring: "rgba(56, 189, 248, 0.15)", iconTint: "#0284c7" },
-  violet: { bg: "#a78bfa", ring: "rgba(167, 139, 250, 0.15)", iconTint: "#7c3aed" },
-  emerald: { bg: "#34d399", ring: "rgba(52, 211, 153, 0.15)", iconTint: "#059669" },
-};
+const ACCENT = "#5bc0eb";
+const ACCENT_DARK = "#1e5a8a";
 
 export default function Process() {
   const { t } = useTranslation();
@@ -53,51 +49,39 @@ export default function Process() {
           />
 
           <div className="grid md:grid-cols-3 gap-12 lg:gap-16 relative">
-            {steps.map((step, index) => {
-              const { Icon } = step;
-              const colors = accentColors[step.accent];
-              return (
-                <motion.div
-                  key={step.key}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.18,
-                    ease: [0.25, 0.46, 0.45, 0.94]
-                  }}
-                  className="relative group"
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.key}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{
+                  duration: 0.7,
+                  delay: index * 0.18,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                className="relative group text-center"
+              >
+                {/* Massive serif numeral */}
+                <div
+                  className="font-display font-black text-[7rem] md:text-[8rem] leading-none tracking-tight mb-4 transition-transform duration-500 group-hover:-translate-y-1"
+                  style={{ color: ACCENT, opacity: 0.22 }}
                 >
-                  {/* Number + Icon container */}
-                  <div className="flex flex-col items-center mb-6">
-                    <div
-                      className="relative w-24 h-24 rounded-2xl flex items-center justify-center bg-white transition-all duration-500 group-hover:-translate-y-1"
-                      style={{
-                        boxShadow: "0 4px 24px rgba(15, 40, 68, 0.08), 0 0 0 1px rgba(15, 40, 68, 0.08)"
-                      }}
-                    >
-                      <Icon className="w-10 h-10" strokeWidth={1.5} style={{ color: colors.iconTint }} />
-                      {/* Step number badge with accent color */}
-                      <div
-                        className="absolute -top-2 -end-2 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold font-display text-white"
-                        style={{ background: colors.iconTint, boxShadow: `0 0 0 4px ${colors.ring}` }}
-                      >
-                        {t(`process.steps.${step.key}.number`)}
-                      </div>
-                    </div>
-                  </div>
+                  {t(`process.steps.${step.key}.number`)}
+                </div>
 
-                  <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 font-display text-center">
-                    {t(`process.steps.${step.key}.title`)}
-                  </h3>
+                <h3
+                  className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 font-display"
+                  style={{ color: ACCENT_DARK }}
+                >
+                  {t(`process.steps.${step.key}.title`)}
+                </h3>
 
-                  <p className="text-gray-600 leading-relaxed text-base text-center max-w-xs mx-auto">
-                    {t(`process.steps.${step.key}.description`)}
-                  </p>
-                </motion.div>
-              );
-            })}
+                <p className="text-gray-600 leading-relaxed text-base max-w-xs mx-auto">
+                  {t(`process.steps.${step.key}.description`)}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

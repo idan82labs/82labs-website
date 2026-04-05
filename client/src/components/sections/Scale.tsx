@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import CountUpNumber from "@/components/shared/CountUpNumber";
 
+const metricKeys = ["projects", "industries", "satisfaction", "uptime"] as const;
+
 export default function Scale() {
   const { t } = useTranslation();
 
@@ -83,10 +85,41 @@ export default function Scale() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.25 }}
-          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto"
+          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto mb-16 md:mb-24"
         >
           {t("scale.body")}
         </motion.p>
+
+        {/* Metric strip — hairline dividers, no cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-px"
+          style={{ background: "rgba(15, 40, 68, 0.1)" }}
+        >
+          {metricKeys.map((key, i) => (
+            <motion.div
+              key={key}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
+              className="bg-white/40 backdrop-blur-sm px-6 py-8 md:py-10 text-center"
+            >
+              <div
+                className="font-display font-black text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2"
+                style={{ color: "#0f2844" }}
+              >
+                <CountUpNumber target={t(`whyUs.metrics.${key}.number`)} duration={1400} />
+              </div>
+              <div className="text-[11px] md:text-xs font-medium uppercase tracking-[0.15em] text-gray-500">
+                {t(`whyUs.metrics.${key}.label`)}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
