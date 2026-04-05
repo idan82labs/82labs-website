@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from "react";
 import PageLayout from "@/components/layout/PageLayout";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
+import BelowFoldSkeleton from "@/components/shared/BelowFoldSkeleton";
 
 // All below-the-fold sections + modals lazy-loaded to keep initial chunk tiny
 const BelowFold = lazy(() => import("@/components/shared/BelowFold"));
@@ -35,7 +36,7 @@ export default function Home({ lang = "en" }: HomeProps) {
       <main id="main">
         <Hero onContactClick={openContact} />
 
-        <Suspense fallback={<div className="min-h-screen bg-white" aria-hidden="true" />}>
+        <Suspense fallback={<BelowFoldSkeleton />}>
           <BelowFold
             onContactClick={openContact}
             onServiceClick={(id) => setServiceDetail(id)}

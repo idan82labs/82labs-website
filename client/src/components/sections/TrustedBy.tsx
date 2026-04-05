@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useReveal } from "@/hooks/useReveal";
 import mizrahiLogo from "@assets/logos/mizrahi.png";
 import rafaelLogo from "@assets/logos/rafael.png";
 import terminalxLogo from "@assets/logos/terminalx.png";
@@ -17,18 +18,20 @@ const logos = [
 
 export default function TrustedBy() {
   const { t } = useTranslation();
+  const ref = useReveal<HTMLDivElement>();
 
   return (
     <section className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <div ref={ref} className="reveal-up max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <p className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-10 text-gray-400">
           {t("trustedBy.label")}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-x-20 md:gap-y-10">
-          {logos.map((logo) => (
+          {logos.map((logo, i) => (
             <div
               key={logo.name}
-              className={`${logo.width} flex items-center justify-center grayscale opacity-55 hover:grayscale-0 hover:opacity-100 transition-all duration-500`}
+              className={`${logo.width} flex items-center justify-center grayscale opacity-55 hover:grayscale-0 hover:opacity-100 transition-all duration-500 logo-reveal`}
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               <img
                 src={logo.src}
