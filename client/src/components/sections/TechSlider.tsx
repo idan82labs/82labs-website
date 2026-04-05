@@ -30,7 +30,7 @@ export default function TechSlider() {
   return (
     <section style={{ background: "linear-gradient(180deg, #0c1e36 0%, #ffffff 100%)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <p className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-10 text-gray-400">
+        <p className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-10 text-slate-500">
           {t("techSlider.label", "Our stack")}
         </p>
         <div className="overflow-hidden tech-carousel-mask">
@@ -41,11 +41,11 @@ export default function TechSlider() {
                   <img
                     src={`https://cdn.simpleicons.org/${tech.slug}/0f2844`}
                     alt=""
-                    width={16}
-                    height={16}
+                    width={15}
+                    height={15}
                     loading="lazy"
                     decoding="async"
-                    className="w-4 h-4 opacity-65 flex-shrink-0"
+                    className="w-[15px] h-[15px] flex-shrink-0"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = "none";
                     }}
