@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import CountUpNumber from "@/components/shared/CountUpNumber";
 
 export default function Scale() {
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ export default function Scale() {
               backgroundClip: "text",
             }}
           >
-            {t("scale.metric")}
+            <CountUpNumber target={t("scale.metric")} duration={1800} />
           </div>
         </motion.div>
 

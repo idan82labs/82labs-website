@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "@/components/shared/LanguageSwitcher";
-import Logo from "@assets/Logo.png";
+import LogoSvg from "@/components/shared/LogoSvg";
 
 interface NavbarProps {
   onContactClick: () => void;
@@ -57,15 +57,9 @@ export default function Navbar({ onContactClick }: NavbarProps) {
               aria-label="82Labs home"
               className="inline-block rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent focus-visible:ring-white"
             >
-              <img
-                src={Logo}
-                alt="82 Labs"
-                width={80}
-                height={32}
-                className="h-8 w-auto transition-all duration-300 hover:scale-105"
-                style={{
-                  filter: hasScrolled ? "none" : "invert(1) hue-rotate(180deg)",
-                }}
+              <LogoSvg
+                variant={hasScrolled ? "light" : "dark"}
+                className="h-8 w-auto transition-transform duration-300 hover:scale-105"
               />
             </a>
           </div>

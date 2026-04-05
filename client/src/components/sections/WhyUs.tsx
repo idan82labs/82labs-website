@@ -1,35 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-
-function CountUpNumber({ target }: { target: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState("0");
-
-  useEffect(() => {
-    if (!isInView) return;
-    // Skip count-up for labels with digits on both sides of a separator, like "24/7"
-    if (/\d[^0-9]\d/.test(target)) { setDisplay(target); return; }
-    const numericPart = parseInt(target.replace(/[^0-9]/g, ""));
-    if (isNaN(numericPart)) { setDisplay(target); return; }
-    const prefix = target.match(/^[^0-9]*/)?.[0] || "";
-    const suffixPart = target.match(/[^0-9]*$/)?.[0] || "";
-    const duration = 1400;
-    const steps = 40;
-    const stepDuration = duration / steps;
-    let step = 0;
-    const interval = setInterval(() => {
-      step++;
-      const eased = 1 - Math.pow(1 - step / steps, 3);
-      setDisplay(`${prefix}${Math.round(numericPart * eased)}${suffixPart}`);
-      if (step >= steps) { setDisplay(target); clearInterval(interval); }
-    }, stepDuration);
-    return () => clearInterval(interval);
-  }, [isInView, target]);
-
-  return <span ref={ref}>{display}</span>;
-}
+import { motion } from "framer-motion";
+import CountUpNumber from "@/components/shared/CountUpNumber";
 
 const metricKeys = ["projects", "industries", "satisfaction", "uptime"] as const;
 

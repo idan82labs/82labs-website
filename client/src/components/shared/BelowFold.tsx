@@ -30,8 +30,8 @@ export default function BelowFold({ onContactClick, onServiceClick, onPrivacyCli
       <Suspense fallback={<div className="h-40 bg-white" />}>
         <TechSlider />
       </Suspense>
-      <CaseStudies />
       <Process />
+      <CaseStudies />
       <WhyUs />
       <Industries />
       <ClosingCTA onContactClick={onContactClick} />
