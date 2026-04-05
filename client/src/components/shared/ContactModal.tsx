@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { useMutation, QueryClientProvider } from "@tanstack/react-query";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,15 @@ interface ContactModalProps {
   onClose: () => void;
 }
 
-export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export default function ContactModal(props: ContactModalProps) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ContactModalInner {...props} />
+    </QueryClientProvider>
+  );
+}
+
+function ContactModalInner({ isOpen, onClose }: ContactModalProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
 

@@ -1,0 +1,40 @@
+import { lazy, Suspense } from "react";
+import { MotionConfig } from "framer-motion";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import Footer from "@/components/layout/Footer";
+import TrustedBy from "@/components/sections/TrustedBy";
+import Testimonial from "@/components/sections/Testimonial";
+import Services from "@/components/sections/Services";
+import WhyUs from "@/components/sections/WhyUs";
+import Industries from "@/components/sections/Industries";
+import Process from "@/components/sections/Process";
+import CaseStudies from "@/components/sections/CaseStudies";
+import ClosingCTA from "@/components/sections/ClosingCTA";
+
+const TechSlider = lazy(() => import("@/components/sections/TechSlider"));
+
+interface BelowFoldProps {
+  onContactClick: () => void;
+  onServiceClick: (id: string) => void;
+  onPrivacyClick: () => void;
+}
+
+export default function BelowFold({ onContactClick, onServiceClick, onPrivacyClick }: BelowFoldProps) {
+  return (
+    <MotionConfig reducedMotion="user">
+      <div className="cv-auto"><TrustedBy /></div>
+      <div className="cv-auto"><Testimonial /></div>
+      <div className="cv-auto"><Services onServiceClick={onServiceClick} /></div>
+      <Suspense fallback={<div className="h-40 bg-white" />}>
+        <div className="cv-auto"><TechSlider /></div>
+      </Suspense>
+      <div className="cv-auto"><CaseStudies /></div>
+      <div className="cv-auto"><Process /></div>
+      <div className="cv-auto"><WhyUs /></div>
+      <div className="cv-auto"><Industries /></div>
+      <div className="cv-auto"><ClosingCTA onContactClick={onContactClick} /></div>
+      <Footer onPrivacyClick={onPrivacyClick} onContactClick={onContactClick} />
+      <SpeedInsights />
+    </MotionConfig>
+  );
+}

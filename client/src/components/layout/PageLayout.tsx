@@ -1,5 +1,6 @@
 import { type ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { loadLanguage } from "@/i18n/config";
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -24,8 +25,11 @@ export default function PageLayout({ children, lang = "en" }: PageLayoutProps) {
   const isRtl = lang === "he";
 
   useEffect(() => {
+    let cancelled = false;
     if (i18n.language !== lang) {
-      i18n.changeLanguage(lang);
+      loadLanguage(lang).then(() => {
+        if (!cancelled) i18n.changeLanguage(lang);
+      });
     }
     // Update document-level attributes
     document.documentElement.lang = lang;
@@ -34,6 +38,7 @@ export default function PageLayout({ children, lang = "en" }: PageLayoutProps) {
     document.title = metaByLang[lang].title;
     const descMeta = document.querySelector('meta[name="description"]');
     if (descMeta) descMeta.setAttribute("content", metaByLang[lang].description);
+    return () => { cancelled = true; };
   }, [lang, isRtl, i18n]);
 
   return (

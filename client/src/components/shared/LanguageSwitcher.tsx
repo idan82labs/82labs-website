@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
+import { loadLanguage } from "@/i18n/config";
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -11,11 +12,12 @@ export default function LanguageSwitcher({ className = "", variant = "light" }: 
   const [, setLocation] = useLocation();
   const isHebrew = i18n.language === "he";
 
-  const toggle = () => {
+  const toggle = async () => {
     if (isHebrew) {
       i18n.changeLanguage("en");
       setLocation("/");
     } else {
+      await loadLanguage("he");
       i18n.changeLanguage("he");
       setLocation("/he");
     }
