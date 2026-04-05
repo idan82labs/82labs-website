@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import MobileFlow from "@/components/hero/MobileFlow";
@@ -9,6 +10,19 @@ interface HeroProps {
 export default function Hero({ onContactClick }: HeroProps) {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === "he";
+  const vizRef = useRef<HTMLDivElement>(null);
+  const [vizActive, setVizActive] = useState(true);
+
+  // Pause the infinite decision-loop animations when the hero viz scrolls off-screen.
+  useEffect(() => {
+    if (!vizRef.current) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setVizActive(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(vizRef.current);
+    return () => io.disconnect();
+  }, []);
 
   const scrollToWork = () => {
     const el = document.getElementById("case-studies");
@@ -91,7 +105,11 @@ export default function Hero({ onContactClick }: HeroProps) {
       </div>
 
       {/* Signature workflow visualization — CSS-only */}
-      <div className="hero-fade-in hero-fade-in-6 relative z-10 mt-16 md:mt-28 max-w-4xl mx-auto pointer-events-none" aria-hidden="true">
+      <div
+        ref={vizRef}
+        className={`hero-fade-in hero-fade-in-6 hero-viz relative z-10 mt-16 md:mt-28 max-w-4xl mx-auto pointer-events-none${vizActive ? "" : " hero-viz-paused"}`}
+        aria-hidden="true"
+      >
         {/* MOBILE: wavy pipeline with traveling light beam */}
         <MobileFlow isRTL={isRTL} />
 
@@ -179,9 +197,9 @@ export default function Hero({ onContactClick }: HeroProps) {
 
             {/* Three nodes: Input · Reason · Output */}
             {[
-              { cx: 120, cy: 85, color: "#5bc0eb", delay: "1.0s", r: 6 },
-              { cx: 400, cy: 85, color: "#93c5e8", delay: "1.3s", r: 10 },
-              { cx: 680, cy: 85, color: "#5bc0eb", delay: "1.6s", r: 6 },
+              { cx: 120, cy: 85, color: "#5bc0eb", delay: "0.4s", r: 6 },
+              { cx: 400, cy: 85, color: "#93c5e8", delay: "0.8s", r: 10 },
+              { cx: 680, cy: 85, color: "#5bc0eb", delay: "1.2s", r: 6 },
             ].map((node, i) => (
               <g key={i} className="hero-node" style={{ animationDelay: node.delay, transformOrigin: `${node.cx}px ${node.cy}px` }}>
                 <circle cx={node.cx} cy={node.cy} r={node.r + 6} fill={node.color} fillOpacity="0.15" />

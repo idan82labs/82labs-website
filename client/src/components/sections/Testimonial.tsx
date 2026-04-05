@@ -40,8 +40,7 @@ export default function Testimonial() {
                 delay: index * 0.08,
                 ease: EASE_SMOOTH
               }}
-              whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.15)" }}
-              className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08]"
+              className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/[0.15]"
               style={{ background: "rgba(255,255,255,0.02)" }}
             >
               {/* Quote mark decoration */}

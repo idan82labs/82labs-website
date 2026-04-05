@@ -160,36 +160,36 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
         .mf-arc-dot { opacity: 0; transform-origin: 230px 10px; }
         .mf-arc-run.mf-arc,
         .mf-arc-run.mf-arc-dot {
-          animation-duration: 3.6s;
+          animation-duration: 2.6s;
           animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
           animation-iteration-count: infinite;
-          animation-delay: 1.8s;
+          animation-delay: 1.1s;
         }
         .mf-arc-run.mf-arc { animation-name: mf-arc-draw; }
         .mf-arc-run.mf-arc-dot { animation-name: mf-arc-dot; }
         @keyframes mf-arc-draw {
           0%   { stroke-dashoffset: 50; opacity: 0; }
-          5%   { opacity: 0.55; }
-          17%  { stroke-dashoffset: 0; opacity: 0.55; }
-          34%  { stroke-dashoffset: 0; opacity: 0; }
+          6%   { opacity: 0.55; }
+          20%  { stroke-dashoffset: 0; opacity: 0.55; }
+          36%  { stroke-dashoffset: 0; opacity: 0; }
           100% { stroke-dashoffset: 0; opacity: 0; }
         }
         @keyframes mf-arc-dot {
-          0%, 14%   { opacity: 0; transform: scale(0.4); }
-          19%       { opacity: 0.9; transform: scale(1); }
-          26%       { opacity: 0.9; transform: scale(1); }
-          32%       { opacity: 0; transform: scale(0.4); }
+          0%, 17%   { opacity: 0; transform: scale(0.4); }
+          22%       { opacity: 0.9; transform: scale(1); }
+          28%       { opacity: 0.9; transform: scale(1); }
+          34%       { opacity: 0; transform: scale(0.4); }
           100%      { opacity: 0; transform: scale(0.4); }
         }
 
         .mf-bloom { opacity: 0; transform-origin: 170px 34px; }
         .mf-bloom-run {
-          animation: mf-bloom-cycle 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s infinite;
+          animation: mf-bloom-cycle 2.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.1s infinite;
         }
         @keyframes mf-bloom-cycle {
-          0%, 38%   { opacity: 0; transform: scale(0.5); }
-          44%       { opacity: 0.9; transform: scale(0.6); }
-          56%       { opacity: 0; transform: scale(2.2); }
+          0%, 42%   { opacity: 0; transform: scale(0.5); }
+          48%       { opacity: 0.9; transform: scale(0.6); }
+          62%       { opacity: 0; transform: scale(2.2); }
           100%      { opacity: 0; transform: scale(2.2); }
         }
 
