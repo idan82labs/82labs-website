@@ -21,10 +21,7 @@ function isMainCssApplied(): boolean {
 
 function hideBootShell() {
   const boot = document.getElementById("boot-shell");
-  if (boot) {
-    boot.dataset.hidden = "true";
-    setTimeout(() => boot.remove(), 450);
-  }
+  if (boot) boot.remove();
 }
 
 function waitForCss(cb: () => void) {
@@ -43,9 +40,9 @@ function waitForCss(cb: () => void) {
 requestAnimationFrame(() => {
   requestAnimationFrame(() => {
     waitForCss(() => {
-      // Reveal React tree first, then fade boot shell
-      document.documentElement.dataset.cssReady = "true";
+      // Remove boot shell then reveal React tree in the same frame.
       hideBootShell();
+      document.documentElement.dataset.cssReady = "true";
     });
   });
 });

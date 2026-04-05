@@ -184,11 +184,11 @@
   animation: heroFadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   will-change: opacity, transform;
 }
-.hero-fade-in-1 { animation-delay: 0s; transform: translateY(10px); }
-.hero-fade-in-2 { animation-delay: 0.08s; }
-.hero-fade-in-3 { animation-delay: 0.23s; }
-.hero-fade-in-4 { animation-delay: 0.38s; }
-.hero-fade-in-5 { animation-delay: 0.55s; animation-duration: 1s; }
+.hero-fade-in-1 { animation-delay: 0s; transform: translateY(8px); animation-duration: 0.4s; }
+.hero-fade-in-2 { animation-delay: 0.05s; animation-duration: 0.5s; }
+.hero-fade-in-3 { animation-delay: 0.15s; animation-duration: 0.5s; }
+.hero-fade-in-4 { animation-delay: 0.25s; animation-duration: 0.5s; }
+.hero-fade-in-5 { animation-delay: 0.4s; animation-duration: 0.8s; }
 
 @keyframes heroFadeIn {
   to { opacity: 1; transform: translateY(0); }
