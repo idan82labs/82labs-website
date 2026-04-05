@@ -531,6 +531,10 @@
     animation: none;
     opacity: 0;
   }
+  .process-section .process-glow,
+  .process-section .process-grid-bright {
+    opacity: 0 !important;
+  }
 }
 
 /* Mobile menu */

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { EASE_SMOOTH } from "@/constants/motion";
 
@@ -15,6 +15,7 @@ const ACCENT_DARK = "#1e5a8a";
 export default function Process() {
   const { t } = useTranslation();
   const dotTrackRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [dotActive, setDotActive] = useState(false);
 
   // Pause the traveling dot when the section scrolls off-screen.
@@ -28,15 +29,77 @@ export default function Process() {
     return () => io.disconnect();
   }, []);
 
+  // Scroll-linked cyan glow that sweeps through the grid as the user scrolls
+  // through the section — "lights up" the grid, previews the next section.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const glowTop = useTransform(scrollYProgress, [0, 1], ["-40%", "110%"]);
+  const glowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.85, 1],
+    [0, 1, 1, 0]
+  );
+  const bottomFadeOpacity = useTransform(scrollYProgress, [0.6, 1], [0, 1]);
+
   return (
-    <section id="process" className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white">
-      {/* Subtle grid pattern background */}
+    <section
+      ref={sectionRef}
+      id="process"
+      className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white process-section"
+    >
+      {/* Base grid pattern background (static, faint) */}
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: "linear-gradient(#0f2844 1px, transparent 1px), linear-gradient(90deg, #0f2844 1px, transparent 1px)",
           backgroundSize: "64px 64px"
         }}
+      />
+
+      {/* Scroll-linked cyan glow — sweeps through the grid, lights up cells */}
+      <motion.div
+        className="absolute inset-x-0 pointer-events-none process-glow"
+        style={{
+          top: glowTop,
+          opacity: glowOpacity,
+          height: "55%",
+          background:
+            "radial-gradient(ellipse 70% 100% at 50% 50%, rgba(91,192,235,0.14) 0%, rgba(91,192,235,0.06) 35%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Brighter cyan grid overlay that follows the glow — actually lights up cells */}
+      <motion.div
+        className="absolute inset-x-0 pointer-events-none process-grid-bright"
+        style={{
+          top: glowTop,
+          opacity: glowOpacity,
+          height: "55%",
+          backgroundImage:
+            "linear-gradient(#5bc0eb 1px, transparent 1px), linear-gradient(90deg, #5bc0eb 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          backgroundPosition: "center center",
+          mixBlendMode: "multiply",
+          maskImage:
+            "radial-gradient(ellipse 70% 100% at 50% 50%, black 0%, rgba(0,0,0,0.4) 40%, transparent 70%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 100% at 50% 50%, black 0%, rgba(0,0,0,0.4) 40%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Bottom fade-to-navy bridge — previews the dark ClosingCTA transition */}
+      <motion.div
+        className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
+        style={{
+          opacity: bottomFadeOpacity,
+          background:
+            "linear-gradient(180deg, transparent 0%, rgba(15,40,68,0.04) 60%, rgba(15,40,68,0.08) 100%)",
+        }}
+        aria-hidden="true"
       />
 
       <div className="max-w-6xl mx-auto relative z-10">
