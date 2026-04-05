@@ -64,7 +64,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                 height={32}
                 className="h-8 w-auto transition-all duration-300 hover:scale-105"
                 style={{
-                  filter: hasScrolled ? "none" : "invert(1) hue-rotate(180deg)",
+                  filter: hasScrolled ? "none" : "brightness(0) invert(1)",
                 }}
               />
             </a>
