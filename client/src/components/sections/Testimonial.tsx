@@ -39,8 +39,9 @@ export default function Testimonial() {
                 delay: index * 0.12,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
-              className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08] transition-all duration-300 hover:border-white/[0.15] hover:-translate-y-0.5"
-              style={{ background: "rgba(255,255,255,0.02)" }}
+              whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.15)" }}
+              className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08]"
+              style={{ background: "rgba(255,255,255,0.02)", willChange: "transform" }}
             >
               {/* Quote mark decoration */}
               <div
