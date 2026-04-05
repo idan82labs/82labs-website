@@ -1,6 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { type ReactNode } from "react";
-import { EASE_SMOOTH } from "@/constants/motion";
+import { EASE_SMOOTH, DUR_SECTION } from "@/constants/motion";
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.08,
       delayChildren: 0.05,
     },
   },
@@ -26,7 +26,7 @@ const itemVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: DUR_SECTION,
       ease: EASE_SMOOTH,
     },
   },
@@ -47,7 +47,7 @@ export function AnimatedSection({ children, className, delay = 0, stagger = fals
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={stagger ? containerVariants : simpleVariants}
-      transition={!stagger ? { duration: 0.6, delay, ease: EASE_SMOOTH } : undefined}
+      transition={!stagger ? { duration: DUR_SECTION, delay, ease: EASE_SMOOTH } : undefined}
       className={className}
     >
       {children}

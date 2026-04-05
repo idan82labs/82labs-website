@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { MotionConfig } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Footer from "@/components/layout/Footer";
 import TrustedBy from "@/components/sections/TrustedBy";
@@ -20,7 +19,7 @@ interface BelowFoldProps {
 
 export default function BelowFold({ onContactClick, onServiceClick, onPrivacyClick }: BelowFoldProps) {
   return (
-    <MotionConfig reducedMotion="user">
+    <>
       <TrustedBy />
       <Scale />
       <Testimonial />
@@ -33,6 +32,6 @@ export default function BelowFold({ onContactClick, onServiceClick, onPrivacyCli
       <ClosingCTA onContactClick={onContactClick} />
       <Footer onPrivacyClick={onPrivacyClick} onContactClick={onContactClick} />
       <SpeedInsights />
-    </MotionConfig>
+    </>
   );
 }

@@ -58,7 +58,7 @@ export default function Process() {
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{
                   duration: 0.7,
-                  delay: index * 0.18,
+                  delay: index * 0.08,
                   ease: EASE_SMOOTH
                 }}
                 className="relative group text-center"

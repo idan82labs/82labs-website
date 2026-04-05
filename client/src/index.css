@@ -298,53 +298,74 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Agent-decision choreography (4.8s cycle, ~40% action + ~60% silence).
-   Arc draws to labeled dead-end → arc fades → Reason node blooms → silence → loop.
-   Metaphor becomes legible in one cycle (~2s). */
+/* Agent-decision choreography (3.6s cycle, causal sequence with tight rest).
+   arc-1 draw+dot+label → fade → arc-2 draw+dot+label → fade → Reason blooms → pause → loop.
+   Metaphor legible in one cycle (~2.6s of action, 1s of rest). */
 .hero-ghost-arc {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  animation: heroGhostArc 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
+  animation: heroGhostArcA 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
 }
 .hero-ghost-arc-2 {
-  animation-delay: 2.4s;
+  animation-name: heroGhostArcB;
 }
-@keyframes heroGhostArc {
+@keyframes heroGhostArcA {
   0%   { stroke-dashoffset: 100; opacity: 0; }
-  4%   { opacity: 0.6; }
-  12%  { stroke-dashoffset: 0; opacity: 0.6; }
-  25%  { stroke-dashoffset: 0; opacity: 0; }
+  5%   { opacity: 0.6; }
+  17%  { stroke-dashoffset: 0; opacity: 0.6; }
+  28%  { stroke-dashoffset: 0; opacity: 0; }
   100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes heroGhostArcB {
+  0%, 22%   { stroke-dashoffset: 100; opacity: 0; }
+  27%       { opacity: 0.6; }
+  39%       { stroke-dashoffset: 0; opacity: 0.6; }
+  50%       { stroke-dashoffset: 0; opacity: 0; }
+  100%      { stroke-dashoffset: 0; opacity: 0; }
 }
 
 .hero-ghost-dot {
   opacity: 0;
-  animation: heroGhostDot 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
+  animation: heroGhostDotA 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
 }
 .hero-ghost-dot-2 {
-  animation-delay: 2.4s;
+  animation-name: heroGhostDotB;
 }
-@keyframes heroGhostDot {
-  0%, 10%   { opacity: 0; transform: scale(0.4); }
-  14%       { opacity: 0.9; transform: scale(1); }
-  22%       { opacity: 0.9; transform: scale(1); }
-  28%       { opacity: 0; transform: scale(0.4); }
+@keyframes heroGhostDotA {
+  0%, 14%   { opacity: 0; transform: scale(0.4); }
+  19%       { opacity: 0.9; transform: scale(1); }
+  26%       { opacity: 0.9; transform: scale(1); }
+  32%       { opacity: 0; transform: scale(0.4); }
+  100%      { opacity: 0; transform: scale(0.4); }
+}
+@keyframes heroGhostDotB {
+  0%, 36%   { opacity: 0; transform: scale(0.4); }
+  41%       { opacity: 0.9; transform: scale(1); }
+  48%       { opacity: 0.9; transform: scale(1); }
+  54%       { opacity: 0; transform: scale(0.4); }
   100%      { opacity: 0; transform: scale(0.4); }
 }
 
 .hero-ghost-label {
   opacity: 0;
-  animation: heroGhostLabel 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
+  animation: heroGhostLabelA 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
 }
 .hero-ghost-label-2 {
-  animation-delay: 2.4s;
+  animation-name: heroGhostLabelB;
 }
-@keyframes heroGhostLabel {
-  0%, 12%   { opacity: 0; }
-  18%       { opacity: 0.7; }
-  24%       { opacity: 0.7; }
-  30%       { opacity: 0; }
+@keyframes heroGhostLabelA {
+  0%, 17%   { opacity: 0; }
+  23%       { opacity: 0.7; }
+  28%       { opacity: 0.7; }
+  34%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
+@keyframes heroGhostLabelB {
+  0%, 39%   { opacity: 0; }
+  45%       { opacity: 0.7; }
+  50%       { opacity: 0.7; }
+  56%       { opacity: 0; }
   100%      { opacity: 0; }
 }
 
@@ -352,12 +373,12 @@
 .hero-bloom-ring {
   opacity: 0;
   transform-origin: 400px 85px;
-  animation: heroBloomRing 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
+  animation: heroBloomRing 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
 }
 @keyframes heroBloomRing {
-  0%, 28%   { opacity: 0; transform: scale(0.5); }
-  32%       { opacity: 0.9; transform: scale(0.6); }
-  40%       { opacity: 0; transform: scale(2.2); }
+  0%, 56%   { opacity: 0; transform: scale(0.5); }
+  62%       { opacity: 0.9; transform: scale(0.6); }
+  74%       { opacity: 0; transform: scale(2.2); }
   100%      { opacity: 0; transform: scale(2.2); }
 }
 

@@ -1,5 +1,6 @@
 import { Switch, Route } from "wouter";
 import { lazy, Suspense } from "react";
+import { MotionConfig } from "framer-motion";
 import Home from "@/pages/home";
 import "./i18n/config";
 
@@ -20,7 +21,11 @@ function Router() {
 }
 
 function App() {
-  return <Router />;
+  return (
+    <MotionConfig reducedMotion="user">
+      <Router />
+    </MotionConfig>
+  );
 }
 
 export default App;

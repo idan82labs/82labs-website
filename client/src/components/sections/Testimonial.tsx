@@ -37,12 +37,12 @@ export default function Testimonial() {
               viewport={{ once: true, amount: 0.1 }}
               transition={{
                 duration: 0.7,
-                delay: index * 0.12,
+                delay: index * 0.08,
                 ease: EASE_SMOOTH
               }}
               whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.15)" }}
               className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08]"
-              style={{ background: "rgba(255,255,255,0.02)", willChange: "transform" }}
+              style={{ background: "rgba(255,255,255,0.02)" }}
             >
               {/* Quote mark decoration */}
               <div

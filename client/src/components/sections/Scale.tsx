@@ -41,8 +41,8 @@ export default function Scale() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: EASE_SMOOTH }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, ease: EASE_SMOOTH }}
           className="text-center text-xs font-semibold uppercase tracking-[0.3em] mb-6"
           style={{ color: "#1e5a8a" }}
         >
@@ -53,8 +53,8 @@ export default function Scale() {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, delay: 0.05, ease: EASE_SMOOTH }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.08, ease: EASE_SMOOTH }}
           className="text-center text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 font-display tracking-tight mb-12 md:mb-16"
         >
           {t("scale.title")}
@@ -64,8 +64,8 @@ export default function Scale() {
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: EASE_SMOOTH }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.16, ease: EASE_SMOOTH }}
           className="text-center mb-6"
         >
           <div
@@ -85,8 +85,8 @@ export default function Scale() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: EASE_SMOOTH }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.24, ease: EASE_SMOOTH }}
           className="text-center text-base md:text-lg font-medium text-gray-600 max-w-xl mx-auto mb-12 md:mb-16"
         >
           {t("scale.metricLabel")}
@@ -96,8 +96,8 @@ export default function Scale() {
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: EASE_SMOOTH }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.32, ease: EASE_SMOOTH }}
           className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto"
         >
           {t("scale.body")}
