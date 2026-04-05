@@ -23,30 +23,32 @@
   "caseStudies": {
     "sectionTitle": "Recent Work",
     "sectionSubtitle": "Real projects, real outcomes. A snapshot of what we've shipped.",
+    "outcomeLabel": "Outcome",
+    "stackLabel": "Stack",
     "items": [
       {
         "client": "Kostika",
         "industry": "Manufacturing · Multi-tenant SaaS",
-        "tagline": "A full MES platform, built to scale across factories",
-        "description": "Designed and built a multi-tenant Manufacturing Execution System from the ground up — order tracking, production planning, measurement workflows, ERP integration. Now running across 10+ aluminum factories.",
-        "outcome": "10+ factories onboarded",
+        "tagline": "One platform running ten aluminum factories that used to run on spreadsheets.",
+        "description": "Kostika needed to stop managing each factory as a separate island. We built them one MES — order tracking, production planning, measurement workflows, Priority ERP integration — and rolled it across ten factories. They stopped reconciling spreadsheets.",
+        "outcome": "10+ factories live",
         "stack": ["React", "Supabase", "Priority ERP", "Multi-tenant"],
         "accent": "sky"
       },
       {
         "client": "TerminalX",
         "industry": "E-commerce · Enterprise",
-        "tagline": "Automation that plugs into enterprise infrastructure",
-        "description": "Architected and shipped automation systems embedded in TerminalX's production infrastructure. Handled high-volume ops workflows spanning orders, inventory, and customer comms — built to enterprise reliability standards.",
-        "outcome": "Enterprise-grade reliability",
+        "tagline": "Automation that has to hold under Black Friday load.",
+        "description": "TerminalX's ops team was drowning in order, inventory, and customer comms workflows that didn't quite talk to each other. We slotted automation directly into their production infra — the kind that can't wobble when traffic spikes.",
+        "outcome": "Enterprise-scale reliability",
         "stack": ["n8n", "Node.js", "PostgreSQL", "Enterprise infra"],
         "accent": "violet"
       },
       {
         "client": "Sherman",
         "industry": "Sheet Metal Manufacturing",
-        "tagline": "AI quality control for precision sheet metal",
-        "description": "Built an end-to-end AI quality control platform — CAD-vs-scan analysis, 3D bend inspection, live scanning sessions, automated reporting. Multi-LLM architecture (Claude / Gemini / GPT) with circuit breaker fallback.",
+        "tagline": "QC for precision sheet metal at a scale human inspection can't cover.",
+        "description": "Sherman needed quality control that scaled past what human eyes could catch. We built the whole platform — CAD-vs-scan analysis, 3D bend inspection, live scanning sessions, automated reporting — with multi-LLM architecture (Claude / Gemini / GPT) so no single model outage stops the line.",
         "outcome": "Full QC platform shipped",
         "stack": ["Python", "FastAPI", "React", "Open3D", "Claude API"],
         "accent": "emerald"

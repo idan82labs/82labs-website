@@ -11,9 +11,11 @@ interface CountUpNumberProps {
 }
 
 /**
- * Counts up to a numeric target when scrolled into view, with a subtle
- * scale-in so the number appears to "grow" as it climbs. Skips count-up
+ * Counts up to a numeric target when scrolled into view. Skips count-up
  * for targets that contain separators with digits on both sides (e.g. "24/7").
+ *
+ * Returns a plain text-level span with no transforms, so it stays compatible
+ * with parents using background-clip: text (gradient text fills).
  */
 export default function CountUpNumber({
   target,
@@ -21,9 +23,8 @@ export default function CountUpNumber({
   startFraction = 0,
 }: CountUpNumberProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.4 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
   const [display, setDisplay] = useState(target);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     if (!isInView) return;
@@ -53,7 +54,9 @@ export default function CountUpNumber({
     const stepMs = duration / steps;
     let step = 0;
 
-    setIsAnimating(true);
+    // Start counter at the start value immediately
+    setDisplay(`${prefix}${startValue}${suffix}`);
+
     const interval = setInterval(() => {
       step++;
       const progress = step / steps;
@@ -63,7 +66,6 @@ export default function CountUpNumber({
       setDisplay(`${prefix}${current}${suffix}`);
       if (step >= steps) {
         setDisplay(target);
-        setIsAnimating(false);
         clearInterval(interval);
       }
     }, stepMs);
@@ -71,16 +73,5 @@ export default function CountUpNumber({
     return () => clearInterval(interval);
   }, [isInView, target, duration, startFraction]);
 
-  return (
-    <span
-      ref={ref}
-      style={{
-        display: "inline-block",
-        transform: isAnimating ? "scale(0.92)" : "scale(1)",
-        transition: "transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-      }}
-    >
-      {display}
-    </span>
-  );
+  return <span ref={ref}>{display}</span>;
 }

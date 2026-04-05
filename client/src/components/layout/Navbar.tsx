@@ -20,6 +20,23 @@ export default function Navbar({ onContactClick }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when drawer is open + close on Escape
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
     e?.preventDefault();
     const element = document.getElementById(sectionId);
@@ -82,7 +99,10 @@ export default function Navbar({ onContactClick }: NavbarProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <LanguageSwitcher variant={hasScrolled ? "light" : "dark"} />
+            {/* Desktop-only: language switcher + CTA */}
+            <div className="hidden md:block">
+              <LanguageSwitcher variant={hasScrolled ? "light" : "dark"} />
+            </div>
             <Button
               onClick={onContactClick}
               className={`hidden md:block text-sm px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
@@ -93,54 +113,89 @@ export default function Navbar({ onContactClick }: NavbarProps) {
             >
               {t("nav.requestDemo")}
             </Button>
+            {/* Mobile-only: hamburger */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 rounded focus-visible:outline-none focus-visible:ring-2 ${
+              className={`md:hidden p-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 ${
                 hasScrolled
-                  ? "text-gray-700 focus-visible:ring-gray-900"
-                  : "text-white focus-visible:ring-white"
+                  ? "text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-900"
+                  : "text-white hover:bg-white/10 focus-visible:ring-white"
               }`}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-
-        {isMobileMenuOpen && (
-          <div
-            id="mobile-menu"
-            className="md:hidden border-t border-gray-100 py-4 animate-in slide-in-from-top duration-200 bg-white rounded-b-xl"
-          >
-            <div className="space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={(e) => scrollToSection(link.id, e)}
-                  className="block w-full text-start py-3 px-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
-                >
-                  {link.label}
-                </a>
-              ))}
-              <div className="pt-3">
-                <Button
-                  onClick={() => {
-                    onContactClick();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="minimal-button minimal-button-primary w-full"
-                >
-                  {t("nav.requestDemo")}
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
       </nav>
+
+      {/* Mobile drawer — full viewport height below navbar */}
+      <div
+        id="mobile-menu"
+        aria-hidden={!isMobileMenuOpen}
+        className={`md:hidden fixed top-16 inset-x-0 bottom-0 z-40 transition-all duration-300 ease-out ${
+          isMobileMenuOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
+        }`}
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10, 22, 40, 0.98) 0%, rgba(15, 40, 68, 0.98) 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+        }}
+      >
+        <div className="flex flex-col h-full px-6 pt-6 pb-10 overflow-y-auto mobile-menu">
+          {/* Nav links */}
+          <nav className="flex-1" aria-label="Mobile navigation">
+            {navLinks.map((link, i) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={(e) => scrollToSection(link.id, e)}
+                className="flex items-baseline justify-between py-5 border-b border-white/[0.08] text-white/90 hover:text-white transition-colors group"
+                style={{
+                  opacity: isMobileMenuOpen ? 1 : 0,
+                  transform: isMobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
+                  transition: `opacity 0.4s ease ${0.08 + i * 0.05}s, transform 0.4s ease ${0.08 + i * 0.05}s`,
+                }}
+              >
+                <span className="text-2xl font-semibold font-display tracking-tight">
+                  {link.label}
+                </span>
+                <span
+                  className="text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors"
+                  aria-hidden="true"
+                >
+                  0{i + 1}
+                </span>
+              </a>
+            ))}
+          </nav>
+
+          {/* Footer: language + CTA */}
+          <div className="mt-8 space-y-4">
+            <div className="flex items-center justify-between py-4 border-t border-white/[0.08]">
+              <span className="text-xs font-medium text-white/40 uppercase tracking-[0.2em]">
+                Language
+              </span>
+              <LanguageSwitcher variant="dark" />
+            </div>
+            <Button
+              onClick={() => {
+                onContactClick();
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full text-base py-6 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300"
+            >
+              {t("nav.requestDemo")}
+            </Button>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
