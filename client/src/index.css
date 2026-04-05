@@ -526,13 +526,26 @@
   60%  { transform: translateX(-100%); opacity: 0; }
   100% { transform: translateX(-100%); opacity: 0; }
 }
+/* Base grid "breathing" pulse — 8s cycle, 3% ↔ 4.5% opacity. Subtle heartbeat. */
+.process-grid-base {
+  opacity: 0.03;
+  animation: processGridPulse 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+@keyframes processGridPulse {
+  0%, 100% { opacity: 0.03; }
+  50%      { opacity: 0.045; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .process-dot-active {
     animation: none;
     opacity: 0;
   }
-  .process-section .process-glow,
-  .process-section .process-grid-bright {
+  .process-grid-base {
+    animation: none;
+    opacity: 0.03;
+  }
+  .process-section .process-wash {
     opacity: 0 !important;
   }
 }

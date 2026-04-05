@@ -29,19 +29,19 @@ export default function Process() {
     return () => io.disconnect();
   }, []);
 
-  // Scroll-linked cyan glow that sweeps through the grid as the user scrolls
-  // through the section — "lights up" the grid, previews the next section.
+  // Scroll-linked subtle effects: a soft cyan wash drifts down through the
+  // grid, and the grid background-position parallaxes slightly. Very subtle.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const glowTop = useTransform(scrollYProgress, [0, 1], ["-40%", "110%"]);
+  const glowTop = useTransform(scrollYProgress, [0, 1], ["-30%", "100%"]);
   const glowOpacity = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.85, 1],
+    [0, 0.15, 0.85, 1],
     [0, 1, 1, 0]
   );
-  const bottomFadeOpacity = useTransform(scrollYProgress, [0.6, 1], [0, 1]);
+  const gridShiftY = useTransform(scrollYProgress, [0, 1], ["0px", "48px"]);
 
   return (
     <section
@@ -49,56 +49,42 @@ export default function Process() {
       id="process"
       className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white process-section"
     >
-      {/* Base grid pattern background (static, faint) */}
+      {/* Top cyan hairline — clean transition from TechSlider */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(#0f2844 1px, transparent 1px), linear-gradient(90deg, #0f2844 1px, transparent 1px)",
-          backgroundSize: "64px 64px"
-        }}
-      />
-
-      {/* Scroll-linked cyan glow — sweeps through the grid, lights up cells */}
-      <motion.div
-        className="absolute inset-x-0 pointer-events-none process-glow"
-        style={{
-          top: glowTop,
-          opacity: glowOpacity,
-          height: "55%",
-          background:
-            "radial-gradient(ellipse 70% 100% at 50% 50%, rgba(91,192,235,0.14) 0%, rgba(91,192,235,0.06) 35%, transparent 70%)",
-        }}
+        className="absolute top-0 inset-x-0 h-px pointer-events-none"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(91,192,235,0.25) 20%, rgba(91,192,235,0.25) 80%, transparent)" }}
         aria-hidden="true"
       />
 
-      {/* Brighter cyan grid overlay that follows the glow — actually lights up cells */}
+      {/* Base grid pattern — breathes + parallaxes with scroll */}
       <motion.div
-        className="absolute inset-x-0 pointer-events-none process-grid-bright"
+        className="absolute inset-0 pointer-events-none process-grid-base"
         style={{
-          top: glowTop,
-          opacity: glowOpacity,
-          height: "55%",
           backgroundImage:
-            "linear-gradient(#5bc0eb 1px, transparent 1px), linear-gradient(90deg, #5bc0eb 1px, transparent 1px)",
+            "linear-gradient(#0f2844 1px, transparent 1px), linear-gradient(90deg, #0f2844 1px, transparent 1px)",
           backgroundSize: "64px 64px",
-          backgroundPosition: "center center",
-          mixBlendMode: "multiply",
-          maskImage:
-            "radial-gradient(ellipse 70% 100% at 50% 50%, black 0%, rgba(0,0,0,0.4) 40%, transparent 70%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 70% 100% at 50% 50%, black 0%, rgba(0,0,0,0.4) 40%, transparent 70%)",
+          backgroundPositionY: gridShiftY,
         }}
         aria-hidden="true"
       />
 
-      {/* Bottom fade-to-navy bridge — previews the dark ClosingCTA transition */}
+      {/* Scroll-linked soft cyan wash — very subtle, drifts through the section */}
       <motion.div
-        className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
+        className="absolute inset-x-0 pointer-events-none process-wash"
         style={{
-          opacity: bottomFadeOpacity,
+          top: glowTop,
+          opacity: glowOpacity,
+          height: "60%",
           background:
-            "linear-gradient(180deg, transparent 0%, rgba(15,40,68,0.04) 60%, rgba(15,40,68,0.08) 100%)",
+            "radial-gradient(ellipse 65% 100% at 50% 50%, rgba(91,192,235,0.055) 0%, rgba(91,192,235,0.02) 40%, transparent 70%)",
         }}
+        aria-hidden="true"
+      />
+
+      {/* Bottom cyan hairline — clean transition to CaseStudies */}
+      <div
+        className="absolute bottom-0 inset-x-0 h-px pointer-events-none"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(91,192,235,0.2) 20%, rgba(91,192,235,0.2) 80%, transparent)" }}
         aria-hidden="true"
       />
 
