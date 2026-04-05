@@ -11,7 +11,7 @@ interface MobileFlowProps {
 
 const stages = [
   { x: 40, l1: "Ingest", l2: "Webhooks · APIs", c: "#5bc0eb" },
-  { x: 170, l1: "Automate", l2: "n8n · AI · Logic", c: "#7db8e0" },
+  { x: 170, l1: "Automate", l2: "Agents · SDKs · Logic", c: "#7db8e0" },
   { x: 300, l1: "Ship", l2: "Apps · Alerts", c: "#5bc0eb" },
 ];
 

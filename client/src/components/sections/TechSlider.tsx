@@ -3,26 +3,26 @@ import { useTranslation } from "react-i18next";
 type Tech = { name: string; slug: string };
 
 const techStack: Tech[] = [
-  { name: "n8n", slug: "n8n" },
-  { name: "Cohere", slug: "cohere" },
+  { name: "Claude", slug: "anthropic" },
+  { name: "OpenAI", slug: "openai" },
   { name: "LangChain", slug: "langchain" },
   { name: "LangGraph", slug: "langchain" },
-  { name: "React", slug: "react" },
   { name: "Python", slug: "python" },
+  { name: "FastAPI", slug: "fastapi" },
   { name: "Node.js", slug: "nodedotjs" },
   { name: "TypeScript", slug: "typescript" },
-  { name: "FastAPI", slug: "fastapi" },
-  { name: "Vite", slug: "vite" },
-  { name: "Docker", slug: "docker" },
+  { name: "React", slug: "react" },
+  { name: "Next.js", slug: "nextdotjs" },
   { name: "PostgreSQL", slug: "postgresql" },
   { name: "Redis", slug: "redis" },
   { name: "Pinecone", slug: "pinecone" },
   { name: "Qdrant", slug: "qdrant" },
+  { name: "Docker", slug: "docker" },
+  { name: "AWS", slug: "amazonwebservices" },
   { name: "Vercel", slug: "vercel" },
   { name: "Tailwind", slug: "tailwindcss" },
-  { name: "Next.js", slug: "nextdotjs" },
-  { name: "AWS", slug: "amazonwebservices" },
-  { name: "OpenAI", slug: "openai" },
+  { name: "Vite", slug: "vite" },
+  { name: "n8n", slug: "n8n" },
 ];
 
 export default function TechSlider() {

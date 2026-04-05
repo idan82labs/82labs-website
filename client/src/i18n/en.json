@@ -7,10 +7,10 @@
     "work": "Work"
   },
   "hero": {
-    "badge": "Official n8n Partners",
+    "badge": "AI Agents, Engineered.",
     "title1": "We automate",
     "title2": "the messy parts.",
-    "subtitle": "n8n experts · Fullstack engineers · Systems that run themselves",
+    "subtitle": "AI agent engineers · Fullstack systems · Automation that runs itself",
     "cta": "Book a Consultation",
     "ctaSecondary": "See Our Work"
   },
@@ -123,22 +123,22 @@
     },
     "automation": {
       "title": "Workflow Automation",
-      "description": "Turn manual work into systems that run themselves. n8n workflows and LangGraph AI agents that plug into your existing stack.",
+      "description": "Turn manual work into systems that run themselves. Claude & OpenAI agents, LangChain orchestration, production Python — built to plug into your existing stack.",
       "learnMore": "Learn more",
-      "features": ["n8n workflow design", "LangGraph AI agents", "API orchestration"]
+      "features": ["Claude & OpenAI agents", "LangChain / LangGraph", "Python automation"]
     },
     "lectures": {
       "title": "Training & Workshops",
-      "description": "Official n8n partners running hands-on workshops. Turn your team into automation experts in weeks, not years.",
+      "description": "Hands-on workshops on AI agents, SDKs, and production automation. Turn your team into builders in weeks, not years.",
       "learnMore": "Learn more",
-      "features": ["Official n8n curriculum", "Team workshops", "1-on-1 mentorship"]
+      "features": ["AI agent architecture", "Team workshops", "1-on-1 mentorship"]
     }
   },
   "whyUs": {
     "sectionTitle": "Proven at Scale",
     "sectionSubtitle": "Numbers that speak for themselves — delivering results across industries and technologies.",
     "metrics": {
-      "projects": { "number": "180+", "label": "n8n Workflows Shipped" },
+      "projects": { "number": "180+", "label": "Automations Shipped" },
       "industries": { "number": "12+", "label": "Industries Served" },
       "satisfaction": { "number": "6 wks", "label": "Median Time to Launch" },
       "uptime": { "number": "24/7", "label": "Support & Monitoring" }
@@ -210,17 +210,17 @@
     },
     "automation": {
       "title": "Intelligent Automation",
-      "intro": "Complex workflow automation using n8n and LangGraph. AI-powered processes that integrate with your existing tools and systems.",
+      "intro": "AI-agent automation built in code. Claude & OpenAI SDKs, LangChain/LangGraph orchestration, and Python that plugs into your existing tools.",
       "includedTitle": "What's Included:",
-      "included": ["Custom n8n workflow development", "AI integration with LangGraph", "API integrations and data synchronization", "Process optimization and monitoring", "Custom automation solutions", "Ongoing support and maintenance"],
+      "included": ["Claude & OpenAI agent development", "LangChain / LangGraph orchestration", "Python & API integrations", "Process optimization and monitoring", "Custom automation solutions", "Ongoing support and maintenance"],
       "perfectFor": "Businesses looking to streamline operations, reduce manual work, and implement intelligent decision-making processes."
     },
     "lectures": {
       "title": "Training & Consulting",
-      "intro": "Official n8n lecturing and training programs. We don't just build solutions — we empower your team with the knowledge to maintain and extend them.",
+      "intro": "Workshops on AI agents, SDKs, and production automation. We don't just build — we empower your team with the knowledge to maintain and extend the systems.",
       "includedTitle": "What's Included:",
-      "included": ["Official n8n certification training", "Hands-on workshops and tutorials", "Custom training programs for teams", "Best practices consultation", "Architecture reviews and optimization", "Ongoing mentorship and support"],
-      "perfectFor": "Teams wanting to master automation, companies implementing n8n, and organizations seeking to build internal automation expertise."
+      "included": ["AI agent architecture & patterns", "Hands-on SDK workshops", "Custom training programs for teams", "Best practices consultation", "Architecture reviews and optimization", "Ongoing mentorship and support"],
+      "perfectFor": "Teams wanting to master AI-agent automation, companies adopting LLM workflows, and organizations building internal automation expertise."
     },
     "ctaPrompt": "Ready to get started with this service?",
     "ctaButton": "Contact Us",

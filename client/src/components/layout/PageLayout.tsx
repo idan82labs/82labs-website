@@ -9,14 +9,14 @@ interface PageLayoutProps {
 
 const metaByLang = {
   en: {
-    title: "82Labs — We automate the messy parts | n8n & fullstack studio",
+    title: "82Labs — AI agents & fullstack studio | We automate the messy parts",
     description:
-      "Official n8n Partners. 82Labs builds intelligent automation and fullstack systems that turn complex business workflows into systems that run themselves. Based in Israel.",
+      "82Labs builds AI-agent automation and fullstack systems in code — Claude, OpenAI, LangChain, Python. We turn complex business workflows into systems that run themselves. Based in Israel.",
   },
   he: {
-    title: "82Labs — אנחנו הופכים תהליכים מסובכים לפשוטים | אוטומציה ופולסטאק",
+    title: "82Labs — סוכני AI ופולסטאק | אנחנו הופכים תהליכים מסובכים לפשוטים",
     description:
-      "שותפים רשמיים של n8n. בונים מערכות אוטומציה ופולסטאק שהופכות תהליכים עסקיים מורכבים למערכות שרצות לבד.",
+      "82Labs בונה אוטומציית סוכני AI ומערכות פולסטאק בקוד — Claude, OpenAI, LangChain, Python. הופכים תהליכים עסקיים מורכבים למערכות שרצות לבד.",
   },
 };
 
