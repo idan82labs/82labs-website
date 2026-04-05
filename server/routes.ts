@@ -1,67 +1,38 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
-import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 import { sendContactFormEmail } from "./email";
 
+const contactSchema = z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email().max(200),
+  brief: z.string().min(10).max(140),
+});
+
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Contact form submission
+  // Contact form — dev-only endpoint (prod uses api/contact.ts Vercel function)
   app.post("/api/contact", async (req, res) => {
-    try {
-      const contactData = insertContactSchema.parse(req.body);
-      
-      // Send email using SendGrid
-      const emailSent = await sendContactFormEmail({
-        name: contactData.name,
-        email: contactData.email,
-        brief: contactData.brief,
-      });
-
-      if (!emailSent) {
-        res.status(500).json({ 
-          success: false, 
-          message: "Failed to send email notification" 
-        });
-        return;
-      }
-
-      // Store in database for record keeping
-      const submission = await storage.createContactSubmission(contactData);
-      
-      res.json({ 
-        success: true, 
-        id: submission.id,
-        message: "Contact form submitted successfully! We'll get back to you within 24 hours."
-      });
-    } catch (error) {
-      console.error("Contact form error:", error);
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ 
-          success: false, 
-          message: "Invalid form data",
-          errors: error.errors 
-        });
-      } else {
-        res.status(500).json({ 
-          success: false, 
-          message: "Failed to submit contact form" 
-        });
-      }
-    }
-  });
-
-  // Get contact submissions (for admin purposes if needed)
-  app.get("/api/contact-submissions", async (req, res) => {
-    try {
-      const submissions = await storage.getContactSubmissions();
-      res.json(submissions);
-    } catch (error) {
-      res.status(500).json({ 
-        success: false, 
-        message: "Failed to fetch submissions" 
+    const parsed = contactSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid form data",
+        errors: parsed.error.errors,
       });
     }
+
+    const emailSent = await sendContactFormEmail(parsed.data);
+    if (!emailSent) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to send message",
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "Message sent successfully",
+    });
   });
 
   const httpServer = createServer(app);

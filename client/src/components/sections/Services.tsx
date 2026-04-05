@@ -93,7 +93,7 @@ export default function Services({ onServiceClick }: ServicesProps) {
                     ))}
                   </ul>
 
-                  <div className="flex items-center text-gray-500 group-hover:text-white transition-colors duration-300 text-sm font-medium">
+                  <div className="flex items-center text-gray-300 group-hover:text-white transition-colors duration-300 text-sm font-medium">
                     {t(learnKey)}
                     <ChevronRight className="w-4 h-4 ms-1 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
                   </div>

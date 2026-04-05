@@ -29,7 +29,7 @@ export default function LanguageSwitcher({ className = "", variant = "light" }: 
     <button
       onClick={toggle}
       className={`text-sm font-medium px-3 py-1.5 rounded-md border transition-colors duration-200 ${styles} ${className}`}
-      aria-label={isHebrew ? "Switch to English" : "עברית"}
+      aria-label={isHebrew ? "Switch to English" : "Switch to Hebrew"}
     >
       {isHebrew ? "EN" : "עב"}
     </button>

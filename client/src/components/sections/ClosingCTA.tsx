@@ -38,7 +38,7 @@ export default function ClosingCTA({ onContactClick }: ClosingCTAProps) {
           {t("closingCta.cta")}
         </Button>
 
-        <p className="mt-8 text-sm" style={{ color: "#6b7f99" }}>
+        <p className="mt-8 text-sm" style={{ color: "#94a3b8" }}>
           {t("closingCta.pricingHint")}
         </p>
       </AnimatedSection>

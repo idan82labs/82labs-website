@@ -32,9 +32,9 @@ export default function Footer({ onPrivacyClick, onContactClick }: FooterProps) 
 
           {/* Services */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
               {t("footer.services")}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <button onClick={() => scrollToSection("services")} className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
@@ -56,9 +56,9 @@ export default function Footer({ onPrivacyClick, onContactClick }: FooterProps) 
 
           {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
               {t("footer.company")}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <button onClick={() => scrollToSection("why-us")} className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
@@ -80,9 +80,9 @@ export default function Footer({ onPrivacyClick, onContactClick }: FooterProps) 
 
           {/* Connect */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
               {t("footer.connect")}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <button onClick={onContactClick} className="text-sm text-gray-500 hover:text-gray-900 transition-colors">

@@ -1,4 +1,12 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { z } from "zod";
 import sgMail from "@sendgrid/mail";
+
+const contactSchema = z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email().max(200),
+  brief: z.string().min(10).max(140),
+});
 
 const CONTACT_TO = process.env.CONTACT_TO_EMAIL || "idan.t@82labs.io";
 const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "contact@82labs.com";
@@ -7,21 +15,38 @@ function sanitize(s: string): string {
   return s.replace(/[<>]/g, "").trim();
 }
 
-export async function sendContactFormEmail(data: {
-  name: string;
-  email: string;
-  brief: string;
-}): Promise<boolean> {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ success: false, message: "Method not allowed" });
+  }
+
+  // Parse + validate
+  const parsed = contactSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid form data",
+      errors: parsed.error.errors,
+    });
+  }
+
+  const { name, email, brief } = parsed.data;
+  const safeName = sanitize(name);
+  const safeEmail = sanitize(email);
+  const safeBrief = sanitize(brief);
+
+  // Guard: no SendGrid key
   const apiKey = process.env.SENDGRID_API_KEY;
   if (!apiKey || !apiKey.startsWith("SG.")) {
-    console.warn("[email] SENDGRID_API_KEY missing or invalid — skipping send");
-    return false;
+    console.error("SENDGRID_API_KEY missing or invalid");
+    return res.status(500).json({
+      success: false,
+      message: "Email service not configured",
+    });
   }
-  sgMail.setApiKey(apiKey);
 
-  const safeName = sanitize(data.name);
-  const safeEmail = sanitize(data.email);
-  const safeBrief = sanitize(data.brief);
+  sgMail.setApiKey(apiKey);
 
   const html = `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:600px;margin:0 auto">
@@ -48,9 +73,16 @@ export async function sendContactFormEmail(data: {
       text,
       html,
     });
-    return true;
+
+    return res.status(200).json({
+      success: true,
+      message: "Message sent successfully",
+    });
   } catch (error) {
-    console.error("[email] SendGrid error:", error);
-    return false;
+    console.error("SendGrid error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to send message",
+    });
   }
 }

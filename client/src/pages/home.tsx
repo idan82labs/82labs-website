@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, lazy, Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Modal } from "@/components/ui/modal";
 import PageLayout from "@/components/layout/PageLayout";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { lazy, Suspense } from "react";
 import Hero from "@/components/sections/Hero";
 import TrustedBy from "@/components/sections/TrustedBy";
 import Testimonial from "@/components/sections/Testimonial";
@@ -36,20 +34,30 @@ export default function Home({ lang = "en" }: HomeProps) {
 
   return (
     <PageLayout lang={lang}>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-gray-900 focus:rounded-lg focus:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+      >
+        {lang === "he" ? "דלג לתוכן" : "Skip to content"}
+      </a>
+
       <Navbar onContactClick={openContact} />
 
-      <Hero onContactClick={openContact} />
-      <TrustedBy />
-      <Testimonial />
-      <Services onServiceClick={(id) => setServiceDetail(id)} />
-      <Suspense fallback={<div className="h-40 bg-white" />}>
-        <TechSlider />
-      </Suspense>
-      <CaseStudies />
-      <Process />
-      <WhyUs />
-      <Industries />
-      <ClosingCTA onContactClick={openContact} />
+      <main id="main">
+        <Hero onContactClick={openContact} />
+        <TrustedBy />
+        <Testimonial />
+        <Services onServiceClick={(id) => setServiceDetail(id)} />
+        <Suspense fallback={<div className="h-40 bg-white" />}>
+          <TechSlider />
+        </Suspense>
+        <CaseStudies />
+        <Process />
+        <WhyUs />
+        <Industries />
+        <ClosingCTA onContactClick={openContact} />
+      </main>
+
       <Footer onPrivacyClick={() => setIsPrivacyOpen(true)} onContactClick={openContact} />
 
       {/* Contact Modal */}

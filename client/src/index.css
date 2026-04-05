@@ -163,6 +163,21 @@
   border-color: rgba(15, 40, 68, 0.2);
 }
 
+/* Hero headline gradient with fallback for forced-colors */
+.hero-gradient-text {
+  background: linear-gradient(to right, #7db8e0, #5ba3d9, #93c5e8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@media (forced-colors: active) {
+  .hero-gradient-text {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
+}
+
 .tech-item:hover {
   opacity: 1;
 }

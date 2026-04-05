@@ -57,7 +57,7 @@ export default function Hero({ onContactClick }: HeroProps) {
         >
           {t("hero.title1")}
           <br />
-          <span style={{ background: "linear-gradient(to right, #7db8e0, #5ba3d9, #93c5e8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <span className="hero-gradient-text" style={{ color: "#7db8e0" }}>
             {t("hero.title2")}
           </span>
         </motion.h1>
@@ -192,7 +192,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </motion.circle>
         </svg>
 
-        <div className="flex justify-between px-10 mt-2 text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(125, 184, 224, 0.5)" }}>
+        <div className="flex justify-between px-10 mt-2 text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: "#7db8e0" }}>
           <span>Input</span>
           <span>Transform</span>
           <span>AI</span>
