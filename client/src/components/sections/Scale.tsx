@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 export default function Scale() {
   const { t } = useTranslation();
-  const tags = t("scale.tags", { returnObjects: true }) as string[];
 
   return (
     <section className="relative overflow-hidden">
@@ -83,33 +82,10 @@ export default function Scale() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.25 }}
-          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto mb-10"
+          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto"
         >
           {t("scale.body")}
         </motion.p>
-
-        {/* Domain tags */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="flex flex-wrap items-center justify-center gap-2 md:gap-3"
-        >
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center px-4 py-2 rounded-full text-xs md:text-sm font-semibold border backdrop-blur-sm"
-              style={{
-                color: "#0f2844",
-                background: "rgba(255, 255, 255, 0.7)",
-                borderColor: "rgba(15, 40, 68, 0.12)",
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
