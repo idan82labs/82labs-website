@@ -82,50 +82,106 @@ export default function Hero({ onContactClick }: HeroProps) {
       </div>
 
       {/* Signature workflow visualization — CSS-only */}
-      <div className="hero-fade-in hero-fade-in-5 relative z-10 mt-20 md:mt-28 max-w-4xl mx-auto pointer-events-none" aria-hidden="true">
-        <svg viewBox="0 0 800 120" className="w-full h-auto" fill="none">
-          <defs>
-            <linearGradient id="flowLine" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0" />
-              <stop offset="20%" stopColor="#38bdf8" stopOpacity="0.6" />
-              <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.8" />
-              <stop offset="80%" stopColor="#34d399" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
-            </linearGradient>
-          </defs>
+      <div className="hero-fade-in hero-fade-in-5 relative z-10 mt-16 md:mt-28 max-w-4xl mx-auto pointer-events-none" aria-hidden="true">
+        {/* MOBILE: 3-stage horizontal pipeline */}
+        <div className="md:hidden px-4">
+          <div className="relative grid grid-cols-3 gap-0">
+            {/* Flow line (gradient base) */}
+            <div
+              className="absolute left-[16.66%] right-[16.66%] top-[14px] h-px pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(56,189,248,0) 0%, rgba(56,189,248,0.7) 15%, rgba(167,139,250,0.9) 50%, rgba(52,211,153,0.7) 85%, rgba(52,211,153,0) 100%)",
+              }}
+            />
+            {/* Flow line (sliding dashes overlay) */}
+            <div
+              className="hero-flow-mobile-dash absolute left-[16.66%] right-[16.66%] top-[14px] h-px pointer-events-none"
+            />
+            {[
+              { l1: "Ingest", l2: "Webhooks · APIs", color: "#38bdf8", delay: "0.2s" },
+              { l1: "Automate", l2: "n8n · AI · Logic", color: "#a78bfa", delay: "0.35s" },
+              { l1: "Ship", l2: "Apps · Alerts", color: "#34d399", delay: "0.5s" },
+            ].map((n, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <div
+                  className="hero-node-mobile relative w-7 h-7 rounded-full flex items-center justify-center"
+                  style={{
+                    animationDelay: n.delay,
+                    background: `${n.color}22`,
+                    boxShadow: `0 0 18px ${n.color}44`,
+                  }}
+                >
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ background: n.color, boxShadow: `0 0 8px ${n.color}` }}
+                  />
+                </div>
+                <div className="mt-3 text-center">
+                  <div
+                    className="text-[11px] uppercase tracking-[0.14em] font-semibold leading-tight"
+                    style={{ color: "#c7dcef" }}
+                  >
+                    {n.l1}
+                  </div>
+                  <div
+                    className="text-[9px] tracking-wide mt-0.5 leading-tight"
+                    style={{ color: "#6a93b8" }}
+                  >
+                    {n.l2}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-          {/* Connecting line */}
-          <path
-            d="M 40 60 Q 180 20, 260 60 T 460 60 T 660 60 T 760 60"
-            stroke="url(#flowLine)"
-            strokeWidth="1.5"
-            fill="none"
-            strokeDasharray="4 4"
-            className="hero-flow-path"
-          />
+        {/* DESKTOP: 5-stage SVG wave */}
+        <div className="hidden md:block">
+          <svg viewBox="0 0 800 120" className="w-full h-auto" fill="none">
+            <defs>
+              <linearGradient id="flowLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0" />
+                <stop offset="20%" stopColor="#38bdf8" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.8" />
+                <stop offset="80%" stopColor="#34d399" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
+              </linearGradient>
+            </defs>
 
-          {/* Workflow nodes */}
-          {[
-            { cx: 40, cy: 60, color: "#38bdf8", delay: "1.2s", r: 6 },
-            { cx: 260, cy: 60, color: "#7dd3fc", delay: "1.5s", r: 8 },
-            { cx: 460, cy: 60, color: "#a78bfa", delay: "1.8s", r: 10 },
-            { cx: 660, cy: 60, color: "#6ee7b7", delay: "2.1s", r: 8 },
-            { cx: 760, cy: 60, color: "#34d399", delay: "2.4s", r: 6 },
-          ].map((node, i) => (
-            <g key={i} className="hero-node" style={{ animationDelay: node.delay, transformOrigin: `${node.cx}px ${node.cy}px` }}>
-              <circle cx={node.cx} cy={node.cy} r={node.r + 6} fill={node.color} fillOpacity="0.15" />
-              <circle cx={node.cx} cy={node.cy} r={node.r} fill={node.color} />
-              <circle cx={node.cx} cy={node.cy} r={node.r - 2} fill="#0a1628" />
-            </g>
-          ))}
-        </svg>
+            {/* Connecting line */}
+            <path
+              d="M 40 60 Q 180 20, 260 60 T 460 60 T 660 60 T 760 60"
+              stroke="url(#flowLine)"
+              strokeWidth="1.5"
+              fill="none"
+              strokeDasharray="4 4"
+              className="hero-flow-path"
+            />
 
-        <div className="flex justify-between px-10 mt-2 text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: "#7db8e0" }}>
-          <span>Input</span>
-          <span>Transform</span>
-          <span>AI</span>
-          <span>Route</span>
-          <span>Output</span>
+            {/* Workflow nodes */}
+            {[
+              { cx: 40, cy: 60, color: "#38bdf8", delay: "1.2s", r: 6 },
+              { cx: 260, cy: 60, color: "#7dd3fc", delay: "1.5s", r: 8 },
+              { cx: 460, cy: 60, color: "#a78bfa", delay: "1.8s", r: 10 },
+              { cx: 660, cy: 60, color: "#6ee7b7", delay: "2.1s", r: 8 },
+              { cx: 760, cy: 60, color: "#34d399", delay: "2.4s", r: 6 },
+            ].map((node, i) => (
+              <g key={i} className="hero-node" style={{ animationDelay: node.delay, transformOrigin: `${node.cx}px ${node.cy}px` }}>
+                <circle cx={node.cx} cy={node.cy} r={node.r + 6} fill={node.color} fillOpacity="0.15" />
+                <circle cx={node.cx} cy={node.cy} r={node.r} fill={node.color} />
+                <circle cx={node.cx} cy={node.cy} r={node.r - 2} fill="#0a1628" />
+              </g>
+            ))}
+          </svg>
+
+          <div className="flex justify-between px-10 mt-2 text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: "#7db8e0" }}>
+            <span>Input</span>
+            <span>Transform</span>
+            <span>AI</span>
+            <span>Route</span>
+            <span>Output</span>
+          </div>
         </div>
       </div>
     </section>

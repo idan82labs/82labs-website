@@ -291,6 +291,28 @@
   to { opacity: 1; transform: scale(1); }
 }
 
+/* Mobile pipeline node pop (matches hero-node timing) */
+.hero-node-mobile {
+  opacity: 0;
+  transform: scale(0.6);
+  animation: heroNodePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 1.5s;
+}
+
+/* Mobile flow line: repeating dash overlay that slides */
+.hero-flow-mobile-dash {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.55) 0 4px,
+    transparent 4px 10px
+  );
+  background-size: 10px 1px;
+  animation: heroFlowMobileSlide 2.2s linear 1.8s infinite;
+}
+@keyframes heroFlowMobileSlide {
+  to { background-position: 10px 0; }
+}
+
 /* Hero orbs: simple CSS, contained for paint perf on mobile */
 .hero-orb-1,
 .hero-orb-2,
@@ -325,7 +347,9 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-fade-in,
   .hero-flow-path,
-  .hero-node {
+  .hero-node,
+  .hero-node-mobile,
+  .hero-flow-mobile-dash {
     animation: none;
     opacity: 1;
     transform: none;
