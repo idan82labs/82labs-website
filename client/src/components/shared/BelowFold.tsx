@@ -3,6 +3,7 @@ import { MotionConfig } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Footer from "@/components/layout/Footer";
 import TrustedBy from "@/components/sections/TrustedBy";
+import Scale from "@/components/sections/Scale";
 import Testimonial from "@/components/sections/Testimonial";
 import Services from "@/components/sections/Services";
 import WhyUs from "@/components/sections/WhyUs";
@@ -23,6 +24,7 @@ export default function BelowFold({ onContactClick, onServiceClick, onPrivacyCli
   return (
     <MotionConfig reducedMotion="user">
       <TrustedBy />
+      <Scale />
       <Testimonial />
       <Services onServiceClick={onServiceClick} />
       <Suspense fallback={<div className="h-40 bg-white" />}>

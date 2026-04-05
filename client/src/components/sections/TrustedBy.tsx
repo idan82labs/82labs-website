@@ -6,11 +6,17 @@ import terminalxLogo from "@assets/logos/terminalx.png";
 import anekLogo from "@assets/logos/anek.png";
 import itcLogo from "@assets/logos/itc.png";
 import googleReichmanLogo from "@assets/logos/google-reichman.png";
+import scdLogo from "@assets/logos/scd.png";
+import plasanLogo from "@assets/logos/plasan.png";
+import kostikaLogo from "@assets/logos/kostika.png";
 
 const logos = [
   { name: "Rafael", src: rafaelLogo, width: "w-28 md:w-32" },
+  { name: "Plasan", src: plasanLogo, width: "w-28 md:w-32" },
+  { name: "SCD", src: scdLogo, width: "w-16 md:w-20" },
   { name: "Mizrahi Tefahot", src: mizrahiLogo, width: "w-28 md:w-32" },
   { name: "TerminalX", src: terminalxLogo, width: "w-28 md:w-32" },
+  { name: "Kostika", src: kostikaLogo, width: "w-24 md:w-28" },
   { name: "Anek Capital", src: anekLogo, width: "w-24 md:w-28" },
   { name: "ITC", src: itcLogo, width: "w-10 md:w-12" },
   { name: "Google × Reichman", src: googleReichmanLogo, width: "w-28 md:w-32" },

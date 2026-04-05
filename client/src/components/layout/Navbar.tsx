@@ -55,17 +55,18 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               aria-label="82Labs home"
-              className="inline-block rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent focus-visible:ring-white"
+              className={`inline-flex items-center rounded-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${
+                hasScrolled
+                  ? "focus-visible:ring-gray-900"
+                  : "bg-white/95 backdrop-blur-sm px-2.5 py-1.5 shadow-sm ring-1 ring-white/10 focus-visible:ring-white"
+              }`}
             >
               <img
                 src={Logo}
                 alt="82 Labs"
                 width={80}
                 height={32}
-                className="h-8 w-auto transition-all duration-300 hover:scale-105"
-                style={{
-                  filter: hasScrolled ? "none" : "brightness(0) invert(1)",
-                }}
+                className="h-8 w-auto transition-transform duration-300 hover:scale-105"
               />
             </a>
           </div>
