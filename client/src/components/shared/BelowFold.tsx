@@ -6,7 +6,6 @@ import TrustedBy from "@/components/sections/TrustedBy";
 import Scale from "@/components/sections/Scale";
 import Testimonial from "@/components/sections/Testimonial";
 import Services from "@/components/sections/Services";
-import Industries from "@/components/sections/Industries";
 import Process from "@/components/sections/Process";
 import CaseStudies from "@/components/sections/CaseStudies";
 import ClosingCTA from "@/components/sections/ClosingCTA";
@@ -31,7 +30,6 @@ export default function BelowFold({ onContactClick, onServiceClick, onPrivacyCli
       </Suspense>
       <Process />
       <CaseStudies />
-      <Industries />
       <ClosingCTA onContactClick={onContactClick} />
       <Footer onPrivacyClick={onPrivacyClick} onContactClick={onContactClick} />
       <SpeedInsights />

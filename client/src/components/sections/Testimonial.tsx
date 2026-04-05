@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { EASE_SMOOTH } from "@/constants/motion";
 
 interface TestimonialItem {
   quote: string;
@@ -20,7 +21,7 @@ export default function Testimonial() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: EASE_SMOOTH }}
           className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-16"
           style={{ color: "rgba(255,255,255,0.4)" }}
         >
@@ -37,7 +38,7 @@ export default function Testimonial() {
               transition={{
                 duration: 0.7,
                 delay: index * 0.12,
-                ease: [0.25, 0.46, 0.45, 0.94]
+                ease: EASE_SMOOTH
               }}
               whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.15)" }}
               className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08]"

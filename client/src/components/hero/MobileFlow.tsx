@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Mobile hero flow visualization: wavy SVG path with a traveling light beam.
- * Pure SVG + CSS, 0 KB bundle cost. The beam is a short dashed stroke whose
- * stroke-dashoffset is animated infinitely, tracing the rail path.
+ * Mobile hero flow visualization: 3-node agent reasoning loop.
+ * Pure SVG + CSS, 0 KB bundle cost. Beam travels the rail; at the Reason node
+ * (center), a dead-end arc radiates and fades, then the Reason ring blooms —
+ * signalling "considered → rejected → resolved". Same metaphor as desktop.
  */
 interface MobileFlowProps {
   isRTL?: boolean;
 }
 
 const stages = [
-  { x: 40, l1: "Ingest", l2: "Webhooks · APIs", c: "#5bc0eb" },
-  { x: 170, l1: "Automate", l2: "Agents · SDKs · Logic", c: "#7db8e0" },
-  { x: 300, l1: "Ship", l2: "Apps · Alerts", c: "#5bc0eb" },
+  { x: 40, l1: "Input", l2: "Webhooks · APIs", c: "#5bc0eb" },
+  { x: 170, l1: "Reason", l2: "Plan · Act · Reflect", c: "#93c5e8" },
+  { x: 300, l1: "Output", l2: "Apps · Alerts", c: "#5bc0eb" },
 ];
 
 // Single wavy path used by rail, beam glow, and beam core
@@ -37,7 +38,7 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
       ref={ref}
       className="md:hidden px-4 select-none"
       role="img"
-      aria-label="Pipeline: Ingest to Automate to Ship"
+      aria-label="Agent flow: Input, Reason, Output"
       style={{ direction: "ltr" }}
     >
       <svg
@@ -54,9 +55,6 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
             <stop offset="85%" stopColor="#5bc0eb" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#5bc0eb" stopOpacity="0" />
           </linearGradient>
-          <filter id="mf-glow" x="-20%" y="-50%" width="140%" height="200%">
-            <feGaussianBlur stdDeviation="2.4" />
-          </filter>
         </defs>
 
         {/* Rail (static, dim) */}
@@ -69,15 +67,15 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
           strokeLinecap="round"
         />
 
-        {/* Beam glow (blurred) */}
+        {/* Beam soft-glow (duplicate stroke, no filter — cheap on mobile) */}
         <path
           d={RAIL_PATH}
           stroke="url(#mf-rail)"
+          strokeOpacity="0.4"
           strokeWidth="3"
           fill="none"
           strokeLinecap="round"
           strokeDasharray="26 500"
-          filter="url(#mf-glow)"
           className={`mf-beam ${active ? "mf-run" : ""}`}
         />
         {/* Beam core (sharp) */}
@@ -91,6 +89,23 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
           className={`mf-beam ${active ? "mf-run" : ""}`}
         />
 
+        {/* Dead-end arc from Reason node — "considered alternative" */}
+        <path
+          d="M 170 34 Q 200 14, 230 10"
+          stroke="#5bc0eb"
+          strokeWidth="1"
+          fill="none"
+          strokeLinecap="round"
+          className={`mf-arc ${active ? "mf-arc-run" : ""}`}
+        />
+        <circle
+          cx="230"
+          cy="10"
+          r="2"
+          fill="#5bc0eb"
+          className={`mf-arc-dot ${active ? "mf-arc-run" : ""}`}
+        />
+
         {/* Nodes */}
         {stages.map((s) => (
           <g key={s.l1}>
@@ -100,11 +115,11 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
           </g>
         ))}
 
-        {/* Converge bloom at Ship node — "resolved" signal */}
+        {/* Bloom ring at Reason node — "decision resolved" */}
         <circle
-          cx="300"
+          cx="170"
           cy="34"
-          r="5"
+          r="7"
           stroke="#5bc0eb"
           strokeWidth="0.8"
           fill="none"
@@ -135,21 +150,52 @@ export default function MobileFlow({ isRTL = false }: MobileFlowProps) {
 
       <style>{`
         .mf-beam { stroke-dashoffset: 0; }
-        .mf-run  { animation: mf-travel 2.5s linear infinite; }
+        .mf-run  { animation: mf-travel 2.4s linear infinite; }
         @keyframes mf-travel {
           from { stroke-dashoffset: 0; }
           to   { stroke-dashoffset: -522; }
         }
-        .mf-bloom { opacity: 0; transform-origin: 300px 34px; }
-        .mf-bloom-run { animation: mf-bloom-cycle 2.5s ease-out infinite; animation-delay: 1.3s; }
-        @keyframes mf-bloom-cycle {
-          0%   { opacity: 0; transform: scale(0.5); }
-          22%  { opacity: 0.85; transform: scale(0.65); }
-          62%  { opacity: 0; transform: scale(2.4); }
-          100% { opacity: 0; transform: scale(2.4); }
+
+        .mf-arc { stroke-dasharray: 50; stroke-dashoffset: 50; opacity: 0; }
+        .mf-arc-dot { opacity: 0; transform-origin: 230px 10px; }
+        .mf-arc-run.mf-arc,
+        .mf-arc-run.mf-arc-dot {
+          animation-duration: 4.8s;
+          animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          animation-iteration-count: infinite;
+          animation-delay: 1.8s;
         }
+        .mf-arc-run.mf-arc { animation-name: mf-arc-draw; }
+        .mf-arc-run.mf-arc-dot { animation-name: mf-arc-dot; }
+        @keyframes mf-arc-draw {
+          0%   { stroke-dashoffset: 50; opacity: 0; }
+          4%   { opacity: 0.55; }
+          12%  { stroke-dashoffset: 0; opacity: 0.55; }
+          25%  { stroke-dashoffset: 0; opacity: 0; }
+          100% { stroke-dashoffset: 0; opacity: 0; }
+        }
+        @keyframes mf-arc-dot {
+          0%, 10%   { opacity: 0; transform: scale(0.4); }
+          14%       { opacity: 0.9; transform: scale(1); }
+          22%       { opacity: 0.9; transform: scale(1); }
+          28%       { opacity: 0; transform: scale(0.4); }
+          100%      { opacity: 0; transform: scale(0.4); }
+        }
+
+        .mf-bloom { opacity: 0; transform-origin: 170px 34px; }
+        .mf-bloom-run {
+          animation: mf-bloom-cycle 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s infinite;
+        }
+        @keyframes mf-bloom-cycle {
+          0%, 28%   { opacity: 0; transform: scale(0.5); }
+          32%       { opacity: 0.9; transform: scale(0.6); }
+          40%       { opacity: 0; transform: scale(2.2); }
+          100%      { opacity: 0; transform: scale(2.2); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .mf-run { animation: none; stroke-dasharray: 0 0; }
+          .mf-arc-run,
           .mf-bloom-run { animation: none; opacity: 0; }
         }
       `}</style>

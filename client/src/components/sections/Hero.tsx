@@ -95,9 +95,9 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* MOBILE: wavy pipeline with traveling light beam */}
         <MobileFlow isRTL={isRTL} />
 
-        {/* DESKTOP: 5-stage SVG wave */}
+        {/* DESKTOP: 3-node agent reasoning loop */}
         <div className="hidden md:block">
-          <svg viewBox="0 0 800 120" className="w-full h-auto" fill="none">
+          <svg viewBox="0 0 800 170" className="w-full h-auto" fill="none">
             <defs>
               <linearGradient id="flowLine" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#5bc0eb" stopOpacity="0" />
@@ -108,9 +108,9 @@ export default function Hero({ onContactClick }: HeroProps) {
               </linearGradient>
             </defs>
 
-            {/* Connecting line */}
+            {/* Main rail: Input → Reason → Output, straight */}
             <path
-              d="M 40 60 Q 180 20, 260 60 T 460 60 T 660 60 T 760 60"
+              d="M 120 85 L 680 85"
               stroke="url(#flowLine)"
               strokeWidth="1.5"
               fill="none"
@@ -118,33 +118,70 @@ export default function Hero({ onContactClick }: HeroProps) {
               className="hero-flow-path"
             />
 
-            {/* Hypothesis branches from AI node — 2 rejected arcs fade mid-flight */}
+            {/* Dead-end arcs radiating from Reason to labeled terminus dots */}
             <g aria-hidden="true">
+              {/* Upper dead-end: cache miss */}
               <path
-                d="M 460 60 Q 540 30, 620 40"
+                d="M 400 85 Q 470 40, 540 32"
                 stroke="#5bc0eb"
                 strokeWidth="1"
                 fill="none"
                 strokeLinecap="round"
-                className="hero-ghost-reject hero-ghost-reject-1"
+                className="hero-ghost-arc hero-ghost-arc-1"
               />
+              <circle
+                cx="540"
+                cy="32"
+                r="2.5"
+                fill="#5bc0eb"
+                className="hero-ghost-dot hero-ghost-dot-1"
+              />
+              <text
+                x="550"
+                y="35"
+                className="hero-ghost-label hero-ghost-label-1"
+                fill="#6a93b8"
+                fontSize="9"
+                fontWeight="500"
+                letterSpacing="0.12em"
+              >
+                CACHE MISS
+              </text>
+
+              {/* Lower dead-end: low confidence */}
               <path
-                d="M 460 60 Q 535 90, 605 80"
+                d="M 400 85 Q 470 130, 540 138"
                 stroke="#5bc0eb"
                 strokeWidth="1"
                 fill="none"
                 strokeLinecap="round"
-                className="hero-ghost-reject hero-ghost-reject-2"
+                className="hero-ghost-arc hero-ghost-arc-2"
               />
+              <circle
+                cx="540"
+                cy="138"
+                r="2.5"
+                fill="#5bc0eb"
+                className="hero-ghost-dot hero-ghost-dot-2"
+              />
+              <text
+                x="550"
+                y="141"
+                className="hero-ghost-label hero-ghost-label-2"
+                fill="#6a93b8"
+                fontSize="9"
+                fontWeight="500"
+                letterSpacing="0.12em"
+              >
+                LOW CONFIDENCE
+              </text>
             </g>
 
-            {/* Workflow nodes */}
+            {/* Three nodes: Input · Reason · Output */}
             {[
-              { cx: 40, cy: 60, color: "#5bc0eb", delay: "1.2s", r: 6 },
-              { cx: 260, cy: 60, color: "#7db8e0", delay: "1.5s", r: 8 },
-              { cx: 460, cy: 60, color: "#93c5e8", delay: "1.8s", r: 10 },
-              { cx: 660, cy: 60, color: "#7db8e0", delay: "2.1s", r: 8 },
-              { cx: 760, cy: 60, color: "#5bc0eb", delay: "2.4s", r: 6 },
+              { cx: 120, cy: 85, color: "#5bc0eb", delay: "1.0s", r: 6 },
+              { cx: 400, cy: 85, color: "#93c5e8", delay: "1.3s", r: 10 },
+              { cx: 680, cy: 85, color: "#5bc0eb", delay: "1.6s", r: 6 },
             ].map((node, i) => (
               <g key={i} className="hero-node" style={{ animationDelay: node.delay, transformOrigin: `${node.cx}px ${node.cy}px` }}>
                 <circle cx={node.cx} cy={node.cy} r={node.r + 6} fill={node.color} fillOpacity="0.15" />
@@ -153,11 +190,11 @@ export default function Hero({ onContactClick }: HeroProps) {
               </g>
             ))}
 
-            {/* Converge ring bloom at Output node — the "resolved answer" pulse */}
+            {/* Bloom ring AT Reason node — "decision resolved" */}
             <circle
-              cx="760"
-              cy="60"
-              r="6"
+              cx="400"
+              cy="85"
+              r="10"
               stroke="#5bc0eb"
               strokeWidth="1"
               fill="none"
@@ -166,11 +203,9 @@ export default function Hero({ onContactClick }: HeroProps) {
             />
           </svg>
 
-          <div className="flex justify-between px-10 mt-2 text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: "#5bc0eb" }}>
+          <div className="flex justify-between px-[108px] mt-1 text-[11px] uppercase tracking-[0.22em] font-semibold" style={{ color: "#5bc0eb" }}>
             <span>Input</span>
-            <span>Transform</span>
-            <span>AI</span>
-            <span>Route</span>
+            <span>Reason</span>
             <span>Output</span>
           </div>
         </div>

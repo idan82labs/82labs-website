@@ -39,15 +39,13 @@
     font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* Premium headline font (English) — Fraunces serif with optical sizing for display weights */
+  /* Display headline font (English) — Plus Jakarta Sans at heavy weights */
   .font-display {
-    font-family: 'Fraunces', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 50, "WONK" 0;
-    letter-spacing: -0.01em;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.02em;
   }
 
-  /* Keep sans-serif display font for utility text and nav (more utilitarian contexts) */
+  /* Alias kept for legacy class usages */
   .font-display-sans {
     font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
@@ -277,11 +275,11 @@
 }
 
 .hero-flow-path {
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
   animation:
-    heroFlowDraw 2.5s ease-in-out 0.8s forwards,
-    heroFlowPulse 1.6s linear 3.3s infinite;
+    heroFlowDraw 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards,
+    heroFlowPulse 1.6s linear 2.2s infinite;
 }
 @keyframes heroFlowDraw {
   to { stroke-dashoffset: 0; }
@@ -294,46 +292,79 @@
 .hero-node {
   opacity: 0;
   transform: scale(0);
-  animation: heroNodePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: heroNodePop 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 @keyframes heroNodePop {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Hypothesis branches: short radiating arcs from AI node that fade mid-flight.
-   Signals "agent considered alternatives." Cycles every 3.6s after initial draw. */
-.hero-ghost-reject {
-  stroke-dasharray: 90;
-  stroke-dashoffset: 90;
+/* Agent-decision choreography (4.8s cycle, ~40% action + ~60% silence).
+   Arc draws to labeled dead-end → arc fades → Reason node blooms → silence → loop.
+   Metaphor becomes legible in one cycle (~2s). */
+.hero-ghost-arc {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
   opacity: 0;
-  animation: heroGhostReject 3.6s ease-out 3.8s infinite;
+  animation: heroGhostArc 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
 }
-.hero-ghost-reject-2 {
-  animation-delay: 4.05s;
+.hero-ghost-arc-2 {
+  animation-delay: 2.4s;
 }
-@keyframes heroGhostReject {
-  0%   { stroke-dashoffset: 90; opacity: 0; }
-  10%  { opacity: 0.55; }
-  45%  { stroke-dashoffset: 38; opacity: 0.55; }
-  70%  { stroke-dashoffset: 20; opacity: 0; }
-  100% { stroke-dashoffset: 20; opacity: 0; }
+@keyframes heroGhostArc {
+  0%   { stroke-dashoffset: 100; opacity: 0; }
+  4%   { opacity: 0.6; }
+  12%  { stroke-dashoffset: 0; opacity: 0.6; }
+  25%  { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
 }
 
-/* Converge ring bloom at Output node: fires once the "successful path" resolves. */
+.hero-ghost-dot {
+  opacity: 0;
+  animation: heroGhostDot 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
+}
+.hero-ghost-dot-2 {
+  animation-delay: 2.4s;
+}
+@keyframes heroGhostDot {
+  0%, 10%   { opacity: 0; transform: scale(0.4); }
+  14%       { opacity: 0.9; transform: scale(1); }
+  22%       { opacity: 0.9; transform: scale(1); }
+  28%       { opacity: 0; transform: scale(0.4); }
+  100%      { opacity: 0; transform: scale(0.4); }
+}
+
+.hero-ghost-label {
+  opacity: 0;
+  animation: heroGhostLabel 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
+}
+.hero-ghost-label-2 {
+  animation-delay: 2.4s;
+}
+@keyframes heroGhostLabel {
+  0%, 12%   { opacity: 0; }
+  18%       { opacity: 0.7; }
+  24%       { opacity: 0.7; }
+  30%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
+
+/* Bloom ring at Reason node — fires after both arcs fade, signals "resolved". */
 .hero-bloom-ring {
   opacity: 0;
-  transform-origin: 760px 60px;
-  animation: heroBloomRing 3.6s ease-out 4.5s infinite;
+  transform-origin: 400px 85px;
+  animation: heroBloomRing 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.2s infinite;
 }
 @keyframes heroBloomRing {
-  0%   { opacity: 0; transform: scale(0.6); }
-  18%  { opacity: 0.9; transform: scale(0.7); }
-  65%  { opacity: 0; transform: scale(2.8); }
-  100% { opacity: 0; transform: scale(2.8); }
+  0%, 28%   { opacity: 0; transform: scale(0.5); }
+  32%       { opacity: 0.9; transform: scale(0.6); }
+  40%       { opacity: 0; transform: scale(2.2); }
+  100%      { opacity: 0; transform: scale(2.2); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-ghost-reject,
+  .hero-ghost-arc,
+  .hero-ghost-dot,
+  .hero-ghost-label,
   .hero-bloom-ring {
     animation: none;
     opacity: 0;
@@ -412,6 +443,13 @@
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-track,
+  .trusted-track {
+    animation: none;
+  }
 }
 
 /* Mobile menu */

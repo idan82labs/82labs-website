@@ -22,7 +22,6 @@ const techStack: Tech[] = [
   { name: "Vercel", slug: "vercel" },
   { name: "Tailwind", slug: "tailwindcss" },
   { name: "Vite", slug: "vite" },
-  { name: "n8n", slug: "n8n" },
 ];
 
 export default function TechSlider() {

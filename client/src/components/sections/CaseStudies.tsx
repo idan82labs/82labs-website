@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { EASE_SMOOTH } from "@/constants/motion";
 
 interface CaseStudy {
   client: string;
@@ -29,7 +30,7 @@ export default function CaseStudies() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.7, ease: EASE_SMOOTH }}
           className="mb-24 md:mb-32 max-w-3xl"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-400 mb-5">
@@ -55,7 +56,7 @@ export default function CaseStudies() {
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{
                   duration: 0.8,
-                  ease: [0.25, 0.46, 0.45, 0.94],
+                  ease: EASE_SMOOTH,
                 }}
                 className="group relative"
               >
@@ -103,7 +104,7 @@ export default function CaseStudies() {
                     style={{ background: ACCENT }}
                     aria-hidden="true"
                   />
-                  <p className="font-display font-medium italic text-gray-900 leading-[1.2] text-[clamp(1.5rem,3.4vw,2.5rem)]">
+                  <p className="font-display font-bold text-gray-900 leading-[1.15] tracking-tight text-[clamp(1.5rem,3.4vw,2.5rem)]">
                     {study.tagline}
                   </p>
                 </div>

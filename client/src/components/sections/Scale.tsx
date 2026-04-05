@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import CountUpNumber from "@/components/shared/CountUpNumber";
-
-const metricKeys = ["projects", "industries", "satisfaction", "uptime"] as const;
+import { EASE_SMOOTH, COUNT_UP_MS } from "@/constants/motion";
 
 export default function Scale() {
   const { t } = useTranslation();
@@ -23,7 +22,7 @@ export default function Scale() {
         style={{ background: "rgba(30, 100, 180, 0.08)" }}
       />
 
-      {/* Oversized Fraunces "8" watermark bleeding off left edge */}
+      {/* Oversized "8" watermark bleeding off left edge */}
       <div
         aria-hidden="true"
         className="absolute -start-[15%] md:-start-[8%] top-[8%] pointer-events-none font-display font-black leading-none select-none"
@@ -43,7 +42,7 @@ export default function Scale() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: EASE_SMOOTH }}
           className="text-center text-xs font-semibold uppercase tracking-[0.3em] mb-6"
           style={{ color: "#1e5a8a" }}
         >
@@ -55,7 +54,7 @@ export default function Scale() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.7, delay: 0.05, ease: EASE_SMOOTH }}
           className="text-center text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 font-display tracking-tight mb-12 md:mb-16"
         >
           {t("scale.title")}
@@ -66,7 +65,7 @@ export default function Scale() {
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE_SMOOTH }}
           className="text-center mb-6"
         >
           <div
@@ -78,7 +77,7 @@ export default function Scale() {
               backgroundClip: "text",
             }}
           >
-            <CountUpNumber target={t("scale.metric")} duration={1800} />
+            <CountUpNumber target={t("scale.metric")} duration={COUNT_UP_MS} />
           </div>
         </motion.div>
 
@@ -87,7 +86,7 @@ export default function Scale() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: EASE_SMOOTH }}
           className="text-center text-base md:text-lg font-medium text-gray-600 max-w-xl mx-auto mb-12 md:mb-16"
         >
           {t("scale.metricLabel")}
@@ -98,42 +97,11 @@ export default function Scale() {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto mb-28 md:mb-40"
+          transition={{ duration: 0.7, delay: 0.25, ease: EASE_SMOOTH }}
+          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto"
         >
           {t("scale.body")}
         </motion.p>
-
-        {/* Metric strip — hairline dividers, no cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px"
-          style={{ background: "rgba(15, 40, 68, 0.1)" }}
-        >
-          {metricKeys.map((key, i) => (
-            <motion.div
-              key={key}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
-              className="bg-white/40 backdrop-blur-sm px-6 py-7 md:py-8 text-center"
-            >
-              <div
-                className="font-display font-bold text-2xl md:text-3xl tracking-tight mb-2"
-                style={{ color: "#0f2844" }}
-              >
-                <CountUpNumber target={t(`whyUs.metrics.${key}.number`)} duration={1400} />
-              </div>
-              <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-gray-400">
-                {t(`whyUs.metrics.${key}.label`)}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { EASE_SMOOTH } from "@/constants/motion";
 
 const steps = [
   { key: "discover" },
@@ -29,7 +30,7 @@ export default function Process() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.7, ease: EASE_SMOOTH }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-5 font-display tracking-tight">
@@ -58,7 +59,7 @@ export default function Process() {
                 transition={{
                   duration: 0.7,
                   delay: index * 0.18,
-                  ease: [0.25, 0.46, 0.45, 0.94]
+                  ease: EASE_SMOOTH
                 }}
                 className="relative group text-center"
               >
