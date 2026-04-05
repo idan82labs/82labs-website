@@ -23,6 +23,20 @@ export default function Scale() {
         style={{ background: "rgba(30, 100, 180, 0.08)" }}
       />
 
+      {/* Oversized Fraunces "8" watermark bleeding off left edge */}
+      <div
+        aria-hidden="true"
+        className="absolute -start-[15%] md:-start-[8%] top-[8%] pointer-events-none font-display font-black leading-none select-none"
+        style={{
+          fontSize: "clamp(30rem, 55vw, 50rem)",
+          color: "#0f2844",
+          opacity: 0.03,
+          letterSpacing: "-0.05em",
+        }}
+      >
+        8
+      </div>
+
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         {/* Eyebrow */}
         <motion.p
@@ -85,7 +99,7 @@ export default function Scale() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.25 }}
-          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto mb-16 md:mb-24"
+          className="text-center text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto mb-28 md:mb-40"
         >
           {t("scale.body")}
         </motion.p>
@@ -106,15 +120,15 @@ export default function Scale() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
-              className="bg-white/40 backdrop-blur-sm px-6 py-8 md:py-10 text-center"
+              className="bg-white/40 backdrop-blur-sm px-6 py-7 md:py-8 text-center"
             >
               <div
-                className="font-display font-black text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2"
+                className="font-display font-bold text-2xl md:text-3xl tracking-tight mb-2"
                 style={{ color: "#0f2844" }}
               >
                 <CountUpNumber target={t(`whyUs.metrics.${key}.number`)} duration={1400} />
               </div>
-              <div className="text-[11px] md:text-xs font-medium uppercase tracking-[0.15em] text-gray-500">
+              <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-gray-400">
                 {t(`whyUs.metrics.${key}.label`)}
               </div>
             </motion.div>

@@ -10,7 +10,7 @@
     "badge": "Official n8n Partners",
     "title1": "We automate",
     "title2": "the messy parts.",
-    "subtitle": "n8n experts and fullstack engineers who turn complex business workflows into systems that run themselves.",
+    "subtitle": "n8n experts. Fullstack engineers. We build systems that run themselves.",
     "cta": "Book a Consultation",
     "ctaSecondary": "See Our Work"
   },
@@ -31,7 +31,8 @@
         "industry": "Manufacturing · Multi-tenant SaaS",
         "tagline": "One platform running ten aluminum factories that used to run on spreadsheets.",
         "description": "Kostika needed to stop managing each factory as a separate island. We built them one MES — order tracking, production planning, measurement workflows, Priority ERP integration — and rolled it across ten factories. They stopped reconciling spreadsheets.",
-        "outcome": "10+ factories live",
+        "metric": "10+",
+        "metricLabel": "factories in production",
         "stack": ["React", "Supabase", "Priority ERP", "Multi-tenant"],
         "accent": "sky"
       },
@@ -40,7 +41,8 @@
         "industry": "E-commerce · Enterprise",
         "tagline": "Automation that has to hold under Black Friday load.",
         "description": "TerminalX's ops team was drowning in order, inventory, and customer comms workflows that didn't quite talk to each other. We slotted automation directly into their production infra — the kind that can't wobble when traffic spikes.",
-        "outcome": "Enterprise-scale reliability",
+        "metric": "Live",
+        "metricLabel": "in TerminalX's enterprise infra",
         "stack": ["n8n", "Node.js", "PostgreSQL", "Enterprise infra"],
         "accent": "violet"
       },
@@ -49,7 +51,8 @@
         "industry": "Sheet Metal Manufacturing",
         "tagline": "QC for precision sheet metal at a scale human inspection can't cover.",
         "description": "Sherman needed quality control that scaled past what human eyes could catch. We built the whole platform — CAD-vs-scan analysis, 3D bend inspection, live scanning sessions, automated reporting — with multi-LLM architecture (Claude / Gemini / GPT) so no single model outage stops the line.",
-        "outcome": "Full QC platform shipped",
+        "metric": "3×LLM",
+        "metricLabel": "provider fallback",
         "stack": ["Python", "FastAPI", "React", "Open3D", "Claude API"],
         "accent": "emerald"
       }
