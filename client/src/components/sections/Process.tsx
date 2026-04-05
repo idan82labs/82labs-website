@@ -17,6 +17,9 @@ export default function Process() {
   const dotTrackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [dotActive, setDotActive] = useState(false);
+  // Pulse counter — increments each time a stage (01/02/03) enters view.
+  // Keyed on a motion div so each increment re-fires the animation.
+  const [pulseKey, setPulseKey] = useState(0);
 
   // Pause the traveling dot when the section scrolls off-screen.
   useEffect(() => {
@@ -81,6 +84,22 @@ export default function Process() {
         aria-hidden="true"
       />
 
+      {/* Stage-reveal pulse — bright cyan grid flash when each 01/02/03 enters view */}
+      <motion.div
+        key={pulseKey}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(#5bc0eb 1px, transparent 1px), linear-gradient(90deg, #5bc0eb 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          backgroundPositionY: gridShiftY,
+        }}
+        initial={{ opacity: 0 }}
+        animate={pulseKey > 0 ? { opacity: [0, 0.14, 0] } : { opacity: 0 }}
+        transition={{ duration: 1.4, ease: EASE_SMOOTH, times: [0, 0.25, 1] }}
+        aria-hidden="true"
+      />
+
       {/* Bottom cyan hairline — clean transition to CaseStudies */}
       <div
         className="absolute bottom-0 inset-x-0 h-px pointer-events-none"
@@ -125,7 +144,8 @@ export default function Process() {
                 key={step.key}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
+                onViewportEnter={() => setPulseKey((k) => k + 1)}
+                viewport={{ once: true, amount: 0.4 }}
                 transition={{
                   duration: 0.7,
                   delay: index * 0.08,

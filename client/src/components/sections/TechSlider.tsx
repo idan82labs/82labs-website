@@ -47,7 +47,7 @@ export default function TechSlider() {
                     decoding="async"
                     className="w-[15px] h-[15px] flex-shrink-0"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display = "none";
+                      (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
                     }}
                   />
                   <span>{tech.name}</span>
