@@ -74,6 +74,19 @@
     </script>
   </head>
   <body>
+    <!-- Preloader: covers the gap between CSS-load and React-first-paint -->
+    <div id="preloader" aria-hidden="true" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0a1628 0%,#0f2844 100%);transition:opacity 0.35s ease-out">
+      <div style="animation:pl-pulse 1.6s ease-in-out infinite">
+        <svg viewBox="0 0 780 780" width="52" height="52" role="img" aria-label="82 Labs">
+          <defs><mask id="pl-m"><rect x="27" y="27" width="725" height="725" rx="150" fill="white"/><g transform="translate(0,780) scale(0.1,-0.1)" fill="black"><path d="M2695 5299 c-337 -28 -624 -192 -739 -422 -51 -102 -70 -184 -70 -302 1 -184 53 -314 174 -435 43 -43 100 -88 132 -105 32 -17 58 -32 58 -35 0 -4 -16 -12 -35 -19 -62 -22 -182 -109 -243 -176 -72 -79 -135 -199 -163 -315 -31 -121 -24 -310 15 -425 125 -366 478 -567 996 -567 354 0 633 96 820 282 141 142 200 281 208 492 6 159 -12 246 -75 378 -38 79 -59 107 -132 180 -69 69 -103 94 -173 129 l-87 43 61 31 c34 18 94 63 135 100 57 54 82 86 113 150 115 232 78 528 -91 726 -180 211 -526 322 -904 290z m318 -414 c131 -34 233 -108 278 -202 30 -62 37 -180 15 -254 -33 -113 -143 -208 -283 -244 -37 -9 -113 -19 -168 -22 -238 -13 -437 74 -513 222 -34 68 -42 180 -17 260 33 104 145 200 275 235 119 33 301 35 413 5z m16 -1135 c157 -38 276 -123 329 -238 24 -51 27 -68 27 -172 0 -107 -2 -119 -29 -175 -81 -165 -271 -255 -536 -255 -256 0 -447 86 -528 237 -99 187 -41 418 133 528 109 69 209 93 390 94 98 1 151 -4 214 -19z M4945 5300 c-372 -38 -650 -239 -775 -563 -37 -93 -70 -256 -70 -341 l0 -66 230 0 230 0 0 34 c0 67 30 192 64 262 55 117 138 194 254 236 86 32 273 31 357 -2 145 -56 223 -148 260 -302 19 -83 19 -238 0 -313 -59 -227 -179 -355 -887 -950 l-477 -400 0 -177 -1 -178 940 0 940 0 0 220 0 220 -567 2 -567 3 310 266 c412 355 541 486 658 672 110 177 152 337 143 552 -7 158 -30 256 -91 380 -97 196 -256 327 -481 398 -134 42 -326 61 -470 47z"/></g></mask></defs>
+          <rect x="27" y="27" width="725" height="725" rx="150" fill="#ffffff" mask="url(#pl-m)"/>
+        </svg>
+      </div>
+      <style>
+        @keyframes pl-pulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+        @media(prefers-reduced-motion:reduce){#preloader div{animation:none!important}}
+      </style>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -30,7 +30,7 @@ export default function TechSlider() {
   return (
     <section style={{ background: "linear-gradient(180deg, #0c1e36 0%, #ffffff 100%)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <p className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-10 text-slate-500">
+        <p className="text-center text-xs font-medium uppercase tracking-[0.25em] mb-10" style={{ color: "#7c99b8" }}>
           {t("techSlider.label", "Our stack")}
         </p>
         <div className="overflow-hidden tech-carousel-mask">

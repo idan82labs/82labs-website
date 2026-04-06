@@ -33,7 +33,7 @@ export default function ClosingCTA({ onContactClick }: ClosingCTAProps) {
         </p>
         <Button
           onClick={onContactClick}
-          className="text-base px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
+          className="glow-cta text-base px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:-translate-y-0.5"
         >
           {t("closingCta.cta")}
         </Button>

@@ -40,7 +40,7 @@ export default function Testimonial() {
                 delay: index * 0.08,
                 ease: EASE_SMOOTH
               }}
-              className="relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/[0.15]"
+              className="testimonial-glow relative flex flex-col h-full p-8 rounded-2xl border border-white/[0.08] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/[0.15]"
               style={{ background: "rgba(255,255,255,0.02)" }}
             >
               {/* Quote mark decoration */}

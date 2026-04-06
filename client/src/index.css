@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Houdini custom properties for smooth glow interpolation
+   (Chrome 85+, Safari 15.4+, Firefox 128+) */
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --glow-opacity {
+  syntax: "<number>";
+  initial-value: 0.6;
+  inherits: false;
+}
+
 :root {
   --background: hsl(30, 20%, 99%);
   --foreground: hsl(240, 20%, 16%);
@@ -29,8 +42,11 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* bg-background intentionally omitted — critical inline CSS sets the dark
+       hero-matching background (#0a1628) to prevent a white flash before React
+       renders. Individual sections / PageLayout handle their own bg. */
   }
 
   /* Hebrew font — applies to both body and headlines */
@@ -159,7 +175,8 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 14px;
+  /* Extra right padding compensates for icon (15px) + gap (7px) so text centers */
+  padding: 7px 36px 7px 14px;
   margin-inline-end: 24px;
   border-radius: 9999px;
   font-size: 12.5px;
@@ -298,6 +315,19 @@
   100% { stroke-dasharray: 8 5; stroke-dashoffset: -13; }
 }
 
+/* Traveling light beam along the main rail */
+.hero-beam {
+  opacity: 0;
+  animation: heroBeamReveal 0.5s ease 1.0s forwards, heroBeamTravel 2.8s linear 1.5s infinite;
+}
+@keyframes heroBeamReveal {
+  to { opacity: 1; }
+}
+@keyframes heroBeamTravel {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -560; }
+}
+
 .hero-node {
   opacity: 0;
   transform: scale(0);
@@ -306,6 +336,7 @@
 @keyframes heroNodePop {
   to { opacity: 1; transform: scale(1); }
 }
+
 
 /* Agent-decision choreography (2.6s cycle, causal sequence).
    arc-1 draw+dot+label → fade → arc-2 draw+dot+label → fade → Reason blooms → 0.5s rest → loop.
@@ -392,6 +423,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-beam {
+    animation: none;
+    opacity: 0;
+  }
   .hero-ghost-arc,
   .hero-ghost-dot,
   .hero-ghost-label,
@@ -404,6 +439,7 @@
 /* Pause the infinite decision-loop when the hero viz scrolls off-screen.
    Kills CPU + distraction when users are reading below-the-fold content. */
 .hero-viz-paused .hero-flow-path,
+.hero-viz-paused .hero-beam,
 .hero-viz-paused .hero-ghost-arc,
 .hero-viz-paused .hero-ghost-dot,
 .hero-viz-paused .hero-ghost-label,
@@ -548,6 +584,265 @@
   }
   .process-section .process-wash {
     opacity: 0 !important;
+  }
+}
+
+/* Orbit beam ring — thin rotating light, same technique as .glow-pill.
+   Mask cuts a hairline ring; conic-gradient beam sweeps around it. */
+.orbit-beam-ring {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  /* Thin ring mask — 2px visible band at the outer edge */
+  -webkit-mask: radial-gradient(circle, transparent calc(50% - 2.5px), black calc(50% - 1.5px), black calc(50% - 0.5px), transparent 50%);
+  mask: radial-gradient(circle, transparent calc(50% - 2.5px), black calc(50% - 1.5px), black calc(50% - 0.5px), transparent 50%);
+}
+.orbit-beam-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 300%; height: 300%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%, transparent 72%,
+    rgba(91, 192, 235, 0.12) 78%,
+    rgba(91, 192, 235, 0.4) 82%,
+    #93c5e8 85%,
+    rgba(91, 192, 235, 0.4) 88%,
+    rgba(91, 192, 235, 0.12) 92%,
+    transparent 100%
+  );
+  animation: glow-spin var(--ring-speed, 3s) linear infinite;
+}
+/* Second beam offset ~200deg — dimmer */
+.orbit-beam-ring::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 300%; height: 300%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 200deg,
+    transparent 0%, transparent 80%,
+    rgba(91, 192, 235, 0.08) 84%,
+    rgba(147, 197, 232, 0.25) 87%,
+    rgba(91, 192, 235, 0.08) 90%,
+    transparent 100%
+  );
+  animation: glow-spin var(--ring-speed, 3s) linear infinite;
+}
+/* Reverse direction via class instead of CSS var (more reliable) */
+.orbit-beam-ring-reverse::before,
+.orbit-beam-ring-reverse::after {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-beam-ring::before,
+  .orbit-beam-ring::after,
+  .orbit-beam-ring-reverse::before,
+  .orbit-beam-ring-reverse::after { animation: none; }
+}
+
+/* ============================================
+   ANIMATED GLOW SYSTEM
+   Progressive enhancement: hardcoded visible fallbacks
+   first, then @property-animated effects on top.
+   ============================================ */
+
+/* --- Rotating border pill (hero badge) ---
+   Base: static glowing border (always visible)
+   Enhanced: animated rotating conic-gradient border */
+.glow-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  color: #7db8e0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  /* Base tier: static glow — always works */
+  border: 1.5px solid rgba(91, 192, 235, 0.5);
+  background: rgba(10, 22, 40, 0.85);
+  box-shadow: 0 0 8px rgba(91, 192, 235, 0.4), 0 0 20px rgba(91, 163, 217, 0.15);
+}
+
+/* Enhanced tier: rotating light line around the pill border.
+   Uses transform:rotate() on an oversized ::before — works everywhere. */
+.glow-pill {
+  isolation: isolate;
+  border: none;
+  padding: 8px 18px;
+  background: transparent;
+  box-shadow: 0 0 10px rgba(91, 192, 235, 0.3), 0 0 24px rgba(91, 163, 217, 0.1);
+  animation: glow-pill-shadow 3s ease-in-out infinite;
+  overflow: hidden;
+}
+/* Oversized rotating disc — clipped to pill shape by overflow:hidden.
+   Only the 1.5px ring between pill edge and ::after is visible. */
+.glow-pill::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 300%; height: 300%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  border-radius: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 60%,
+    rgba(91, 192, 235, 0.15) 68%,
+    rgba(91, 192, 235, 0.5) 74%,
+    #5bc0eb 79%,
+    #93c5e8 83%,
+    #5bc0eb 87%,
+    rgba(91, 192, 235, 0.5) 92%,
+    rgba(91, 192, 235, 0.15) 97%,
+    transparent 100%
+  );
+  animation: glow-spin 3s linear infinite;
+  z-index: -2;
+}
+.glow-pill::after {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: inherit;
+  background: rgba(10, 22, 40, 0.92);
+  z-index: -1;
+}
+
+@keyframes glow-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/* Brain node breathing glow */
+@keyframes brain-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+@keyframes glow-pill-shadow {
+  0%, 100% { box-shadow: 0 0 8px rgba(91, 192, 235, 0.25), 0 0 20px rgba(91, 163, 217, 0.1); }
+  50%      { box-shadow: 0 0 14px rgba(91, 192, 235, 0.5), 0 0 28px rgba(91, 163, 217, 0.2); }
+}
+
+/* --- CTA button pulsing glow ---
+   Animates box-shadow DIRECTLY (no var() fragility) */
+.glow-cta {
+  box-shadow:
+    0 0 16px 4px rgba(91, 192, 235, 0.55),
+    0 0 40px 8px rgba(91, 163, 217, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: glow-cta-pulse 3.5s ease-in-out infinite;
+}
+.glow-cta:hover {
+  box-shadow:
+    0 0 20px 4px rgba(91, 192, 235, 0.7),
+    0 0 50px 8px rgba(91, 163, 217, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+@keyframes glow-cta-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 16px 4px rgba(91, 192, 235, 0.4),
+      0 0 40px 8px rgba(91, 163, 217, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 22px 6px rgba(91, 192, 235, 0.65),
+      0 0 48px 12px rgba(91, 163, 217, 0.25),
+      0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* --- Horizontal shimmer sweep (TrustedBy logos) --- */
+.trusted-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.trusted-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(91, 192, 235, 0.06) 40%,
+    rgba(147, 197, 232, 0.12) 50%,
+    rgba(91, 192, 235, 0.06) 60%,
+    transparent 100%
+  );
+  background-size: 250% 100%;
+  animation: shimmer-sweep 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmer-sweep {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* --- Testimonial card breathing glow --- */
+.testimonial-glow {
+  position: relative;
+}
+.testimonial-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  height: 85%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(91, 192, 235, 0.14) 0%,
+    rgba(91, 163, 217, 0.07) 40%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  animation: testimonial-breathe 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Stagger cards so they breathe at different rates (organic, not mechanical) */
+.testimonial-glow:nth-child(2)::before { animation-delay: 2s; }
+.testimonial-glow:nth-child(3)::before { animation-delay: 4s; }
+
+@keyframes testimonial-breathe {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* --- Reduced motion: static but still visible (all hardcoded, no var()) --- */
+@media (prefers-reduced-motion: reduce) {
+  .glow-pill {
+    animation: none;
+    border: 1.5px solid rgba(91, 192, 235, 0.5);
+    box-shadow: 0 0 8px rgba(91, 192, 235, 0.4), 0 0 20px rgba(91, 163, 217, 0.15);
+  }
+  .glow-pill::before {
+    animation: none;
+  }
+  .glow-cta {
+    animation: none;
+    box-shadow:
+      0 0 15px 2px rgba(91, 192, 235, 0.4),
+      0 0 40px 5px rgba(91, 163, 217, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .trusted-shimmer::after {
+    animation: none;
+    opacity: 0;
+  }
+  .testimonial-glow::before {
+    animation: none;
+    opacity: 0.8;
   }
 }
 
