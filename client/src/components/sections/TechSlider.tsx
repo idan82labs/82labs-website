@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 
 type Tech = { name: string; slug: string };
 
+// Slugs verified against cdn.simpleicons.org — OpenAI, AWS, and Pinecone
+// were removed for trademark reasons, so those pills render text-only.
 const techStack: Tech[] = [
   { name: "Claude", slug: "anthropic" },
-  { name: "OpenAI", slug: "openai" },
+  { name: "OpenAI", slug: "" },
   { name: "LangChain", slug: "langchain" },
   { name: "LangGraph", slug: "langchain" },
   { name: "Python", slug: "python" },
@@ -15,10 +17,10 @@ const techStack: Tech[] = [
   { name: "Next.js", slug: "nextdotjs" },
   { name: "PostgreSQL", slug: "postgresql" },
   { name: "Redis", slug: "redis" },
-  { name: "Pinecone", slug: "pinecone" },
+  { name: "Pinecone", slug: "" },
   { name: "Qdrant", slug: "qdrant" },
   { name: "Docker", slug: "docker" },
-  { name: "AWS", slug: "amazonwebservices" },
+  { name: "AWS", slug: "" },
   { name: "Vercel", slug: "vercel" },
   { name: "Tailwind", slug: "tailwindcss" },
   { name: "Vite", slug: "vite" },
@@ -38,18 +40,20 @@ export default function TechSlider() {
             {[...Array(2)].map((_, repeatIndex) =>
               techStack.map((tech, index) => (
                 <div key={`${repeatIndex}-${index}`} className="tech-pill">
-                  <img
-                    src={`https://cdn.simpleicons.org/${tech.slug}/0f2844`}
-                    alt=""
-                    width={15}
-                    height={15}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-[15px] h-[15px] flex-shrink-0"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
-                    }}
-                  />
+                  {tech.slug && (
+                    <img
+                      src={`https://cdn.simpleicons.org/${tech.slug}/0f2844`}
+                      alt=""
+                      width={15}
+                      height={15}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-[15px] h-[15px] flex-shrink-0"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
+                      }}
+                    />
+                  )}
                   <span>{tech.name}</span>
                 </div>
               ))

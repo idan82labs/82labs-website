@@ -55,6 +55,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
   ];
 
   return (
+    <>
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b ${
         hasScrolled
@@ -131,8 +132,9 @@ export default function Navbar({ onContactClick }: NavbarProps) {
           </div>
         </div>
       </nav>
+    </header>
 
-      {/* Mobile drawer — full viewport height below navbar */}
+      {/* Mobile drawer — sibling of header so backdrop-filter doesn't trap it */}
       <div
         id="mobile-menu"
         aria-hidden={!isMobileMenuOpen}
@@ -143,9 +145,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
         }`}
         style={{
           background:
-            "radial-gradient(ellipse at top, rgba(15, 40, 68, 0.98) 0%, rgba(10, 22, 40, 0.99) 100%)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
+            "radial-gradient(ellipse at top, #0f2844 0%, #0a1628 100%)",
         }}
       >
         <div className="flex flex-col h-full px-6 pt-8 pb-8 overflow-y-auto mobile-menu">
@@ -237,7 +237,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }
 

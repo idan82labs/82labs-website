@@ -1,0 +1,24 @@
+{
+  "name": "82labs-brand-assets",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "tsx generate.ts",
+    "generate:linkedin": "tsx generate.ts --platform linkedin",
+    "generate:instagram": "tsx generate.ts --platform instagram",
+    "generate:twitter": "tsx generate.ts --platform twitter",
+    "generate:facebook": "tsx generate.ts --platform facebook"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.0",
+    "satori": "^0.12.0",
+    "sharp": "^0.34.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0",
+    "@types/node": "^22.0.0",
+    "react": "^18.3.0",
+    "@types/react": "^18.3.0"
+  }
+}

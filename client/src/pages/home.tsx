@@ -4,8 +4,10 @@ import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
 import BelowFoldSkeleton from "@/components/shared/BelowFoldSkeleton";
 
-// All below-the-fold sections + modals lazy-loaded to keep initial chunk tiny
-const BelowFold = lazy(() => import("@/components/shared/BelowFold"));
+// Eager preload: start downloading immediately (don't wait for scroll/Suspense).
+// By the time preloader dismisses (~800ms) + user reads hero, chunk is ready.
+const belowFoldImport = import("@/components/shared/BelowFold");
+const BelowFold = lazy(() => belowFoldImport);
 const ContactModal = lazy(() => import("@/components/shared/ContactModal"));
 const ServiceDetailModal = lazy(() => import("@/components/shared/ServiceDetailModal"));
 const PrivacyModal = lazy(() => import("@/components/shared/PrivacyModal"));
