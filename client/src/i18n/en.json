@@ -1,10 +1,9 @@
 {
   "nav": {
     "services": "Services",
-    "industries": "Industries",
-    "requestDemo": "Book a Call",
     "process": "How We Work",
-    "work": "Work"
+    "work": "Work",
+    "requestDemo": "Book a Call"
   },
   "hero": {
     "badge": "Code-First Agent Studio.",

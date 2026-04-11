@@ -1,10 +1,9 @@
 {
   "nav": {
     "services": "שירותים",
-    "industries": "תעשיות",
-    "requestDemo": "בואו נדבר",
     "process": "איך עובדים",
-    "work": "פרויקטים"
+    "work": "פרויקטים",
+    "requestDemo": "בואו נדבר"
   },
   "hero": {
     "badge": "סטודיו סוכנים — קוד קודם.",

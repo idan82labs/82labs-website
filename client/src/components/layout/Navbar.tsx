@@ -47,11 +47,11 @@ export default function Navbar({ onContactClick }: NavbarProps) {
     setIsMobileMenuOpen(false);
   };
 
+  // Order matches scroll order on page: Services → Process → CaseStudies
   const navLinks = [
     { label: t("nav.services"), id: "services" },
-    { label: t("nav.work"), id: "case-studies" },
     { label: t("nav.process"), id: "process" },
-    { label: t("nav.industries"), id: "industries" },
+    { label: t("nav.work"), id: "case-studies" },
   ];
 
   return (
