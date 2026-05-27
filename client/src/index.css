@@ -249,24 +249,6 @@
   .reveal-up { transition: none; opacity: 1; transform: none; }
 }
 
-/* Staggered logo fade-in inside .reveal-up[data-visible=true] */
-.reveal-up .logo-reveal {
-  opacity: 0;
-  transform: translateY(8px) scale(0.96);
-}
-.reveal-up[data-visible="true"] .logo-reveal {
-  opacity: 0.55;
-  transform: translateY(0) scale(1);
-  animation: logo-pop 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-}
-@keyframes logo-pop {
-  from { opacity: 0; transform: translateY(8px) scale(0.96); }
-  to { opacity: 0.55; transform: translateY(0) scale(1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal-up .logo-reveal { opacity: 0.55; transform: none; animation: none; }
-}
-
 /* Hero headline gradient with fallback for forced-colors */
 .hero-gradient-text {
   background: linear-gradient(to right, #7db8e0, #5ba3d9, #93c5e8);
