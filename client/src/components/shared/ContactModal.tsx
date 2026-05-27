@@ -48,6 +48,8 @@ function ContactModalInner({ isOpen, onClose }: ContactModalProps) {
     defaultValues: { name: "", email: "", brief: "" },
   });
 
+  const briefValue = form.watch("brief") ?? "";
+
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       return apiRequest("POST", "/api/contact", data);
@@ -74,71 +76,75 @@ function ContactModalInner({ isOpen, onClose }: ContactModalProps) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-2">{t("contact.title")}</h2>
-        <p className="text-gray-600">{t("contact.subtitle")}</p>
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-lg max-h-[90vh] p-5 sm:p-6">
+      <div className="mb-4 pr-8">
+        <h2 className="text-lg font-semibold text-gray-900 leading-tight">{t("contact.title")}</h2>
+        <p className="text-sm text-gray-500 mt-0.5">{t("contact.subtitle")}</p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-gray-900">{t("contact.name")}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    autoComplete="name"
-                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                    placeholder={t("contact.namePlaceholder")}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="space-y-1">
+                  <FormLabel className="text-xs font-medium text-gray-700">{t("contact.name")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      autoComplete="name"
+                      className="h-9 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                      placeholder={t("contact.namePlaceholder")}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-gray-900">{t("contact.email")}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="email"
-                    autoComplete="email"
-                    inputMode="email"
-                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                    placeholder={t("contact.emailPlaceholder")}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="space-y-1">
+                  <FormLabel className="text-xs font-medium text-gray-700">{t("contact.email")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      className="h-9 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                      placeholder={t("contact.emailPlaceholder")}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
             name="brief"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-gray-900">{t("contact.brief")}</FormLabel>
+              <FormItem className="space-y-1">
+                <div className="flex items-baseline justify-between">
+                  <FormLabel className="text-xs font-medium text-gray-700">{t("contact.brief")}</FormLabel>
+                  <span className="text-[10px] tabular-nums text-gray-400">{briefValue.length}/140</span>
+                </div>
                 <FormControl>
                   <Textarea
                     {...field}
                     className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 resize-none"
                     placeholder={t("contact.briefPlaceholder")}
-                    rows={4}
+                    rows={3}
                     maxLength={140}
                   />
                 </FormControl>
-                <FormMessage />
-                <p className="text-sm text-gray-500">{field.value?.length || 0}/140</p>
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
