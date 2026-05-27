@@ -5,5 +5,9 @@ server/public
 vite.config.ts.*
 *.tar.gz
 .vercel
+.env
+.env.*
+!.env.example
 brand-assets/output/
 brand-assets/node_modules/
+attached_assets/logos/_originals/

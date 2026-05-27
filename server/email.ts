@@ -1,7 +1,7 @@
-import sgMail from "@sendgrid/mail";
+import { Resend } from "resend";
 
 const CONTACT_TO = process.env.CONTACT_TO_EMAIL || "idan.t@82labs.io";
-const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "contact@82labs.com";
+const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "82Labs <contact@82labs.io>";
 
 function sanitize(s: string): string {
   return s.replace(/[<>]/g, "").trim();
@@ -12,12 +12,13 @@ export async function sendContactFormEmail(data: {
   email: string;
   brief: string;
 }): Promise<boolean> {
-  const apiKey = process.env.SENDGRID_API_KEY;
-  if (!apiKey || !apiKey.startsWith("SG.")) {
-    console.warn("[email] SENDGRID_API_KEY missing or invalid — skipping send");
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey || !apiKey.startsWith("re_")) {
+    console.warn("[email] RESEND_API_KEY missing or invalid — skipping send");
     return false;
   }
-  sgMail.setApiKey(apiKey);
+
+  const resend = new Resend(apiKey);
 
   const safeName = sanitize(data.name);
   const safeEmail = sanitize(data.email);
@@ -40,17 +41,21 @@ export async function sendContactFormEmail(data: {
   const text = `New 82Labs Inquiry\n\nName: ${safeName}\nEmail: ${safeEmail}\n\nBrief:\n${safeBrief}\n`;
 
   try {
-    await sgMail.send({
-      to: CONTACT_TO,
+    const { error } = await resend.emails.send({
       from: CONTACT_FROM,
+      to: CONTACT_TO,
       replyTo: safeEmail,
       subject: `New Project Inquiry from ${safeName}`,
       text,
       html,
     });
+    if (error) {
+      console.error("[email] Resend error:", error);
+      return false;
+    }
     return true;
   } catch (error) {
-    console.error("[email] SendGrid error:", error);
+    console.error("[email] Resend error:", error);
     return false;
   }
 }

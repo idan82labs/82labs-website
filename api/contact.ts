@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { z } from "zod";
-import sgMail from "@sendgrid/mail";
+import { Resend } from "resend";
 
 const contactSchema = z.object({
   name: z.string().min(2).max(100),
@@ -9,7 +9,7 @@ const contactSchema = z.object({
 });
 
 const CONTACT_TO = process.env.CONTACT_TO_EMAIL || "idan.t@82labs.io";
-const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "contact@82labs.com";
+const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "82Labs <contact@82labs.io>";
 
 function sanitize(s: string): string {
   return s.replace(/[<>]/g, "").trim();
@@ -21,7 +21,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ success: false, message: "Method not allowed" });
   }
 
-  // Parse + validate
   const parsed = contactSchema.safeParse(req.body);
   if (!parsed.success) {
     return res.status(400).json({
@@ -36,17 +35,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const safeEmail = sanitize(email);
   const safeBrief = sanitize(brief);
 
-  // Guard: no SendGrid key
-  const apiKey = process.env.SENDGRID_API_KEY;
-  if (!apiKey || !apiKey.startsWith("SG.")) {
-    console.error("SENDGRID_API_KEY missing or invalid");
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey || !apiKey.startsWith("re_")) {
+    console.error("RESEND_API_KEY missing or invalid");
     return res.status(500).json({
       success: false,
       message: "Email service not configured",
     });
   }
 
-  sgMail.setApiKey(apiKey);
+  const resend = new Resend(apiKey);
 
   const html = `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:600px;margin:0 auto">
@@ -65,24 +63,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const text = `New 82Labs Inquiry\n\nName: ${safeName}\nEmail: ${safeEmail}\n\nBrief:\n${safeBrief}\n`;
 
   try {
-    await sgMail.send({
-      to: CONTACT_TO,
+    const { error } = await resend.emails.send({
       from: CONTACT_FROM,
+      to: CONTACT_TO,
       replyTo: safeEmail,
       subject: `New Project Inquiry from ${safeName}`,
       text,
       html,
     });
 
-    return res.status(200).json({
-      success: true,
-      message: "Message sent successfully",
-    });
+    if (error) {
+      console.error("Resend error:", error);
+      return res.status(500).json({ success: false, message: "Failed to send message" });
+    }
+
+    return res.status(200).json({ success: true, message: "Message sent successfully" });
   } catch (error) {
-    console.error("SendGrid error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to send message",
-    });
+    console.error("Resend error:", error);
+    return res.status(500).json({ success: false, message: "Failed to send message" });
   }
 }
