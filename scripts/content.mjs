@@ -372,6 +372,98 @@ pages.push({
   ],
 });
 
+// ---- About page (bilingual) — wins branded "82Labs" queries ----------------
+pages.push({
+  lang: 'en',
+  path: '/about',
+  h1: 'About 82Labs',
+  title: 'About 82Labs — AI Agent & Automation Studio in Israel',
+  description:
+    '82Labs is an AI-agent and automation studio based in Haifa, Israel. $100M+ in operations runs on systems it has built; 1,500+ engineers trained. Clients: Kostika, TerminalX, Sherman, Rafael.',
+  hreflang: [
+    { lang: 'he', path: '/he/about' },
+    { lang: 'en', path: '/about' },
+  ],
+  lead:
+    '82Labs is an AI-agent and automation studio based in Haifa, Israel, that builds fullstack systems and intelligent automation for industry, finance, and enterprise. ' +
+    FACTS.ops +
+    ' in operations runs on systems 82Labs has built, and ' +
+    FACTS.engineers +
+    ' engineers have been trained by its team.',
+  body: `
+<h2>What 82Labs does</h2>
+<p>82Labs works in three areas: <strong>AI-agent & workflow automation</strong> (Claude and OpenAI agents, LangChain/LangGraph orchestration, production Python), <strong>fullstack development</strong> (React, Node.js, Python, modern cloud), and <strong>training & workshops</strong> on AI agents and production automation.</p>
+<h2>Who 82Labs works with</h2>
+<p>Clients include ${FACTS.clients.join(', ')} — spanning aluminum manufacturing (Kostika, an MES across 10+ factories), enterprise e-commerce (TerminalX, automation at Black Friday scale), precision sheet-metal QC (Sherman, a multi-model inspection platform), and defense (Rafael).</p>
+<h2>Facts</h2>
+<table>
+<tr><th>Field</th><th>Detail</th></tr>
+<tr><td>Type</td><td>${FACTS.tagline_en}</td></tr>
+<tr><td>Location</td><td>${FACTS.location_en}</td></tr>
+<tr><td>Track record</td><td>${FACTS.ops} in operations on systems built; ${FACTS.engineers} engineers trained</td></tr>
+<tr><td>Median time to launch</td><td>${FACTS.ttl_en}</td></tr>
+<tr><td>Engagement</td><td>${FACTS.price_en}</td></tr>
+<tr><td>Contact</td><td>${FACTS.email}</td></tr>
+</table>
+<h2>How 82Labs works</h2>
+<p>A three-step model: <strong>Discover</strong> (map workflows, find the bottleneck, scope a small first release in 2–3 weeks), <strong>Build</strong> (weekly demos, working software from day one), <strong>Launch</strong> (clean code, runbooks, and handoff so your team owns what was built).</p>
+`,
+  faq: [
+    ['What is 82Labs?', `82Labs is an AI-agent and automation studio in ${FACTS.location_en} that builds fullstack systems and intelligent automation for industry, finance, and enterprise.`],
+    ['Where is 82Labs located?', `82Labs is based in ${FACTS.location_en}, and serves clients in Israel and worldwide.`],
+    ['Who are 82Labs\' clients?', `Clients include ${FACTS.clients.join(', ')}, across manufacturing, e-commerce, and defense.`],
+  ],
+  related: [
+    { href: '/guides/how-to-apply-ai-at-work', label: 'How to apply AI at work' },
+    { href: '/work/kostika', label: 'Case study: Kostika' },
+  ],
+});
+pages.push({
+  lang: 'he',
+  path: '/he/about',
+  h1: 'אודות 82Labs',
+  title: 'אודות 82Labs — סטודיו סוכני AI ואוטומציה בישראל',
+  description:
+    '82Labs הוא סטודיו סוכני AI ואוטומציה מחיפה, ישראל. מעל $100M בתפעול רצים על מערכות שבנינו; מעל 1,500 מהנדסים הודרכו. לקוחות: Kostika, TerminalX, Sherman, רפאל.',
+  hreflang: [
+    { lang: 'he', path: '/he/about' },
+    { lang: 'en', path: '/about' },
+  ],
+  lead:
+    '82Labs הוא סטודיו סוכני AI ואוטומציה מחיפה, ישראל, שבונה מערכות פולסטאק ואוטומציה חכמה לתעשייה, פיננסים וארגונים. מעל ' +
+    FACTS.ops +
+    ' בתפעול רצים על מערכות ש-82Labs בנתה, ומעל ' +
+    FACTS.engineers +
+    ' מהנדסים הודרכו על ידי הצוות.',
+  body: `
+<h2>מה 82Labs עושה</h2>
+<p>שלושה תחומים: <strong>סוכני AI ואוטומציית תהליכים</strong> (סוכני Claude ו-OpenAI, תזמור LangChain/LangGraph, Python בפרודקשן), <strong>פיתוח פולסטאק</strong> (React, Node.js, Python וענן מודרני), ו<strong>הדרכות וסדנאות</strong> על סוכני AI ואוטומציה.</p>
+<h2>עם מי אנחנו עובדים</h2>
+<p>בין הלקוחות: ${FACTS.clients.join(', ')} — ייצור אלומיניום (Kostika, MES ל-10+ מפעלים), מסחר אלקטרוני ארגוני (TerminalX, אוטומציה בעומסי Black Friday), בקרת איכות לפח מדויק (Sherman, פלטפורמת בדיקה רב-מודל), וביטחוני (רפאל).</p>
+<h2>עובדות</h2>
+<table>
+<tr><th>שדה</th><th>פרט</th></tr>
+<tr><td>סוג</td><td>${FACTS.tagline_he}</td></tr>
+<tr><td>מיקום</td><td>${FACTS.location_he}</td></tr>
+<tr><td>ניסיון</td><td>מעל ${FACTS.ops} בתפעול על מערכות שבנינו; מעל ${FACTS.engineers} מהנדסים הודרכו</td></tr>
+<tr><td>זמן ממוצע להשקה</td><td>${FACTS.ttl_he}</td></tr>
+<tr><td>מודל התקשרות</td><td>${FACTS.price_he}</td></tr>
+<tr><td>יצירת קשר</td><td>${FACTS.email}</td></tr>
+</table>
+<h2>איך אנחנו עובדים</h2>
+<p>מודל בן שלושה שלבים: <strong>מיפוי</strong> (ממפים תהליכים, מזהים צוואר בקבוק, מגדירים רילוס ראשון קטן תוך 2–3 שבועות), <strong>בנייה</strong> (דמו שבועי, תוכנה שעובדת מהיום הראשון), <strong>השקה</strong> (קוד נקי, תיעוד וחפיפה — הצוות שלכם שולט במה שבנינו).</p>
+`,
+  faq: [
+    ['מה זה 82Labs?', `82Labs הוא סטודיו סוכני AI ואוטומציה מ${FACTS.location_he} שבונה מערכות פולסטאק ואוטומציה חכמה לתעשייה, פיננסים וארגונים.`],
+    ['איפה 82Labs ממוקמת?', `82Labs ממוקמת ב${FACTS.location_he} ומשרתת לקוחות בישראל ובעולם.`],
+    ['מי הלקוחות של 82Labs?', `בין הלקוחות: ${FACTS.clients.join(', ')} — בתעשייה, מסחר אלקטרוני וביטחון.`],
+  ],
+  related: [
+    { href: '/he/madrich-hatmaat-ai', label: 'מדריך: איך ליישם AI בעבודה' },
+    { href: '/he/work/kostika', label: 'מקרה לקוח: Kostika' },
+  ],
+});
+
 // ---- Case studies (bilingual) ----------------------------------------------
 const cases = [
   {
@@ -509,6 +601,10 @@ console.log('[content] wrote sitemap.xml');
 // ---- llms.txt (emerging convention: a plain-text map for LLMs) -------------
 const llms = `# 82Labs
 > ${FACTS.tagline_en} in ${FACTS.location_en}. We build AI agents, intelligent automation, and fullstack systems for industry, finance, and enterprise. ${FACTS.ops} in operations runs on systems we've built; ${FACTS.engineers} engineers trained. Stack: Claude, OpenAI, LangChain, Python, React. Clients: ${FACTS.clients.join(', ')}. Contact: ${FACTS.email}. ${FACTS.price_en}.
+
+## About
+- [About 82Labs](https://www.82labs.io/about)
+- [אודות 82Labs (עברית)](https://www.82labs.io/he/about)
 
 ## Guides
 - [How to apply AI at work (industry & finance)](https://www.82labs.io/guides/how-to-apply-ai-at-work)
