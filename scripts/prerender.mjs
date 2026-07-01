@@ -174,8 +174,14 @@ function schema(t, lang) {
       'OpenAI',
       'Fullstack development',
     ],
-    address: { '@type': 'PostalAddress', addressLocality: 'Haifa', addressCountry: 'IL' },
-    sameAs: ['https://linkedin.com/company/82labs', 'https://github.com/idan82labs'],
+    telephone: '+972-53-331-2882',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: lang === 'he' ? 'דרך העצמאות 65' : '65 Derech HaAtzmaut',
+      addressLocality: lang === 'he' ? 'חיפה' : 'Haifa',
+      addressCountry: 'IL',
+    },
+    sameAs: ['https://www.linkedin.com/company/82labs', 'https://github.com/idan82labs'],
     makesOffer: ['fullstack', 'automation', 'lectures'].map((k) => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: t.services[k].title, description: t.services[k].description },

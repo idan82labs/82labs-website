@@ -18,7 +18,9 @@ const FACTS = {
   location_en: 'Haifa, Israel',
   location_he: 'חיפה, ישראל',
   email: 'info@82labs.io',
-  phone: '', // e.g. '+972-XX-XXXXXXX' — set once decided; strengthens NAP consistency
+  phone: '+972-53-331-2882',
+  street_en: '65 Derech HaAtzmaut',
+  street_he: 'דרך העצמאות 65',
   linkedin: 'https://www.linkedin.com/company/82labs',
   github: 'https://github.com/idan82labs',
   ops: '$100M+',
@@ -477,7 +479,12 @@ const contactLd = {
   url: 'https://www.82labs.io',
   email: FACTS.email,
   ...(FACTS.phone ? { telephone: FACTS.phone } : {}),
-  address: { '@type': 'PostalAddress', addressLocality: 'Haifa', addressCountry: 'IL' },
+  address: {
+    '@type': 'PostalAddress',
+    ...(FACTS.street_en ? { streetAddress: FACTS.street_en } : {}),
+    addressLocality: 'Haifa',
+    addressCountry: 'IL',
+  },
   sameAs: [FACTS.linkedin, FACTS.github],
   contactPoint: {
     '@type': 'ContactPoint',
@@ -492,7 +499,7 @@ const contactRows = (rtl) => `
 <table>
 <tr><th>${rtl ? 'שדה' : 'Field'}</th><th>${rtl ? 'פרט' : 'Detail'}</th></tr>
 <tr><td>${rtl ? 'חברה' : 'Company'}</td><td>82Labs — ${rtl ? FACTS.tagline_he : FACTS.tagline_en}</td></tr>
-<tr><td>${rtl ? 'מיקום' : 'Location'}</td><td>${rtl ? FACTS.location_he : FACTS.location_en}</td></tr>
+<tr><td>${rtl ? 'כתובת' : 'Address'}</td><td>${rtl ? `${FACTS.street_he}, ${FACTS.location_he}` : `${FACTS.street_en}, ${FACTS.location_en}`}</td></tr>
 <tr><td>${rtl ? 'אימייל' : 'Email'}</td><td><a href="mailto:${FACTS.email}">${FACTS.email}</a></td></tr>
 ${FACTS.phone ? `<tr><td>${rtl ? 'טלפון' : 'Phone'}</td><td>${FACTS.phone}</td></tr>` : ''}
 <tr><td>LinkedIn</td><td><a href="${FACTS.linkedin}">${FACTS.linkedin}</a></td></tr>

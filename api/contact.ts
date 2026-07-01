@@ -9,7 +9,13 @@ const contactSchema = z.object({
 });
 
 const CONTACT_TO = process.env.CONTACT_TO_EMAIL || "idan.t@82labs.io";
-const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "82Labs <contact@82labs.io>";
+// Resend only sends from a VERIFIED domain. In our account only
+// `notifications.82labs.io` is verified — the root `82labs.io` is NOT (sending
+// from it returns 403 "domain is not verified"). Default to the verified
+// subdomain, and defensively rewrite any `@82labs.io` sender (e.g. a stale
+// CONTACT_FROM_EMAIL env var) onto it so real submissions don't silently 500.
+const RAW_FROM = process.env.CONTACT_FROM_EMAIL || "82Labs <contact@notifications.82labs.io>";
+const CONTACT_FROM = RAW_FROM.replace(/@82labs\.io\b/i, "@notifications.82labs.io");
 
 function sanitize(s: string): string {
   return s.replace(/[<>]/g, "").trim();
