@@ -141,7 +141,8 @@ function renderBody(t, lang) {
       </section>
 
       <footer>
-        <p>${esc(t.footer.builtWith)} · info@82labs.io · ${isHe ? 'חיפה, ישראל' : 'Haifa, Israel'}</p>
+        <p>${esc(t.footer.builtWith)} · <a href="mailto:info@82labs.io">info@82labs.io</a> · ${isHe ? 'חיפה, ישראל' : 'Haifa, Israel'} · <a href="https://www.linkedin.com/company/82labs">LinkedIn</a> · <a href="https://github.com/idan82labs">GitHub</a></p>
+        <p><a href="${isHe ? '/he/about' : '/about'}">${isHe ? 'אודות' : 'About'}</a> · <a href="${isHe ? '/he/contact' : '/contact'}">${isHe ? 'יצירת קשר' : 'Contact'}</a></p>
       </footer>
     </div>
     <!--/ssg-body-->`;

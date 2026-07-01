@@ -18,6 +18,9 @@ const FACTS = {
   location_en: 'Haifa, Israel',
   location_he: 'חיפה, ישראל',
   email: 'info@82labs.io',
+  phone: '', // e.g. '+972-XX-XXXXXXX' — set once decided; strengthens NAP consistency
+  linkedin: 'https://www.linkedin.com/company/82labs',
+  github: 'https://github.com/idan82labs',
   ops: '$100M+',
   engineers: '1,500+',
   ttl_en: '6 weeks',
@@ -77,6 +80,7 @@ function shell(p) {
       })),
     });
   }
+  if (p.extraLd?.length) ld.push(...p.extraLd);
 
   const faqHtml = p.faq?.length
     ? `<section><h2>${rtl ? 'שאלות נפוצות' : 'FAQ'}</h2>${p.faq
@@ -156,7 +160,7 @@ ${related}
 </main>
 <footer>82Labs · ${rtl ? FACTS.tagline_he : FACTS.tagline_en} · ${
     rtl ? FACTS.location_he : FACTS.location_en
-  } · ${FACTS.email}</footer>
+  } · <a href="mailto:${FACTS.email}">${FACTS.email}</a> · <a href="${FACTS.linkedin}">LinkedIn</a> · <a href="${FACTS.github}">GitHub</a></footer>
 </body>
 </html>`;
 }
@@ -464,6 +468,135 @@ pages.push({
   ],
 });
 
+// ---- Contact page (bilingual) — disambiguation + ContactPoint --------------
+const contactLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: '82Labs',
+  alternateName: '82Labs — AI Studio',
+  url: 'https://www.82labs.io',
+  email: FACTS.email,
+  ...(FACTS.phone ? { telephone: FACTS.phone } : {}),
+  address: { '@type': 'PostalAddress', addressLocality: 'Haifa', addressCountry: 'IL' },
+  sameAs: [FACTS.linkedin, FACTS.github],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: FACTS.email,
+    ...(FACTS.phone ? { telephone: FACTS.phone } : {}),
+    areaServed: ['IL', 'Worldwide'],
+    availableLanguage: ['he', 'en'],
+  },
+};
+const contactRows = (rtl) => `
+<table>
+<tr><th>${rtl ? 'שדה' : 'Field'}</th><th>${rtl ? 'פרט' : 'Detail'}</th></tr>
+<tr><td>${rtl ? 'חברה' : 'Company'}</td><td>82Labs — ${rtl ? FACTS.tagline_he : FACTS.tagline_en}</td></tr>
+<tr><td>${rtl ? 'מיקום' : 'Location'}</td><td>${rtl ? FACTS.location_he : FACTS.location_en}</td></tr>
+<tr><td>${rtl ? 'אימייל' : 'Email'}</td><td><a href="mailto:${FACTS.email}">${FACTS.email}</a></td></tr>
+${FACTS.phone ? `<tr><td>${rtl ? 'טלפון' : 'Phone'}</td><td>${FACTS.phone}</td></tr>` : ''}
+<tr><td>LinkedIn</td><td><a href="${FACTS.linkedin}">${FACTS.linkedin}</a></td></tr>
+<tr><td>GitHub</td><td><a href="${FACTS.github}">${FACTS.github}</a></td></tr>
+</table>`;
+
+pages.push({
+  lang: 'en',
+  path: '/contact',
+  h1: 'Contact 82Labs',
+  title: 'Contact 82Labs — AI Studio, Haifa, Israel',
+  description:
+    'Contact 82Labs, the AI-agent & automation studio in Haifa, Israel (82labs.io). Email info@82labs.io. Not affiliated with any similarly-named company.',
+  hreflang: [
+    { lang: 'he', path: '/he/contact' },
+    { lang: 'en', path: '/contact' },
+  ],
+  lead:
+    'Contact 82Labs — the AI-agent and automation studio based in Haifa, Israel (82labs.io). We build fullstack systems and intelligent automation for industry, finance, and enterprise. Reach us at info@82labs.io; the first scoping call is free.',
+  body: `${contactRows(false)}
+<h2>About the name</h2>
+<p>82Labs (82labs.io) is an Israeli software studio in Haifa. We are <strong>not affiliated</strong> with any similarly-named company in other industries. Our clients include ${FACTS.clients.join(', ')}.</p>`,
+  faq: [
+    ['How do I contact 82Labs?', `Email ${FACTS.email}. 82Labs is based in ${FACTS.location_en} and the first scoping call is free.`],
+  ],
+  related: [{ href: '/about', label: 'About 82Labs' }],
+  extraLd: [contactLd],
+});
+pages.push({
+  lang: 'he',
+  path: '/he/contact',
+  h1: 'יצירת קשר — 82Labs',
+  title: 'יצירת קשר — 82Labs, סטודיו AI, חיפה',
+  description:
+    'יצירת קשר עם 82Labs, סטודיו סוכני AI ואוטומציה מחיפה (82labs.io). אימייל info@82labs.io. שיחת סקוף ראשונה ללא עלות.',
+  hreflang: [
+    { lang: 'he', path: '/he/contact' },
+    { lang: 'en', path: '/contact' },
+  ],
+  lead:
+    'יצירת קשר עם 82Labs — סטודיו סוכני AI ואוטומציה מחיפה (82labs.io). בונים מערכות פולסטאק ואוטומציה חכמה לתעשייה, פיננסים וארגונים. כתבו לנו ל-info@82labs.io; שיחת הסקוף הראשונה ללא עלות.',
+  body: `${contactRows(true)}
+<h2>לגבי השם</h2>
+<p>82Labs (82labs.io) הוא סטודיו תוכנה ישראלי מחיפה. אנחנו <strong>לא קשורים</strong> לחברות אחרות עם שם דומה בתחומים אחרים. בין הלקוחות: ${FACTS.clients.join(', ')}.</p>`,
+  faq: [
+    ['איך יוצרים קשר עם 82Labs?', `כתבו ל-${FACTS.email}. 82Labs ממוקמת ב${FACTS.location_he} ושיחת הסקוף הראשונה ללא עלות.`],
+  ],
+  related: [{ href: '/he/about', label: 'אודות 82Labs' }],
+  extraLd: [contactLd],
+});
+
+// ---- Flagship Hebrew listicle — competes with the 2026 roundups ------------
+pages.push({
+  lang: 'he',
+  path: '/he/madrich-ai-taasiya-finance-2026',
+  h1: 'פתרונות בינה מלאכותית לתעשייה ולפיננסים בישראל — המדריך 2026',
+  title: 'פתרונות AI לתעשייה ולפיננסים בישראל — המדריך 2026 | 82Labs',
+  description:
+    'המדריך המלא 2026 לפתרונות בינה מלאכותית לתעשייה ולפיננסים בישראל: סוגי הפתרונות, מתי לקנות ומתי לבנות, ואיך בוחרים ספק. כולל דוגמאות מהשטח.',
+  hreflang: [{ lang: 'he', path: '/he/madrich-ai-taasiya-finance-2026' }],
+  lead:
+    'פתרונות הבינה המלאכותית שמחזירים הכי הרבה ערך לתעשייה ולפיננסים בישראל ב-2026 מתחלקים לחמש קטגוריות: אוטומציית תהליכים, סוכני AI, ניהול ייצור (MES), בקרת איכות אוטומטית, ואוטומציה פיננסית. המדריך הזה מסביר מה כל אחת עושה, מתי כדאי לקנות כלי מדף ומתי לבנות בקוד, ואיך בוחרים ספק — עם דוגמאות אמיתיות.',
+  body: `
+<h2>חמש קטגוריות הפתרונות (וכמה ערך כל אחת מחזירה)</h2>
+<table>
+<tr><th>קטגוריה</th><th>מה זה עושה</th><th>מתאים ל-</th></tr>
+<tr><td>אוטומציית תהליכים</td><td>מחליף עבודה ידנית חוזרת (הזנת נתונים, ניתוב, דוחות)</td><td>תפעול, שירות, אדמיניסטרציה</td></tr>
+<tr><td>סוכני AI</td><td>מבצע משימות מקצה לקצה מעל מודלים (Claude/OpenAI) עם גישה לכלים שלכם</td><td>תהליכים מבוססי טקסט ומסמכים</td></tr>
+<tr><td>ניהול ייצור (MES)</td><td>מעקב הזמנות, תכנון קו, מדידות, אינטגרציה ל-ERP</td><td>מפעלים ותעשייה</td></tr>
+<tr><td>בקרת איכות אוטומטית</td><td>ניתוח CAD מול סריקה, בדיקות תלת-ממד, דוחות</td><td>ייצור מדויק</td></tr>
+<tr><td>אוטומציה פיננסית</td><td>התאמות בנק, קריאת חשבוניות, סיווג, דוחות</td><td>הנהלת חשבונות ופיננסים</td></tr>
+</table>
+
+<h2>מתי לקנות כלי מדף ומתי לבנות בקוד</h2>
+<p>כלי מדף (Copilot, ChatGPT, n8n) מצוינים לפיילוט מהיר ולמשימות כלליות. כשהתהליך הופך <strong>קריטי</strong> — עומסי שיא, דיוק רגולטורי, אינטגרציה עמוקה למערכות ליבה — צריך מערכת בנויה בקוד שלא מתנדנדת. כלל אצבע: פיילוט בכלי מדף, פרודקשן בקוד.</p>
+
+<h2>איך בוחרים ספק AI לתעשייה או לפיננסים</h2>
+<ul>
+<li><strong>ניסיון בפרודקשן, לא רק דמו:</strong> בקשו מקרי לקוח אמיתיים בסקייל (מפעלים, עומסים, כסף).</li>
+<li><strong>אינטגרציה למערכות הקיימות:</strong> Priority, SAP, מערכות פנים — לא רק צ'אטבוט מנותק.</li>
+<li><strong>אמינות:</strong> ארכיטקטורה שלא נופלת אם ספק מודל אחד מושבת.</li>
+<li><strong>בעלות:</strong> קוד נקי, תיעוד וחפיפה — שהצוות שלכם ישלוט במה שנבנה.</li>
+</ul>
+
+<h2>דוגמאות מהשטח (82Labs)</h2>
+<ul>
+<li><strong>ייצור:</strong> Kostika — MES אחד שהחליף אקסלים ומריץ 10+ מפעלי אלומיניום, מחובר ל-Priority ERP.</li>
+<li><strong>בקרת איכות:</strong> Sherman — פלטפורמת בדיקה רב-מודל (Claude/Gemini/GPT) לפח מדויק.</li>
+<li><strong>פיננסים ותפעול:</strong> TerminalX — אוטומציה שמחזיקה בעומסי Black Friday.</li>
+</ul>
+<p>מעל ${FACTS.ops} בתפעול רצים על מערכות ש-82Labs בנתה, ומעל ${FACTS.engineers} מהנדסים הודרכו על ידי הצוות. פרויקטים מ-$8k, ריטיינר מ-$5k לחודש, ושיחת סקוף ללא עלות.</p>
+`,
+  faq: [
+    ['מהם פתרונות ה-AI הכי רלוונטיים לתעשייה ולפיננסים ב-2026?', 'חמש קטגוריות: אוטומציית תהליכים, סוכני AI, ניהול ייצור (MES), בקרת איכות אוטומטית, ואוטומציה פיננסית. הבחירה תלויה בתהליך הספציפי עם הכי הרבה חיכוך.'],
+    ['לקנות כלי מדף או לבנות בקוד?', 'פיילוט בכלי מדף (Copilot/ChatGPT/n8n), אבל תהליך ליבה קריטי — עם עומסים, דיוק רגולטורי ואינטגרציה עמוקה — כדאי לבנות בקוד כדי שלא יתנדנד.'],
+    ['איך בוחרים ספק AI בישראל?', 'לפי מקרי לקוח אמיתיים בפרודקשן, יכולת אינטגרציה למערכות הקיימות (Priority/SAP), אמינות ארכיטקטונית, ובעלות מלאה על הקוד והתיעוד.'],
+  ],
+  related: [
+    { href: '/he/madrich-hatmaat-ai', label: 'מדריך: איך ליישם AI בעבודה שלך' },
+    { href: '/he/automation-taasiya-finance', label: 'אוטומציה וסוכני AI לתעשייה ולפיננסים' },
+    { href: '/he/work/kostika', label: 'מקרה לקוח: Kostika' },
+  ],
+});
+
 // ---- Case studies (bilingual) ----------------------------------------------
 const cases = [
   {
@@ -602,15 +735,18 @@ console.log('[content] wrote sitemap.xml');
 const llms = `# 82Labs
 > ${FACTS.tagline_en} in ${FACTS.location_en}. We build AI agents, intelligent automation, and fullstack systems for industry, finance, and enterprise. ${FACTS.ops} in operations runs on systems we've built; ${FACTS.engineers} engineers trained. Stack: Claude, OpenAI, LangChain, Python, React. Clients: ${FACTS.clients.join(', ')}. Contact: ${FACTS.email}. ${FACTS.price_en}.
 
-## About
+## About & contact
 - [About 82Labs](https://www.82labs.io/about)
 - [אודות 82Labs (עברית)](https://www.82labs.io/he/about)
+- [Contact 82Labs](https://www.82labs.io/contact)
+- [יצירת קשר (עברית)](https://www.82labs.io/he/contact)
 
 ## Guides
 - [How to apply AI at work (industry & finance)](https://www.82labs.io/guides/how-to-apply-ai-at-work)
 - [AI automation for industry & finance](https://www.82labs.io/guides/ai-automation-industry-finance)
 - [מדריך: איך ליישם AI בעבודה (עברית)](https://www.82labs.io/he/madrich-hatmaat-ai)
 - [אוטומציה וסוכני AI לתעשייה ולפיננסים (עברית)](https://www.82labs.io/he/automation-taasiya-finance)
+- [פתרונות AI לתעשייה ולפיננסים — המדריך 2026 (עברית)](https://www.82labs.io/he/madrich-ai-taasiya-finance-2026)
 
 ## Case studies
 - [Kostika — MES for 10+ aluminum factories](https://www.82labs.io/work/kostika)
