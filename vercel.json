@@ -1,5 +1,5 @@
 {
-  "buildCommand": "vite build && node scripts/async-css.mjs",
+  "buildCommand": "vite build && node scripts/async-css.mjs && node scripts/prerender.mjs && node scripts/content.mjs",
   "outputDirectory": "dist/public",
   "framework": null,
   "rewrites": [
