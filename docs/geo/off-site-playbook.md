@@ -122,4 +122,48 @@ AI engines lean on structured, cross-checkable listings. Create/claim, with iden
 
 ---
 
-## 5. Measurement — see section in scripts/geo-monitor.mjs and the "monitoring" note.
+## 5. Live audit findings (July 2026) — act on these first
+
+**⚠️ Two urgent, human-only fixes:**
+
+1. **Brand-name collision.** A funded US beverage company — **"82 Labs Inc" / "More Labs"**
+   (Morning Recovery, founder Sisun Lee) — owns the authoritative entity results for our name:
+   Crunchbase slug `82-labs-inc`, Bloomberg, Justia trademarks. Also near-collisions: **8Labs**
+   (voice AI, 8labs.ai). Implication: when creating Crunchbase/Wikidata/directory entries, use a
+   disambiguating display name like **"82Labs — AI Studio (82labs.io)"** and always pair with
+   "Haifa, Israel" + the website, so engines separate us from the drink company.
+2. **Split LinkedIn — TWO company pages dilute authority:**
+   `linkedin.com/company/82labs` **and** `linkedin.com/company/82-labs`. Pick `82labs` as
+   primary, request LinkedIn merge the other, and get all team members to set 82Labs as employer.
+
+**Directories that actually win the English "AI agency Israel" category** (getting *listed +
+reviewed* beats trying to out-rank them):
+- Clutch — https://clutch.co/il
+- Sortlist — https://www.sortlist.com/s/artificial-intelligence/israel-il
+- ensun — https://ensun.io/search/agentic-ai/israel (already lists us; enrich it)
+- TechBehemoths — https://techbehemoths.com/companies/artificial-intelligence/haifa
+- Claim/enrich existing thin stubs: Owler, Secret Hunter.
+
+**Hebrew competitors currently ranking** (small SEO shops — beatable with dedicated Hebrew
+service pages, which we've now started): Datamind (datamind.co.il/ai), Whale (whale.co.il),
+STSICONIC, IL Digital, bold (bold.ltd), amirmosheai.co.il.
+
+**Wide-open niches nobody owns (our moat):** long-tail Hebrew MES + industrial/finance —
+"MES למפעל אלומיניום", "מערכת ניהול ייצור למפעל קטן", "אוטומציה פיננסית עם AI". Our Kostika/
+Sherman case studies are exactly the proof these need. Head term "MES" belongs to SAP/Siemens/
+Priority-MESI — don't fight it; own the long tail.
+
+**Roundup pitch targets (confirmed ranking for the 2026 Hebrew phrases):** AI BuDDy
+(aibuddy.co.il), Doctor AI (doctorai.co.il), INCA (inca.co.il), ASAKIM.AI, Let's AI directory
+(letsai.co.il/aitools), Seolinks, Eyal Marcus (eyalmarcus.com), amirmosheai, AI Makers Lab.
+PR authority target: Calcalist tech / Geektime; a Priority Software partner story on AI-in-finance.
+
+**Caveat:** these were gathered from a US-biased index. Confirm GBP/knowledge-panel status and
+each roundup's submission path from an Israeli browser session before acting.
+
+## 6. Measurement
+
+- `node scripts/geo-monitor.mjs` — regression check (all pages still crawler-visible in prod).
+- Weekly cloud routine **"82Labs AI-visibility weekly"** (`trig_016PH8HGqm9sMUj4YpzNSGyC`) runs
+  Mondays 09:00 Israel, emails idan.t@82labs.io. Manage: https://claude.ai/code/routines
+
